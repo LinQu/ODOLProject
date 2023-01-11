@@ -1,0 +1,70 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Tambah Data Admin";
+}
+
+@model ODOL.Models.Pengguna
+
+<div class="col panelcontent panelcontentweb" style="font-size: 14px; height:650px">
+    <div class="scrollstyle">
+        <nav aria-label=" breadcrumb" style="margin-left: 20px;">
+            <ol class="breadcrumb" style="padding: 0; margin: 0; background-color: #FFF;">
+                <li class="breadcrumb-item text-primary">
+                    <b>
+                        Aplikasi Absensi dan Logbook Magang Mahasiswa
+                    </b>
+                </li>
+                <li class="breadcrumb-item active"><b>Mahasiswa</b></li>
+            </ol>
+        </nav>
+        <hr style="margin-top: .8em;" />
+        <div class="jumbotron" style="box-shadow: none; height:auto; margin-left:20px; padding: 15px 30px;">
+            @* taruh content disini*@
+            <span class="text-center mb-1">
+                <h4>
+                    <b>
+                        Tambah Data Admin
+                    </b>
+                </h4>
+            </span>
+            <hr />
+            <form asp-action="Tambah" method="post">
+                <div class="alert" style="display:none" id="alert" role="alert"></div>
+                <div class="form-group">
+                    <label Asp-for="Nama">Nama<span style="color:red;">*</span></label>
+                    <input type="text" asp-for="Nama" class="form-control" id="Nama" placeholder="Masukkan Nama" >
+                    <span asp-validation-for="Nama" style="color:red" ></span>
+                </div>
+                <div class="form-group">
+                    <label Asp-for="Nama">Username<span style="color:red;">*</span></label>
+                    <input type="text" asp-for="Username" class="form-control" id="Nama"  placeholder="Masukkan Username" >
+                    <span asp-validation-for="Username" style="color:red"></span>
+                </div>
+                <div class="form-group">
+                    <label Asp-for="Nama">Password<span style="color:red;">*</span></label>
+                    <input type="text" asp-for="Password" class="form-control" id="pass" onkeyup="validatepass()"  placeholder="Masukkan Password" >
+                    <span asp-validation-for="Password" style="color:red"></span>
+                </div>
+                <div class="form-group">
+                    <label >Konfirmasi Password<span style="color:red;">*</span></label>
+                    <input type="text" name="KonfirmasiPassword" id="konfirpass" class="form-control" onkeyup="validatepass()" placeholder="Masukkan Password" >
+                </div>
+                <a asp-action="index" class="btn btn-warning" style="width:10%">Kembali</a>
+                <button type="submit" class="btn btn-simpan btn-primary float-right" style="width:10%">Simpan</button>
+                
+            </form>
+        </div>
+
+        <hr class="my-4" />
+        <p class="lead" style="font-size: 1.1rem;">
+            Jika terdapat kesulitan tentang cara penggunaan aplikasi ini, silahkan menghubungi MIS.
+            <br />
+            <br />
+        </p>
+    </div>
+</div>
+
+
+

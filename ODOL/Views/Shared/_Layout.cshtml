@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ODOL</title>
+    <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/fontawesome/css/fontawesome.min.css" />
+    <link rel="stylesheet" href="~/lib/fontawesome/css/all.min.css" />
+    <link rel="stylesheet" href="~/lib/sweetalert2/sweetalert2.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/datatables/datatables.min.css" />
+    <link rel="stylesheet" href="~/lib/sweetalert2/sweetalert2.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+</head>
+<body style="padding: 0; border: 0; font-family: 'Noto Sans', sans-serif" aria-busy="true">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col panelheader">
+                <i id="menuOpen" class="fas fa-bars fa-2x iconmenu menuOpen" style="cursor: pointer;" onclick="changestate('open');"></i>
+                <i id="menuClose" class="fas fa-times fa-2x iconclose menuClose" style="cursor: pointer; display:none;" onclick="changestate('close');"></i>
+                <img id="imgLogo" src="~/Images/IMG_Logo.jpg" onclick="window.location.href='Home';" style="height: 60px; margin-bottom: 11px ; cursor: pointer;" />
+                <div class="panelauthentication">
+                    <b>@ViewBag.Nama (@ViewBag.Role)</b><br><span style='font-size: 11px'>Login terakhir: @DateTime.Now.ToString("dd MMMM yyyy, HH:mm WIB")</span>
+                </div>
+            </div>
+        </div>
+        <div class="">
+            <div class="row">
+                <div class="col-lg-2 panelmenu" style="background-color: #fff; height:auto;">
+                    <div class="scrollstyle" style="overflow-y: auto; height: 100%;">
+                        <ul class="list-group" style="font-size: 14px;">
+                            <li class='list-group-item border border-0 panelauthenticationmobile' style='background-color: #FFFFC0;'>Hai, <b>PRANSPASKA YUDHA AKBAR ASIRA (MAHASISWA)</b></li>
+                            <li id="menulogout" style='cursor: pointer;'><a class='list-group-item border border-0 hovermenu text-dark' asp-action="Logout" asp-controller="Home"><i class='fas fa-sign-out-alt' style='margin-right: 7px;'></i><b style="margin-left: 10px;">Logout</b></a></li>
+                            <li style='cursor: pointer;'> <a class='list-group-item border border-0 hovermenu text-dark' id="menuberanda" asp-action="index" asp-controller="Dashboard"><i class='fas fa-home' style='margin-right: 7px;'></i><b style="margin-left: 10px;">Beranda</b></a> </li>
+                            <li style='cursor: pointer;'><a class='list-group-item border border-0 hovermenu text-dark' id="menumahasiswa" asp-action="index" asp-controller="Mahasiswa"><i class='fa-solid fa-user-group' style='margin-right: 7px;'></i><b style="margin-left: 10px;">Mahasiswa</b></a></li>
+                            <li style='cursor: pointer;'><a class='list-group-item border border-0 hovermenu text-dark' id="menuperusahaan" asp-action="index" asp-controller="Perusahaan" ><i class='fa-solid fa-building' style='margin-right: 7px;'></i><b style="margin-left: 17px;">Perusahaan</b></a></li>
+                            <li style='cursor: pointer;'><a class='list-group-item border border-0 hovermenu text-dark' id="menuuser"  asp-action="index" asp-controller="Pengguna"><i class='fa-solid fa-user-group' style='margin-right: 7px;'> </i><b style="margin-left: 10px;">Pengguna</b> </a></li>
+                           
+                            <li class='list-group-item border border-0 hovermenu' id="menucabang" onclick="window.location.href='Cabang';" style='cursor: pointer;'><i class='fa-solid fa-building' style='margin-right: 7px;'></i><b style="margin-left: 16px;">Cabang</b></li>
+
+                        </ul>
+                    </div>
+                </div>
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/tether.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/lib/datatables/datatables.min.js"></script>
+    <script src="~/lib/sweetalert2/sweetalert2.all.min.js"></script>
+    <script src="~/lib/sweetalert2/sweetalert2.min.js"></script>
+    <script src="~/js/script.js" asp-append-version="true"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+    <script>
+        @if(TempData["Notifikasi"] != null)
+        {
+            <text>
+                Swal.fire({
+                    icon: '@TempData["Icon"]',
+                    title: '@TempData["Notifikasi"]',
+                    showConfirmButton: true,
+                   
+                })
+            </text>
+}
+    $(function() {
+        $("#ddlmhs").select2();
+        $("#perusahaan").select2();
+    });
+    </script>
+</body>
+</html>

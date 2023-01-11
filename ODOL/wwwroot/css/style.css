@@ -1,0 +1,447 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "Poppins", sans-serif;
+}
+
+body {
+	/* overflow-x: hidden; */
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+.scrollstyle {
+	overflow-y: scroll;
+	overflow-x: hidden;
+	height: 100%;
+	padding-right: 15px;
+	padding-right: 20px;
+}
+
+.scrollstyle::-webkit-scrollbar-track {
+	background-color: #ffffff;
+}
+
+.scrollstyle::-webkit-scrollbar {
+	border-radius: 10px;
+	width: 7px;
+	height: 7px;
+	background-color: #000000;
+}
+
+.scrollstyle::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	background-color: #ddd;
+}
+
+.scrollstyleHidden::-webkit-scrollbar-track {
+	background-color: #ffffff;
+}
+
+.scrollstyleHidden::-webkit-scrollbar {
+	border-radius: 10px;
+	width: 7px;
+	height: 7px;
+	background-color: #000000;
+	display: none;
+}
+
+.scrollstyleHidden::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	background-color: #ddd;
+}
+
+.body-background {
+	background-image: url("../Images/IMG_Background.jpg");
+}
+.cal_Theme1 .ajax__calendar_container {
+	background-color: #ffffff;
+	border: 1px solid #ccc;
+	font-size: 12px;
+	padding: 0;
+	width: 200px;
+}
+
+.cal_Theme1 .ajax__calendar_header {
+	background-color: #fff;
+	margin-bottom: 8px;
+	margin-top: 5px;
+}
+
+.cal_Theme1 .ajax__calendar_next,
+.cal_Theme1 .ajax__calendar_prev,
+.cal_Theme1 .ajax__calendar_title {
+	color: #004080;
+	padding-top: 3px;
+	margin-top: 4px;
+}
+
+.cal_Theme1 .ajax__calendar_invalid {
+	color: red;
+}
+
+.cal_Theme1 .ajax__calendar_body {
+	background-color: #ffffff;
+	border: 0px solid #ccc;
+}
+
+.cal_Theme1 .ajax__calendar_dayname {
+	text-align: center;
+	font-weight: 700;
+	margin-bottom: 4px;
+	margin-top: 2px;
+}
+
+.cal_Theme1 .ajax__calendar_day {
+	text-align: center;
+	height: 20px;
+	width: 25px;
+	font-size: 12px;
+}
+
+.cal_Theme1 .ajax__calendar_active,
+.cal_Theme1 .ajax__calendar_hover .ajax__calendar_day,
+.cal_Theme1 .ajax__calendar_hover .ajax__calendar_month,
+.cal_Theme1 .ajax__calendar_hover .ajax__calendar_year {
+	color: #004080;
+	font-weight: 700;
+	background-color: #fff;
+}
+
+.cal_Theme1 .ajax__calendar_today {
+	font-weight: 700;
+	padding-top: 8px;
+	padding-bottom: 8px;
+}
+
+.cal_Theme1 .ajax__calendar_hover .ajax__calendar_title,
+.cal_Theme1 .ajax__calendar_hover .ajax__calendar_today,
+.cal_Theme1 .ajax__calendar_other {
+	color: #bbb;
+}
+
+.cal_Theme1 table tr td {
+	height: 0;
+	width: 0;
+	padding: 0 !important;
+	margin: 0 !important;
+	border-width: 0 !important;
+}
+
+.validator {
+	font-size: 14px;
+	color: red;
+	text-align: left;
+	position: absolute;
+	top: 0px;
+	right: 15px;
+}
+
+.panelheader {
+	padding-top: 10px;
+	height: 80px;
+	border-bottom: solid #fff 2px;
+}
+
+/* .col.panelheader {
+	position: sticky;
+	top: 0;
+	z-index: 3;
+	background: #fff;
+	margin-left: 10px;
+} */
+
+.panelmenu {
+	max-width: initial;
+	flex: initial;
+	height: 100%;
+	position: fixed;
+	z-index: 1;
+	padding: 0px 0px 10px 10px;
+	border-right: solid 2px #eee;
+	display: initial;
+	width: 100%;
+}
+
+.card {
+	padding: 17px;
+	border-radius: 10px;
+}
+
+.col-lg-2.panelmenu {
+	margin-left: 10px;
+	padding-right: 1px;
+}
+
+.panelcontent {
+	position: fixed;
+	z-index: 1;
+	height: 100%;
+	padding: 0px 10px 0px 0px;
+}
+
+.panelfooter {
+	position: fixed;
+	height: 50px;
+	width: 100%;
+	bottom: 0;
+	margin: 0;
+	background-color: white;
+	padding: 14px 0px 0px 30px;
+}
+
+.panelauthentication {
+	display: none;
+}
+
+.list-group .panelauthenticationmobile {
+	display: initial;
+}
+
+.hovermenu:hover {
+	background-color: #f3f3f3;
+}
+
+.menuapp {
+	text-decoration: none !important;
+	padding: 0;
+	margin: 0;
+	font-size: 17px;
+	text-transform: initial;
+}
+
+.col .iconmenu {
+	margin: 15px 15px 0px 10px;
+}
+
+.col .iconclose {
+	margin: 15px 21px 0px 10px;
+}
+
+.btn-rounded {
+	border-radius: 10em;
+}
+
+.scrollstyle {
+	overflow-y: auto;
+	height: 100%;
+	padding-right: 15px;
+	padding-right: 20px;
+}
+
+.form-cari {
+	border: solid 1px #ccc !important;
+	border-radius: 10em !important;
+	height: 39px !important;
+	margin-top: 6px !important;
+}
+
+.header-ys {
+	text-align: center;
+	background-color: #4285f4 !important;
+	color: white;
+}
+
+.row-ys td {
+	padding: 10px !important;
+}
+
+.pagination-ys {
+	padding-left: 0;
+	margin: 20px 0;
+	border-radius: 4px;
+}
+
+.pagination-ys tr {
+	background-color: transparent !important;
+}
+
+.pagination-ys table > tbody > tr > td {
+	display: inline;
+	border: none;
+}
+
+.pagination-ys table > tbody > tr > td > a,
+.pagination-ys table > tbody > tr > td > span {
+	position: relative;
+	float: left;
+	padding: 8px 12px;
+	line-height: 1.42857143;
+	text-decoration: none;
+	color: #333;
+	background-color: #fff;
+	border: 1px solid #ddd;
+	margin-left: -1px;
+}
+
+.pagination-ys table > tbody > tr > td > span {
+	position: relative;
+	float: left;
+	padding: 8px 12px;
+	line-height: 1.42857143;
+	text-decoration: none;
+	margin-left: -1px;
+	z-index: 2;
+	color: white;
+	background-color: #4285f4;
+	border-color: #ddd;
+	cursor: default;
+}
+
+.pagination-ys table > tbody > tr > td:first-child > a,
+.pagination-ys table > tbody > tr > td:first-child > span {
+	margin-left: 0;
+	border-bottom-left-radius: 4px;
+	border-top-left-radius: 4px;
+}
+
+.pagination-ys table > tbody > tr > td:last-child > a,
+.pagination-ys table > tbody > tr > td:last-child > span {
+	border-bottom-right-radius: 4px;
+	border-top-right-radius: 4px;
+}
+
+.pagination-ys table > tbody > tr > td > a:focus,
+.pagination-ys table > tbody > tr > td > a:hover,
+.pagination-ys table > tbody > tr > td > span:focus,
+.pagination-ys table > tbody > tr > td > span:hover {
+	color: #333;
+	background-color: #eee;
+	border-color: #ddd;
+}
+
+.buttonradio {
+	padding: 8px;
+	height: 35px;
+	margin: 0;
+}
+
+.chip {
+	display: inline-block;
+	height: 32px;
+	padding: 0 12px;
+	font-size: 13px;
+	font-weight: 500;
+	line-height: 32px;
+	color: rgba(0, 0, 0, 0.6);
+	cursor: pointer;
+	background-color: #eceff1;
+	border-radius: 16px;
+	-webkit-transition: all 0.3s linear;
+	transition: all 0.3s linear;
+	margin: 0px 2px;
+}
+
+.close {
+	float: right;
+	padding-left: 8px;
+	font-size: 16px;
+	line-height: 32px;
+	cursor: pointer;
+	-webkit-transition: all 0.1s linear;
+	transition: all 0.1s linear;
+}
+
+.contentReimburse {
+	position: fixed;
+	height: 58px;
+	width: 100%;
+	bottom: 0;
+	background-color: white;
+	left: 0;
+	padding-top: 16px;
+	font-weight: bold;
+	color: red;
+	z-index: 10;
+	font-size: 18px;
+	text-align: center;
+}
+
+.hidden {
+	display: none;
+}
+
+.headercard {
+	width: 100%;
+	padding: 7px 20px;
+	background-color: #eee;
+	font-weight: bold;
+	border-radius: 5px;
+}
+
+.shortcut {
+	height: 100px;
+	width: 100%;
+	background-color: white;
+	color: black;
+	padding: 19px;
+	cursor: pointer;
+	border-radius: 5px;
+	border-left: 5px solid #4285f4;
+}
+
+.footerpadding {
+	padding: 10px !important;
+	vertical-align: middle !important;
+}
+
+@media screen and (min-width: 1000px) {
+	.body-background {
+		background-image: url("../Images/IMG_Background.jpg");
+		background-repeat: no-repeat;
+		background-size: 100%;
+	}
+
+	.scrollstyle {
+		overflow-y: auto;
+		height: 100%;
+		padding-right: 15px;
+		padding-right: 20px;
+	}
+
+	.panelmenu {
+		position: fixed;
+		display: block;
+		z-index: 1;
+		width: 250px;
+	}
+
+	.col .panelheader {
+		position: sticky;
+		top: 0;
+		left: 0;
+		width: 100%;
+	}
+
+	.panelcontentweb {
+		padding: 0px 10px 10px 0px;
+		z-index: 1;
+	}
+
+	.panelauthentication {
+		line-height: 1.3em;
+		margin: 9px 15px 0px 0px;
+		text-align: right;
+		display: initial;
+		float: right;
+	}
+
+	.list-group .panelauthenticationmobile {
+		display: none;
+	}
+
+	.col .iconmenu {
+		margin: 15px 15px 0px -43px;
+	}
+
+	.col .iconclose {
+		margin: 15px 21px 0px -43px;
+	}
+
+	.contentReimburse {
+		padding-left: 270px;
+	}
+}

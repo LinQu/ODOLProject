@@ -1,0 +1,88 @@
+﻿@{
+    ViewData["Title"] = "Login";
+}
+@model ODOL.Models.Pengguna
+
+@{
+    Layout = null;
+}
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    <link rel="stylesheet" href="~/css/login.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/lib/sweetalert2/sweetalert2.min.css" />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/tether.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/lib/sweetalert2/sweetalert2.all.min.js"></script>
+
+
+</head>
+<body style="background-image: url('Images/IMG_Background.jpg'); background-repeat: no-repeat; background-size: cover;">
+    <form asp-action="index" method="post" >
+        <div>
+            <div class="polman-nav-static-top" style="opacity: 0.9;">
+                <div class="float-left">
+                    <a href="Default.aspx">
+                        <img src="~/Images/IMG_Logo.jpg" style="height: 45px; margin-top: 5px;" />
+                    </a>
+                </div>
+            </div>
+            <div class="polman-form-login">
+                <h4>Login Logbook Magang</h4>
+                <hr />
+                <div class="alert alert-danger alert-dismissible fade show" runat="server" id="divAlert" hidden>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="alert alert-success alert-dismissible fade show" runat="server" id="divSuccess" hidden>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="form-group">
+                    <label for="txtUsername">
+                        Username
+                        <span style="color: red;">*</span>
+                    </label>
+                    <input type="text" asp-for="Username" ID="txtUsername" placeholder="Username" Class="form-control"></input>
+
+                </div>
+                <div class="form-group">
+                    <label for="txtPassword">
+                        Kata Sandi
+                        <span style="color: red;">*</span>
+                    </label>
+                    <input type="password" asp-for="Password" ID="txtPassword" Class="form-control" placeholder="Password"></input>
+
+                </div>
+                <input type="submit" ID="btnLogin" Class="btn btn-primary" Style="width: 100%; margin-top: 10px; margin-bottom: 10px;" Text="Masuk"/>
+                <span style="margin-top: 10px;">Login Sebagai HR/Pembimbing <a href='ts_registrasi.aspx'>Klik disini</a>.</span>
+            </div>
+            <div class="polman-nav-static-bottom">
+                Copyright &copy; @DateTime.Now.Year - MIS Politeknik Manufaktur Astra
+            </div>
+        </div>
+    </form>
+    <script>
+        @if(TempData["Notifikasi"] != null)
+        {
+            <text>
+                Swal.fire({
+                    icon: '@TempData["Icon"]',
+                    title: '@TempData["Notifikasi"]',
+                    showConfirmButton: false,
+                    timer: 1500,
+                   
+                })
+            </text>
+        }
+        
+    </script>
+</body>
+
+</html>

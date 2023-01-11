@@ -1,0 +1,84 @@
+﻿@model ODOL.Models.Perusahaan
+
+@{
+    ViewData["Title"] = "Tambah Perusahaan";
+}
+
+
+<div class="col panelcontent panelcontentweb" style="font-size: 14px; height:650px">
+    <div class="scrollstyle">
+        <nav aria-label=" breadcrumb" style="margin-left: 20px;">
+            <ol class="breadcrumb" style="padding: 0; margin: 0; background-color: #FFF;">
+                <li class="breadcrumb-item text-primary">
+                    <b>
+                        Aplikasi Absensi dan Logbook Magang Mahasiswa
+                    </b>
+                </li>
+                <li class="breadcrumb-item active"><b>Perusahaan</b></li>
+            </ol>
+        </nav>
+        <hr style="margin-top: .8em;" />
+        <div class="jumbotron" style="box-shadow: none; height:auto; margin-left:20px; padding: 15px 30px;">
+            @* taruh content disini*@
+            @* taruh content disini*@
+            <span class="text-center mb-1">
+                <h4>
+                    <b>
+                        Tambah Data Perusahaan
+                    </b>
+                </h4>
+            </span>
+            <hr />
+            <form method="post">
+                <div class="row g-3">
+                    <div class="col-6 form-group">
+                        <label Asp-for="NamaPerusahaan">Nama<span style="color:red;">*</span></label>
+                        <input type="text" asp-for="NamaPerusahaan" class="form-control" id="Nama" placeholder="Masukkan Nama Perusahaan">
+                        <span asp-validation-for="NamaPerusahaan" style="color:red"></span>
+                    </div>
+                    <div class="col-6 form-group">
+                        <label Asp-for="EmailPerusahaan">Email Perusahaan<span style="color:red;">*</span></label>
+                        <input type="email" asp-for="EmailPerusahaan" class="form-control" id="Email" placeholder="Masukkan Email Perusahaan">
+                        <span asp-validation-for="EmailPerusahaan" style="color:red"></span>
+                    </div>
+                    <div class="col-12 form-group">
+                        <label Asp-for="AlamatPerusahaan">Alamat Perusahaan<span style="color:red;">*</span></label>
+                        <textarea asp-for="AlamatPerusahaan" class="form-control" id="Alamat" placeholder="Masukkan Alamat Perusahaan"></textarea>
+                        <span asp-validation-for="AlamatPerusahaan" style="color:red"></span>
+                    </div>
+                    <div class="col-6 form-group">
+                        <label Asp-for="Cabang">Cabang<span style="color:red;">*</span></label>
+                        <input type="text" asp-for="Cabang" class="form-control" id="cabang" placeholder="Masukkan Cabang Perusahaan">
+                        <span asp-validation-for="Cabang" style="color:red"></span>
+                    </div>
+                    <div class="col-6 form-group">
+                        <label Asp-for="Group">Group<span style="color:red;">*</span></label>
+                        <input type="text" asp-for="Group" class="form-control" id="Group" placeholder="Masukkan Group Perusahaan">
+                        <span asp-validation-for="Group" style="color:red"></span>
+                    </div>
+                    <div class="col-6 form-group">
+                        <label Asp-for="Username">Username Perusahaan<span style="color:red;">*</span></label>
+                        <input type="text" asp-for="Username" class="form-control" id="Username" placeholder="Masukkan Username Perusahaan">
+                        <span asp-validation-for="Username" style="color:red"></span>
+                    </div>
+                    <div class="col-6 form-group">
+                        <label Asp-for="Password">Password Perusahaan<span style="color:red;">*</span></label>
+                        <input type="text" asp-for="Password" class="form-control" id="Password" placeholder="Masukkan Password Perusahaan">
+                        <span asp-validation-for="Password" style="color:red"></span>
+                    </div>
+
+                </div>
+                <a asp-action="index" class="btn btn-warning " style="width:10%">Kembali</a>
+                <button type="submit" class="btn btn-simpan btn-primary  float-right" style="width:10%">Simpan</button>
+
+            </form>
+        </div>
+
+        <hr class="my-4" />
+        <p class="lead" style="font-size: 1.1rem;">
+            Jika terdapat kesulitan tentang cara penggunaan aplikasi ini, silahkan menghubungi MIS.
+            <br />
+            <br />
+        </p>
+    </div>
+</div>

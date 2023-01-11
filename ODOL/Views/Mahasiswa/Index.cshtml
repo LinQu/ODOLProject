@@ -1,0 +1,88 @@
+﻿@{
+    ViewData["Title"] = "Mahasiswa";
+}
+
+@model IEnumerable<ODOL.Models.Mahasiswa>
+
+<div class="col panelcontent panelcontentweb" style="font-size: 14px; height:650px">
+    <div class="scrollstyle">
+        <nav aria-label=" breadcrumb" style="margin-left: 20px;">
+            <ol class="breadcrumb" style="padding: 0; margin: 0; background-color: #FFF;">
+                <li class="breadcrumb-item text-primary">
+                    <b>
+                        Aplikasi Absensi dan Logbook Magang Mahasiswa
+                    </b>
+                </li>
+                <li class="breadcrumb-item active"><b>Mahasiswa</b></li>
+            </ol>
+        </nav>
+        <hr style="margin-top: .8em;" />
+        <div class="jumbotron" style="box-shadow: none; height:auto; margin-left:20px; padding: 15px 30px;">
+            @* taruh content disini*@
+            <a type="button" class="btn btn-primary" asp-action="Tambah">
+                Tambah Mahasiswa
+            </a>
+            <span class="text-center mb-1">
+                <h4>
+                    <b>
+                        Mahasiswa
+                    </b>
+                </h4>
+            </span>
+            <hr />
+            <table class="table container-fluid w-100 h-10 text-center" id="myTable">
+                <thead>
+                    <tr>
+                        <th class="text-center">
+                            No
+                        </th>
+                        <th class="text-center">
+                            Nama
+                        </th>
+                        <th class="text-center">
+                            Prodi
+                        </th>
+                        <th class="text-center">
+                            Action
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Count() != 0)
+                    {
+                        int i = 1;
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @i
+                                </td>
+                                <td>
+                                    @item.NamaMahasiswa
+                                </td>
+                                <td>
+                                    @item.Prodi
+                                </td>
+                                <td>
+                                    <a asp-action="Detail" asp-route-id="@item.NIM" class="btn btn-primary">Detail</a>
+                                </td>
+                            </tr>
+                            i++;
+
+
+                        }
+                    }
+
+
+                </tbody>
+            </table>
+        </div>
+
+        <hr class="my-4" />
+        <p class="lead" style="font-size: 1.1rem;">
+            Jika terdapat kesulitan tentang cara penggunaan aplikasi ini, silahkan menghubungi MIS.
+            <br />
+            <br />
+        </p>
+    </div>
+</div>
