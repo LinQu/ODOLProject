@@ -38,6 +38,12 @@ namespace ODOL.Controllers
                 }
             }
         }
+        [HttpGet]
+        public JsonResult GetAllMahasiswa()
+        {
+            var mahasiswa = Get().ToList();
+            return Json(new { data = mahasiswa });
+        }
 
         [HttpGet]
         public JsonResult SearchMhs(string search)
@@ -69,10 +75,10 @@ namespace ODOL.Controllers
 
             if (HttpContext.Session.GetString("Nama") != null)
             {
-                var Temp = Get().ToList();
+                
                 ViewBag.Nama = HttpContext.Session.GetString("Nama");
                 ViewBag.Role = HttpContext.Session.GetString("Role");
-                return View(Temp);
+                return View();
             }
             else
             {

@@ -24,7 +24,14 @@ namespace ODOL.Controllers
                 return Json(new { data = perusahaan });
             }
         }
-        
+
+        [HttpGet]
+        public JsonResult SearchPeru(int search)
+        {
+            var perusahaan = _db.Perusahaan.Where(f => f.Id == search).ToList();
+            return Json(new { data = perusahaan });
+        }
+
         public IActionResult Index()
         {
             if (HttpContext.Session.GetString("Nama") != null)

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ODOL.Models.TempMhs>
+﻿@model ODOL.Models.Mahasiswa
 
 
 @{
@@ -32,40 +32,45 @@
             <form method="post">
                 <div class="row g-3">
                     <div class="col-12 form-group">
-                        <label for="Nama">Nama<span style="color:red;">*</span></label>
-                        <select name="Nama" onchange="GetMhs()" class="form-control text-center" id="ddlmhs">
-                            <option disabled selected value="">--Pilih Mahasiswa--</option>
-                            @foreach (var item in Model)
-                            {
-                                <option value="@item.NIM">@item.Nama</option>
-                            }
+                        <label >Perusahaan<span style="color:red;">*</span></label>
+                        <select class="form-control" onchange="GetMhs()" id="ddlmhs" >
+                            <option disabled selected value="">--Pilih Perusahaan--</option>
                         </select>
                     </div>
                     <div class="col-4 form-group">
-                        <label for="NIM">NIM</label>
-                        <input type="text" disabled name="NIM" class="form-control" id="NIM" placeholder="NIM">
+                        <label asp-for="NIM">NIM</label>
+                        <input type="text" disabled asp-for="NIM" class="form-control" id="NIM" placeholder="NIM">
                     </div>
                     <div class="col-4 form-group">
-                        <label for="nama">Nama</label>
+                        <label asp-for="NamaMahasiswa">Nama</label>
                         <input type="text" disabled name="Nama" class="form-control" id="Nama" placeholder="Nama Mahasiswa">
                     </div>
                     <div class="col-4 form-group">
-                        <label for="prodi">Prodi</label>
-                        <input type="text" disabled name="prodi" class="form-control" id="prodi" placeholder="Prodi">
+                        <label asp-for="Prodi">Prodi</label>
+                        <input type="text" disabled asp-for="Prodi" class="form-control" id="prodi" placeholder="Prodi">
                     </div>
                     <div class="col-12 form-group">
-                        <label for="prodi">Perusahaan<span style="color:red;">*</span></label>
-                        <select class="form-control" id="perusahaan" name="perusahaan">
+                        <label asp-for="IdPerusahaan">Perusahaan<span style="color:red;">*</span></label>
+                        <select class="form-control" id="perusahaan" onchange="GetPeru()"  asp-for="IdPerusahaan">
                             <option disabled selected value="">--Pilih Perusahaan--</option>
                         </select>
+                    </div>
+                    <div class="col-4 form-group">
+                        <label for="Alamat">Alamat Perusahaan</label>
+                        <textarea  disabled  class="form-control" id="alamat"></textarea>
+                    </div>
+                    <div class="col-4 form-group">
+                        <label for="cabang">Cabang</label>
+                        <input type="text" disabled name="cabang" class="form-control" id="cabang" placeholder="Cabang">
+                    </div>
+                    <div class="col-4 form-group">
+                        <label for="group">Group</label>
+                        <input type="text" disabled name="group" class="form-control" id="group" placeholder="Group">
                     </div>
 
                 </div>
                 <a asp-action="index" class="btn btn-warning " style="width:10%">Kembali</a>
                 <button type="submit" class="btn btn-simpan btn-primary  float-right" style="width:10%">Simpan</button>
-
-
-
             </form>
         </div>
 

@@ -5,7 +5,9 @@
 
 // jQuery
 $(document).ready(function () {
+    GetMahasiswa();
     GetPerusahaan();
+    
 });
 
 function GetPerusahaan() {
@@ -20,6 +22,22 @@ function GetPerusahaan() {
                 PutPeru(data);
             }
             
+        }
+    });
+}
+
+function GetMahasiswa() {
+    var ddlmhs = document.getElementById("ddlmhs");
+    $.ajax({
+        type: "GET",
+        url: "/Mahasiswa/GetAllMahasiswa",
+        success: function (data) {
+            //console.log(data.data[1]);
+            //if path Mahasiswa then show data
+            if (window.location.pathname == "/Mahasiswa/Tambah") {
+                PutMhs(data);
+            }
+
         }
     });
 }
@@ -39,9 +57,33 @@ function GetMhs() {
     });
 }
 
+function GetPeru() {
+    var Peru = document.getElementById("perusahaan").value;
+    $.ajax({
+        type: "GET",
+        url: "/Perusahaan/SearchPeru",
+        data: "search=" + Peru,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            console.log(data);
+            PutDataPeru(data);
+        }
+    });
+}
+
+function PutDataPeru(data) {
+    var Alamat = document.getElementById("alamat");
+    var Cabang = document.getElementById("cabang");
+    var Group = document.getElementById("group");
+
+    Alamat.value = data.data[0].alamatPerusahaan;
+    Cabang.value = data.data[0].cabang;
+    Group.value = data.data[0].group;
+    
+}
 
 function OnSucces(data) {
-    console.log(data[0]);
     var NIM = document.getElementById("NIM");
     var Nama = document.getElementById("Nama");
     var prodi = document.getElementById("prodi");
@@ -56,5 +98,12 @@ function OnSucces(data) {
 function PutPeru(data) {
     for (var i = 0; i < data.data.length; i++) {
         perusahaan.options[perusahaan.options.length] = new Option(data.data[i].namaPerusahaan, data.data[i].id);
+    }
+}
+
+function PutMhs(data) {
+
+    for (var i = 0; i < data.data.length; i++) {
+        ddlmhs.options[ddlmhs.options.length] = new Option(data.data[i].nama, data.data[i].nim);
     }
 }
