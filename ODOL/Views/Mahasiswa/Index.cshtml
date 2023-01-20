@@ -30,52 +30,54 @@
                 </h4>
             </span>
             <hr />
-            <table class="table container-fluid w-100 h-10 text-center" id="myTable">
-                <thead>
-                    <tr>
-                        <th class="text-center">
-                            No
-                        </th>
-                        <th class="text-center">
-                            Nama
-                        </th>
-                        <th class="text-center">
-                            Prodi
-                        </th>
-                        <th class="text-center">
-                            Action
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @if (Model.Count() != 0)
-                    {
-                        int i = 1;
-                        @foreach (var item in Model)
+            <div class="card">
+                <table class="table container-fluid w-100 h-10 text-center" id="myTable">
+                    <thead>
+                        <tr>
+                            <th class="text-center">
+                                No
+                            </th>
+                            <th class="text-center">
+                                Nama
+                            </th>
+                            <th class="text-center">
+                                Prodi
+                            </th>
+                            <th class="text-center">
+                                Action
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Count() != 0)
                         {
-                            <tr>
-                                <td>
-                                    @i
-                                </td>
-                                <td>
-                                    @item.NamaMahasiswa
-                                </td>
-                                <td>
-                                    @item.Prodi
-                                </td>
-                                <td>
-                                    <a asp-action="Detail" asp-route-id="@item.NIM" class="btn btn-primary">Detail</a>
-                                </td>
-                            </tr>
-                            i++;
+                            int i = 1;
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @i
+                                    </td>
+                                    <td>
+                                        @item.NamaMahasiswa
+                                    </td>
+                                    <td>
+                                        @item.Prodi
+                                    </td>
+                                    <td>
+                                        <a asp-action="Detail" asp-route-nim="@item.NIM" class="btn btn-primary">Detail</a>
+                                    </td>
+                                </tr>
+                                i++;
 
 
+                            }
                         }
-                    }
 
 
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         <hr class="my-4" />

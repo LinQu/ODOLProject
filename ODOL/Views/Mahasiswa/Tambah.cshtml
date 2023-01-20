@@ -32,32 +32,39 @@
             <form method="post">
                 <div class="row g-3">
                     <div class="col-12 form-group">
-                        <label >Perusahaan<span style="color:red;">*</span></label>
-                        <select class="form-control" onchange="GetMhs()" id="ddlmhs" >
-                            <option disabled selected value="">--Pilih Perusahaan--</option>
+                        <label>Perusahaan<span style="color:red;">*</span></label>
+                        <select class="form-control" onchange="GetMhs()" id="ddlmhs">
+                            <option disabled selected value="">--Pilih Mahasiswa--</option>
                         </select>
                     </div>
                     <div class="col-4 form-group">
                         <label asp-for="NIM">NIM</label>
-                        <input type="text" disabled asp-for="NIM" class="form-control" id="NIM" placeholder="NIM">
+                        <input type="text" asp-for="NIM" class="form-control" id="NIM" value="" placeholder="NIM">
+                        <span asp-validation-for="NIM" style="color:red"></span>
                     </div>
                     <div class="col-4 form-group">
                         <label asp-for="NamaMahasiswa">Nama</label>
-                        <input type="text" disabled name="Nama" class="form-control" id="Nama" placeholder="Nama Mahasiswa">
+                        <input type="text" asp-for="NamaMahasiswa" class="form-control" value="" id="Nama" placeholder="Nama Mahasiswa">
+                        <span asp-validation-for="NamaMahasiswa" style="color:red"></span>
+
                     </div>
                     <div class="col-4 form-group">
                         <label asp-for="Prodi">Prodi</label>
-                        <input type="text" disabled asp-for="Prodi" class="form-control" id="prodi" placeholder="Prodi">
+                        <input type="text" asp-for="Prodi" class="form-control" value="" id="prodi" placeholder="Prodi">
+                        <span asp-validation-for="Prodi" style="color:red"></span>
+
                     </div>
                     <div class="col-12 form-group">
                         <label asp-for="IdPerusahaan">Perusahaan<span style="color:red;">*</span></label>
-                        <select class="form-control" id="perusahaan" onchange="GetPeru()"  asp-for="IdPerusahaan">
+                        <select class="form-control" id="perusahaan" onchange="GetPeru()" asp-for="IdPerusahaan">
                             <option disabled selected value="">--Pilih Perusahaan--</option>
                         </select>
+                        <span asp-validation-for="IdPerusahaan" style="color:red"></span>
+
                     </div>
                     <div class="col-4 form-group">
                         <label for="Alamat">Alamat Perusahaan</label>
-                        <textarea  disabled  class="form-control" id="alamat"></textarea>
+                        <textarea disabled class="form-control" id="alamat"></textarea>
                     </div>
                     <div class="col-4 form-group">
                         <label for="cabang">Cabang</label>

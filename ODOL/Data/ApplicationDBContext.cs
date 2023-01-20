@@ -14,5 +14,7 @@ namespace ODOL.Data
         public DbSet<Perusahaan> Perusahaan { get; set; }
         
         public DbSet<Mahasiswa> Mahasiswa { get; set; }
+
+        public DbSet<Pembimbing> Pembimbing { get; set; }
     }
 }

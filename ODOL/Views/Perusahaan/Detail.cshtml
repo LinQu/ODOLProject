@@ -4,7 +4,7 @@
 @{
     ViewData["Tittle"] = "Detail Perusahaan";
 }
-@model ODOL.Models.Perusahaan
+@model ODOL.Models.ViewPeru
 
 
 <div class="col panelcontent panelcontentweb" style="font-size: 14px; height:650px">
@@ -22,53 +22,59 @@
         <hr style="margin-top: .8em;" />
         <div class="jumbotron" style="box-shadow: none; height:auto; margin-left:20px; padding: 15px 30px;">
             @* taruh content disini*@
-            <span class="text-center mb-1">
-                <h4>
-                    <b>
-                        Detail Perusahaan
-                    </b>
-                </h4>
-            </span>
-            <hr />
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="form-group ">
-                        <label for="Nama"><b>Nama Perusahaan</b></label>
-                        <input type="text" class="form-control" id="Nama" value="@Model.NamaPerusahaan" disabled>
+
+            <div class="card mt-3">
+                <span class="text-center mb-1">
+                    <a asp-action="Detail" asp-route-id="@Model.Id" class="btn btn-danger float-right">Hapus</a>
+                    <a asp-action="Ubah" asp-route-id="@Model.Id" class="btn btn-warning float-left">Ubah</a>
+
+                    <h4>
+                        <b>
+                            Detail Perusahaan
+                        </b>
+                    </h4>
+                </span>
+                <hr class="mt-5" />
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group ">
+                            <label for="Nama"><b>Nama Perusahaan</b></label>
+                            <input type="text" class="form-control" id="Nama" value="@Model.NamaPerusahaan" readonly>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group ">
-                        <label for="Email"><b>Email Perusahaan</b></label>
-                        <input type="text" class="form-control" id="Email" value="@Model.EmailPerusahaan" disabled>
+                    <div class="col-md-3">
+                        <div class="form-group ">
+                            <label for="Email"><b>Email Perusahaan</b></label>
+                            <input type="text" class="form-control" id="Email" value="@Model.EmailPerusahaan" readonly>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group ">
-                        <label for="Cabang"><b>Cabang Perusahaan</b></label>
-                        <input type="text" class="form-control" id="Cabang" value="@Model.Cabang" disabled>
+                    <div class="col-md-3">
+                        <div class="form-group ">
+                            <label for="Cabang"><b>Cabang Perusahaan</b></label>
+                            <input type="text" class="form-control" id="Cabang" value="@Model.Cabang" readonly>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group ">
-                        <label for="Group"><b>Group</b></label>
-                        <input type="text" class="form-control" id="Group" value="@Model.Group" disabled>
+                    <div class="col-md-3">
+                        <div class="form-group ">
+                            <label for="Group"><b>Group</b></label>
+                            <input type="text" class="form-control" id="Group" value="@Model.Group" readonly>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="form-group ">
-                        <label for="Alamat"><b>Alamat Perusahaan</b></label>
-                        <textarea type="text" class="form-control" id="Alamat" disabled>@Model.AlamatPerusahaan</textarea>
+                    <div class="col-md-12">
+                        <div class="form-group ">
+                            <label for="Alamat"><b>Alamat Perusahaan</b></label>
+                            <textarea type="text" class="form-control" id="Alamat" readonly>@Model.AlamatPerusahaan</textarea>
+                        </div>
                     </div>
+
+
                 </div>
-                
-                
             </div>
             <br />
-                <br />
-                <br />
-                <br />
-            <span class="text-center mb-1">
+            <br />
+            <br />
+            <div class="card">
+                <span class="text-center mb-1">
                     <h4>
                         <b>
                             Daftar Mahasiswa Magang
@@ -76,7 +82,8 @@
                     </h4>
                 </span>
                 <hr />
-                <table class="table w-100 container-fluid h-10 text-center" id="myTable">
+
+                <table class="table w-100 container-fluid h-10 text-center" id="myTable1">
                     <thead>
                         <tr>
                             <th scope="col" class="text-center">No</th>
@@ -87,24 +94,99 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>John Doe</td>
-                            <td>TI</td>
-                            <td>Magang</td>
-                            <td>
-                                <a href="#" class="btn btn-primary btn-sm">Detail</a>
-                            </td>
-                        </tr>
+                        
                     </tbody>
                 </table>
+            </div>
+            <br />
+            <br />
+            <br />
+            <div class="card">
+
+                <span class="text-center mb-1">
+                    <a asp-action="Tambah" asp asp-controller="Pembimbing" asp-route-id="@Model.Id" class="btn btn-primary float-left">Tambah</a>
+                    <h4>
+                        <b>
+                            Daftar Pembimbing
+                        </b>
+                    </h4>
+                </span>
+                <hr />
+
+                <table class="table w-100 container-fluid h-10 text-center" id="TablePemb">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="text-center">No</th>
+                            <th scope="col" class="text-center">Nama</th>
+                            <th scope="col" class="text-center">Jabatan</th>
+                            <th scope="col" class="text-center">Email</th>
+                            <th scope="col" class="text-center">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <hr class="my-4" />
+        <p class="lead" style="font-size: 1.1rem;">
+            Jika terdapat kesulitan tentang cara penggunaan aplikasi ini, silahkan menghubungi MIS.
+            <br />
+            <br />
+        </p>
+    </div>
+
+
+</div>
+
+
+<!-- Modal -->
+@using (Html.BeginForm("Hapus", "Pembimbing", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    <div class="modal fade " id="modalHapus" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title " id="myModalLabel">Hapus Data</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+
+                </div>
+                <div class="modal-body">
+                    <p class="text-danger">Apakah anda yakin akan menghapus data ini?</p>
+                    <input type="hidden" name="id" class="id" id="idHapus" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-danger">Hapus</button>
+                </div>
+            </div>
         </div>
     </div>
 
-    <hr class="my-4" />
-    <p class="lead" style="font-size: 1.1rem;">
-        Jika terdapat kesulitan tentang cara penggunaan aplikasi ini, silahkan menghubungi MIS.
-        <br />
-        <br />
-    </p>
-</div>
+}
+
+
+<!-- Modal -->
+@using (Html.BeginForm("Hapus", "Mahasiswa", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    <div class="modal fade " id="modalHapusMhs" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title " id="myModalLabel">Hapus Data</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+
+                </div>
+                <div class="modal-body">
+                    <p class="text-danger">Apakah anda yakin akan menghapus data ini?</p>
+                    <input type="hidden" name="nim" class="nim" id="nimHapus" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-danger">Hapus</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}

@@ -24,7 +24,7 @@ namespace ODOL.Controllers
             {
                 con.Open();
                 cmd.CommandText = "SELECT * FROM tempMahasiswa";
-                using(var reader = cmd.ExecuteReader())
+                using (var reader = cmd.ExecuteReader())
                 {
                     while (reader.Read())
                     {
@@ -45,6 +45,32 @@ namespace ODOL.Controllers
             return Json(new { data = mahasiswa });
         }
 
+
+        public JsonResult GetMahasiswaByPeru(int id)
+        {
+            {
+                var mahasiswa = (from mhs in _db.Mahasiswa
+                                 join peru in _db.Perusahaan on mhs.IdPerusahaan equals peru.Id
+                                 join peng in _db.Pengguna on peru.idPengguna equals peng.Id
+                                 where mhs.IdPerusahaan == id && mhs.Status == "Aktif"
+                                 select new ViewMhs
+                                 {
+
+                                     NIM = mhs.NIM,
+                                     NamaMahasiswa = mhs.NamaMahasiswa,
+                                     Prodi = mhs.Prodi,
+                                     IdPerusahaan = mhs.IdPerusahaan,
+                                     NamaPerusahaan = peng.Nama,
+                                     Status = mhs.Status,
+                                     CreateBy = mhs.CreateBy,
+                                     CreateDate = mhs.CreateDate,
+                                     ModifBy = mhs.ModifBy,
+                                     ModifDate = mhs.ModifDate
+                                 }).ToList();
+                return Json(new { data = mahasiswa });
+            }
+        }
+
         [HttpGet]
         public JsonResult SearchMhs(string search)
         {
@@ -53,7 +79,7 @@ namespace ODOL.Controllers
 
             return Json(data);
         }
-        
+
         public IActionResult Index()
         {
             if (HttpContext.Session.GetString("Nama") != null)
@@ -75,7 +101,7 @@ namespace ODOL.Controllers
 
             if (HttpContext.Session.GetString("Nama") != null)
             {
-                
+
                 ViewBag.Nama = HttpContext.Session.GetString("Nama");
                 ViewBag.Role = HttpContext.Session.GetString("Role");
                 return View();
@@ -87,5 +113,85 @@ namespace ODOL.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
+
+        [HttpPost]
+        public IActionResult Tambah([FromForm] Mahasiswa mahasiswa)
+        {
+            if (HttpContext.Session.GetString("Nama") != null)
+            {
+                if (ModelState.IsValid)
+                {
+                    try
+                    {
+                        if(mahasiswa.IdPerusahaan == null)
+                        {
+                            TempData["Notifikasi"] = "Perusahan masih kosong";
+                            TempData["Icon"] = "error";
+                            return View(mahasiswa);
+                        }
+                        //check if nim already exist
+                        var check = _db.Mahasiswa.Where(f => f.NIM == mahasiswa.NIM).FirstOrDefault();
+                        if (check == null)
+                        {
+                            mahasiswa.Status = "Aktif";
+                            mahasiswa.CreateBy = HttpContext.Session.GetInt32("Id");
+                            mahasiswa.CreateDate = DateTime.Now;
+                            _db.Mahasiswa.Add(mahasiswa);
+                            _db.SaveChanges();
+                            TempData["Notifikasi"] = "Data Berhasil Ditambahkan";
+                            TempData["Icon"] = "success";
+                            return RedirectToAction("Index");
+                        }
+                        else
+
+                        {
+                            TempData["Notifikasi"] = "Mahasiswa sudah ada terdaftar";
+                            TempData["Icon"] = "error";
+                            return View();
+                        }
+
+                    }
+                    catch (Exception ex)
+                    {
+                        TempData["Notifikasi"] = "Data Gagal Ditambahkan" + ex.Message + mahasiswa.NamaMahasiswa;
+                        TempData["Icon"] = "error";
+                        ModelState.AddModelError("" ,"Eror karena : "+ ex.Message);
+                        return View();
+                    }
+                }
+                return View(mahasiswa);
+
+            }
+            else
+            {
+                TempData["Notifikasi"] = "Anda Harus Login Terlebih Dahulu";
+                TempData["Icon"] = "error";
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+        public IActionResult Detail(string? nim)
+        {
+            if (HttpContext.Session.GetString("Nama") != null)
+            {
+                ViewBag.Nama = HttpContext.Session.GetString("Nama");
+                ViewBag.Role = HttpContext.Session.GetString("Role");
+                var mahasiswa = _db.Mahasiswa.Where(f => f.NIM == nim).FirstOrDefault();
+                if (mahasiswa == null)
+                {
+                    TempData["Notifikasi"] = "Data tidak ditemukan";
+                    TempData["Icon"] = "error";
+                    return RedirectToAction("Index", "Mahasiswa");
+                }
+                return View(mahasiswa);
+            }
+            else
+            {
+                TempData["Notifikasi"] = "Anda Harus Login Terlebih Dahulu";
+                TempData["Icon"] = "error";
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
     }
 }

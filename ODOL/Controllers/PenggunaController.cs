@@ -16,6 +16,23 @@ namespace ODOL.Controllers
             _db = db;
         }
 
+        public JsonResult GetPerusahaan()
+        {
+
+            var pengguna = _db.Pengguna.Where(f => f.Role == "Perusahaan" && f.Status == "Aktif").ToList();
+            return Json(new { data = pengguna });
+
+        }
+        
+        public JsonResult GetPembimbing()
+        {
+
+            var pengguna = _db.Pengguna.Where(f => f.Role == "Pembimbing" && f.Status == "Aktif").ToList();
+            return Json(new { data = pengguna });
+
+        }
+
+
         public IActionResult Index()
         {
             if (HttpContext.Session.GetString("Nama") != null)
@@ -62,8 +79,9 @@ namespace ODOL.Controllers
                     try
                     {
                         pengguna.CreateDate = DateTime.Now;
-                        pengguna.CreateBy = HttpContext.Session.GetString("Id");
+                        pengguna.CreateBy = HttpContext.Session.GetInt32("Id");
                         pengguna.Status = "Aktif";
+                        pengguna.Password = BCrypt.Net.BCrypt.HashPassword(pengguna.Password);
                         await _db.Pengguna.AddAsync(pengguna);
                         await _db.SaveChangesAsync();
                         TempData["Notifikasi"] = "Data Berhasil Dibuat";
@@ -121,9 +139,9 @@ namespace ODOL.Controllers
                     {
 
                         pengguna.ModifDate = DateTime.Now;
-                        pengguna.ModifBy = HttpContext.Session.GetString("Id");
+                        pengguna.ModifBy = HttpContext.Session.GetInt32("Id");
                         pengguna.Status = "Aktif";
-
+                        pengguna.Password = BCrypt.Net.BCrypt.HashPassword(pengguna.Password);
                         _db.Pengguna.Update(pengguna);
                         await _db.SaveChangesAsync();
                         TempData["Notifikasi"] = "Data Berhasil Diubah";

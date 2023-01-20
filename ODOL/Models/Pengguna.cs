@@ -17,17 +17,18 @@ namespace ODOL.Models
         [Required(ErrorMessage = "Password harus diisi")]
         public string? Password { get; set; }
 
-        
+        [Required]
+        public string? Role { get; set; }
         public string? Status { get; set; }
 
         
-        public string? CreateBy { get; set; }
+        public int? CreateBy { get; set; }
 
         
         public DateTime? CreateDate { get; set; }
 
     
-        public string? ModifBy { get; set; }
+        public int? ModifBy { get; set; }
 
         
         public DateTime? ModifDate { get; set; }

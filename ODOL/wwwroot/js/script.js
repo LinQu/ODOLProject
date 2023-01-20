@@ -19,7 +19,29 @@ $(document).ready(function () {
 		"responsive": true,
 		"pageLength": 5,
     });
-	
+
+	$('#myTable1').DataTable({
+		"paging": true,
+		"lengthChange": false,
+		"searching": true,
+		"ordering": true,
+		"info": true,
+		"autoWidth": false,
+		"responsive": true,
+		"pageLength": 5,
+	});
+
+	$('#TablePemb').DataTable({
+		"paging": true,
+		"lengthChange": false,
+		"searching": true,
+		"ordering": true,
+		"info": true,
+		"autoWidth": false,
+		"responsive": true,
+		"pageLength": 5,
+	});
+
 });
 
 
@@ -98,6 +120,9 @@ $('.btn-delete').on('click', function () {
 	// Call Modal Edit
 	$('#modalHapus').modal('show');
 });
+
+
+
 
 
 function validatepass() {

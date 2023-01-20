@@ -33,56 +33,57 @@
                 </h4>
             </span>
             <hr />
-            <table class="table container-fluid w-100 h-10 text-center" id="myTable">
-                <thead>
-                    <tr>
-                        <th class="text-center">
-                            No
-                        </th>
-                        <th class="text-center">
-                            Nama
-                        </th>
-                        <th class="text-center">
-                            Username
-                        </th>
-                        <th class="text-center">
-                            Password
-                        </th>
-                        <th class="text-center">
-                            Action
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @if (Model.Count() != 0)
-                    {
-                        int i = 1;
-                        @foreach (var item in Model)
+            <div class="card">
+                <table class="table container-fluid w-100 h-10 text-center" id="myTable">
+                    <thead>
+                        <tr>
+                            <th class="text-center">
+                                No
+                            </th>
+                            <th class="text-center">
+                                Nama
+                            </th>
+                            <th class="text-center">
+                                Username
+                            </th>
+                            <th class="text-center">
+                                Role
+                            </th>
+                            <th class="text-center">
+                                Action
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Count() != 0)
                         {
-                            <tr>
-                                <td>
-                                    @i
-                                </td>
-                                <td>
-                                    @item.Nama
-                                </td>
-                                <td>
-                                    @item.Username
-                                </td>
-                                <td>
-                                    @item.Password
-                                </td>
-                                <td>
-                                    <a asp-action="Ubah" asp-route-id="@item.Id" class="btn btn-primary btn-sm">Edit</a>
-                                    <a data-id="@item.Id" style="color:white" class="btn btn-danger btn-sm btn-delete">Hapus</a>
-                                </td>
-                            </tr>
-                            i++;
+                            int i = 1;
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @i
+                                    </td>
+                                    <td  class="text-left">
+                                        @item.Nama
+                                    </td>
+                                    <td  class="text-left">
+                                        @item.Username
+                                    </td>
+                                    <td  class="text-left">
+                                        @item.Role
+                                    </td>
+                                    <td>
+                                        <a asp-action="Ubah" asp-route-id="@item.Id" class="btn btn-primary btn-sm">Edit</a>
+                                        <a data-id="@item.Id" style="color:white" class="btn btn-danger btn-sm btn-delete">Hapus</a>
+                                    </td>
+                                </tr>
+                                i++;
+                            }
                         }
-                    }
-                </tbody>
-            </table>
-
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         <hr class="my-4" />

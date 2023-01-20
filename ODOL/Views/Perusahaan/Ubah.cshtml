@@ -1,9 +1,10 @@
-﻿@model ODOL.Models.Perusahaan
-
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
 @{
-    ViewData["Title"] = "Tambah Perusahaan";
+    ViewData["Tittle"] = "Detail Perusahaan";
 }
-
+@model ODOL.Models.ViewPeru
 
 <div class="col panelcontent panelcontentweb" style="font-size: 14px; height:650px">
     <div class="scrollstyle">
@@ -19,12 +20,11 @@
         </nav>
         <hr style="margin-top: .8em;" />
         <div class="jumbotron" style="box-shadow: none; height:auto; margin-left:20px; padding: 15px 30px;">
-            @* taruh content disini*@
-            @* taruh content disini*@
-            <span class="text-center mb-1">
+             @* taruh content disini*@
+             <span class="text-center mb-1">
                 <h4>
                     <b>
-                        Tambah Data Perusahaan
+                        Ubah Data Perusahaan
                     </b>
                 </h4>
             </span>
@@ -32,11 +32,14 @@
             <form method="post">
                 <div class="row g-3">
                     <div class="col-6 form-group">
-                        <label Asp-for="idPengguna">Nama<span style="color:red;">*</span></label>
-                        <select class="form-control" Asp-for="idPengguna" id="ddlacc">
-                            <option disabled selected value="">--Pilih Akun Perusahaan--</option>
-                        </select>
-                       <span asp-validation-for="idPengguna" style="color:red"></span>
+                        <label Asp-for="NamaPerusahaan">Nama<span style="color:red;">*</span></label>
+                        <input type="text" asp-for="NamaPerusahaan" class="form-control" id="Nama" readonly placeholder="Masukkan Nama Perusahaan"/>
+                        <input type="hidden" asp-for="idPengguna" class="form-control" id="Id"/>
+                        <input type="hidden" asp-for="CreateBy" class="form-control"/>
+                        <input type="hidden" asp-for="CreateDate" class="form-control" />
+                        <input type="hidden" asp-for="Status" class="form-control" />
+                        <input type="hidden" asp-for="Id" class="form-control" id="Id"/>
+                        <span asp-validation-for="NamaPerusahaan" style="color:red"></span>
                     </div>
                     <div class="col-6 form-group">
                         <label Asp-for="EmailPerusahaan">Email Perusahaan<span style="color:red;">*</span></label>
@@ -60,8 +63,8 @@
                     </div>
 
                 </div>
-                    <a asp-action="index" class="btn btn-warning " style="width:10%">Kembali</a>
-                    <button type="submit" class="btn btn-simpan btn-primary  float-right" style="width:10%">Simpan</button>
+                <a asp-action="Detail" asp-route-id="@Model.Id"  class="btn btn-warning " style="width:10%">Kembali</a>
+                <button type="submit" class="btn btn-simpan btn-primary  float-right" style="width:10%">Simpan</button>
 
             </form>
         </div>

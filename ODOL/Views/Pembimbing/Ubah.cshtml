@@ -1,0 +1,65 @@
+﻿@model ODOL.Models.ViewPem
+@{
+}
+
+
+<div class="col panelcontent panelcontentweb" style="font-size: 14px; height:650px">
+    <div class="scrollstyle">
+        <nav aria-label=" breadcrumb" style="margin-left: 20px;">
+            <ol class="breadcrumb" style="padding: 0; margin: 0; background-color: #FFF;">
+                <li class="breadcrumb-item text-primary">
+                    <b>
+                        Aplikasi Absensi dan Logbook Magang Mahasiswa
+                    </b>
+                </li>
+                <li class="breadcrumb-item active"><b>Pembimbing</b></li>
+            </ol>
+        </nav>
+        <hr style="margin-top: .8em;" />
+        <div class="jumbotron" style="box-shadow: none; height:auto; margin-left:20px; padding: 15px 30px;">
+             @* taruh content disini*@
+             <div class="card">
+                <span class="text-center mb-1">
+                    <h4>
+                        <b>
+                            Tambah Data Pembimbing
+                        </b>
+                    </h4>
+                </span>
+                <hr />
+                <form method="post">
+                    <div class="row">
+                        <input type="hidden" asp-for="idPerusahaan" id="idPerusahaan" value="@ViewBag.Peru" />
+                        <div class="col-4 form-group">
+                            <label Asp-for="NamaPembimbing">Nama<span style="color:red;">*</span></label>
+                            <input type="text" class="form-control" asp-for="NamaPembimbing" id="NamaPembimbing" readonly/>
+                            <input type="hidden" class="form-control" asp-for="idPengguna" id="idPengguna" />
+                            <input type="hidden" class="form-control" asp-for="id" id="id" />
+                            <span asp-validation-for="idPengguna" style="color:red"></span>
+                        </div>
+                        <div class="col-4 form-group">
+                            <label asp-for="Jabatan">Jabatan Pembimbing </label>
+                            <input type="text" asp-for="Jabatan" class="form-control" id="Jabatan" placeholder="Jabatan">
+                            <span asp-validation-for="Jabatan" style="color:red"></span>
+                        </div>
+                        <div class="col-4 form-group">
+                            <label asp-for="EmailPembimbing">Email Pembimbing </label>
+                            <input type="email" asp-for="EmailPembimbing" class="form-control" id="Email" placeholder="Email">
+                            <span asp-validation-for="EmailPembimbing" style="color:red"></span>
+                        </div>
+
+                    </div>
+                    <a asp-action="Detail" asp-controller="Perusahaan" asp-route-id="@ViewBag.Peru" class="btn btn-warning " style="width:10%">Kembali</a>
+                    <button type="submit" class="btn btn-simpan btn-primary  float-right" style="width:10%">Simpan</button>
+                </form>
+            </div>
+        </div>
+
+        <hr class="my-4" />
+        <p class="lead" style="font-size: 1.1rem;">
+            Jika terdapat kesulitan tentang cara penggunaan aplikasi ini, silahkan menghubungi MIS.
+            <br />
+            <br />
+        </p>
+    </div>
+</div>

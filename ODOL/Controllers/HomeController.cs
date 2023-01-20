@@ -28,15 +28,26 @@ namespace ODOL.Controllers
             try
             {
                 var status = "Aktif";
-                    var login = _db.Pengguna.Where(x => x.Username.Equals(pengguna.Username) && x.Password.Equals(pengguna.Password) && x.Status.Equals(status)).FirstOrDefault();
-                    if (login != null)
-                    {
-                    HttpContext.Session.SetString("Role", "Admin");
-                    HttpContext.Session.SetString("Nama", login.Nama);
-                    HttpContext.Session.SetString("Id", login.Id.ToString());
-                    return RedirectToAction("Index", "Dashboard");
+                var login = _db.Pengguna.Where(x => x.Username.Equals(pengguna.Username) && x.Status.Equals(status)).FirstOrDefault();
 
+                if (login != null)
+                {
+                    bool verif = BCrypt.Net.BCrypt.Verify(pengguna.Password, login.Password);
+                    if (verif)
+                    {
+                        HttpContext.Session.SetString("Nama", login.Nama);
+                        HttpContext.Session.SetString("Role", login.Role);
+                        HttpContext.Session.SetString("Username", login.Username);
+                        HttpContext.Session.SetString("Id", login.Id.ToString());
+                        return RedirectToAction("Index", "Dashboard");
                     }
+                    else
+                    {
+                        TempData["Notifikasi"] = "Password Salah";
+                        TempData["Icon"] = "error";
+                        return View();
+                    }
+                }
                 else
                 {
                     TempData["Notifikasi"] = "Username atau Password Salah";
@@ -56,6 +67,7 @@ namespace ODOL.Controllers
         {
             HttpContext.Session.Remove("Nama");
             HttpContext.Session.Remove("Id");
+            HttpContext.Session.Remove("Role");
             return RedirectToAction("Index", "Home");
         }
 

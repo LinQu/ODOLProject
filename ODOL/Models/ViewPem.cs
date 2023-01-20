@@ -3,19 +3,27 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ODOL.Models
 {
-    public class Mahasiswa
+    public class ViewPem
     {
         [Key]
-        [Required(ErrorMessage = "NIM masih kosong")]
-        public string? NIM { get; set; }
-        [Required(ErrorMessage = "Perusahaan Harus Di isi")]
-        [ForeignKey("Perusahaan")]
-        public int? IdPerusahaan { get; set; }
+        public int id { get; set; }
+        [Required]
+        [ForeignKey("Pengguna")]
+        public int? idPengguna { get; set; }
 
-        [Required(ErrorMessage = "Nama Mahasiswa masih kosong")]
-        public string? NamaMahasiswa { get; set; }
-        [Required(ErrorMessage = "Prodi masih kosong")]
-        public string? Prodi { get; set; }
+        
+        public string? NamaPembimbing { get; set; }
+
+        [Required]
+        [ForeignKey("Perusahaan")]
+        public int? idPerusahaan { get; set; }
+
+
+        [Required]
+        public string? Jabatan { get; set; }
+
+        [Required]
+        public string? EmailPembimbing { get; set; }
 
         public string? Status { get; set; }
 
@@ -28,5 +36,6 @@ namespace ODOL.Models
         public int? ModifBy { get; set; }
 
         public DateTime? ModifDate { get; set; }
+
     }
 }
