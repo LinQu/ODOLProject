@@ -20,24 +20,42 @@ namespace ODOL.Controllers
         public JsonResult GetAllPerusahaan()
         {
             
-                var perusahaan = (from peru in _db.Perusahaan
-                                  join peng in _db.Pengguna on peru.idPengguna equals peng.Id
-                                  where peru.Status == "Aktif"
-                                  select new ViewPeru
-                                  {
-                                      Id = peru.Id,
-                                      idPengguna = peru.idPengguna,
-                                      NamaPerusahaan = peng.Nama,
-                                      AlamatPerusahaan = peru.AlamatPerusahaan,
-                                      EmailPerusahaan = peru.EmailPerusahaan,
-                                      Cabang = peru.Cabang,
-                                      Group = peru.Group,
-                                      Status = peru.Status,
-                                      CreateBy = peru.CreateBy,
-                                      CreateDate = peru.CreateDate,
-                                      ModifBy = peru.ModifBy,
-                                      ModifDate = peru.ModifDate
-                                  }).ToList();
+            var perusahaan = (from peru in _db.Perusahaan
+                              join peng in _db.Pengguna on peru.idPengguna equals peng.Id
+                              where peru.Status == "Aktif"
+                              select new ViewPeru
+                              {
+                                  Id = peru.Id,
+                                  idPengguna = peru.idPengguna,
+                                  NamaPerusahaan = peng.Nama,
+                                  AlamatPerusahaan = peru.AlamatPerusahaan,
+                                  EmailPerusahaan = peru.EmailPerusahaan,
+                                  Cabang = peru.Cabang,
+                                  Group = peru.Group,
+                                  Status = peru.Status,
+                                  DaftarPembimbing = (from pem in _db.Pembimbing
+                                                      join peng in _db.Pengguna on pem.idPengguna equals peng.Id
+                                                      where pem.Status == "Aktif" && pem.idPerusahaan == peru.Id
+                                                      select new ViewPem
+                                                      {
+                                                          id = pem.id,
+                                                          idPengguna = pem.idPengguna,
+                                                          idPerusahaan = pem.idPerusahaan,
+                                                          NamaPembimbing = peng.Nama,
+                                                          EmailPembimbing = pem.EmailPembimbing,
+                                                          Jabatan = pem.Jabatan,
+                                                          Status = pem.Status,
+                                                          CreateBy = pem.CreateBy,
+                                                          CreateDate = pem.CreateDate,
+                                                          ModifBy = pem.ModifBy,
+                                                          ModifDate = pem.ModifDate
+                                                      }).ToList(),
+                                  DaftarMahasiswa = _db.Mahasiswa.Where(f => f.Status == "Aktif" && f.IdPerusahaan == peru.Id).ToList(),
+                                  CreateBy = peru.CreateBy,
+                                  CreateDate = peru.CreateDate,
+                                  ModifBy = peru.ModifBy,
+                                  ModifDate = peru.ModifDate
+                              }).ToList();
                 return Json(new { data = perusahaan });
             
         }
@@ -73,21 +91,42 @@ namespace ODOL.Controllers
                 ViewBag.Nama = HttpContext.Session.GetString("Nama");
                 ViewBag.Role = HttpContext.Session.GetString("Role");
                 //menampilkan nama dari data pengguna taruh ke model ViewPeru
-                var perusahaan = (from peru in _db.Perusahaan join peng in _db.Pengguna on peru.idPengguna equals peng.Id where peru.Status == "Aktif" select new ViewPeru
-                {
-                    Id = peru.Id,
-                    idPengguna = peru.idPengguna,
-                    NamaPerusahaan = peng.Nama,
-                    AlamatPerusahaan = peru.AlamatPerusahaan,
-                    EmailPerusahaan = peru.EmailPerusahaan,
-                    Cabang = peru.Cabang,
-                    Group = peru.Group,
-                    Status = peru.Status,
-                    CreateBy = peru.CreateBy,
-                    CreateDate = peru.CreateDate,
-                    ModifBy = peru.ModifBy,
-                    ModifDate = peru.ModifDate
-                }).ToList();
+                var perusahaan = (from peru in _db.Perusahaan
+                                join peng in _db.Pengguna on peru.idPengguna equals peng.Id
+                                where peru.Status == "Aktif"
+                                select new ViewPeru
+                                {
+                                    Id = peru.Id,
+                                    idPengguna = peru.idPengguna,
+                                    NamaPerusahaan = peng.Nama,
+                                    AlamatPerusahaan = peru.AlamatPerusahaan,
+                                    EmailPerusahaan = peru.EmailPerusahaan,
+                                    Cabang = peru.Cabang,
+                                    Group = peru.Group,
+                                    Status = peru.Status,
+                                    DaftarPembimbing = (from pem in _db.Pembimbing
+                                                        join peng in _db.Pengguna on pem.idPengguna equals peng.Id
+                                                        where pem.Status == "Aktif" && pem.idPerusahaan == peru.Id
+                                                        select new ViewPem
+                                                        {
+                                                            id = pem.id,
+                                                            idPengguna = pem.idPengguna,
+                                                            idPerusahaan = pem.idPerusahaan,
+                                                            NamaPembimbing = peng.Nama,
+                                                            EmailPembimbing = pem.EmailPembimbing,
+                                                            Jabatan = pem.Jabatan,
+                                                            Status = pem.Status,
+                                                            CreateBy = pem.CreateBy,
+                                                            CreateDate = pem.CreateDate,
+                                                            ModifBy = pem.ModifBy,
+                                                            ModifDate = pem.ModifDate
+                                                        }).ToList(),
+                                    DaftarMahasiswa = _db.Mahasiswa.Where(f => f.Status == "Aktif" && f.IdPerusahaan == peru.Id).ToList(),
+                                    CreateBy = peru.CreateBy,
+                                    CreateDate = peru.CreateDate,
+                                    ModifBy = peru.ModifBy,
+                                    ModifDate = peru.ModifDate
+                                }).ToList();
 
                 return View(perusahaan); 
             }
@@ -156,24 +195,42 @@ namespace ODOL.Controllers
             {
                 ViewBag.Nama = HttpContext.Session.GetString("Nama");
                 ViewBag.Role = HttpContext.Session.GetString("Role");
-                var perusahaan = (from peru in _db.Perusahaan
-                                  join peng in _db.Pengguna on peru.idPengguna equals peng.Id
-                                  where peru.Status == "Aktif" && peru.Id == id 
-                                  select new ViewPeru
-                                  {
-                                      Id = peru.Id,
-                                      idPengguna = peru.idPengguna,
-                                      NamaPerusahaan = peng.Nama,
-                                      AlamatPerusahaan = peru.AlamatPerusahaan,
-                                      EmailPerusahaan = peru.EmailPerusahaan,
-                                      Cabang = peru.Cabang,
-                                      Group = peru.Group,
-                                      Status = peru.Status,
-                                      CreateBy = peru.CreateBy,
-                                      CreateDate = peru.CreateDate,
-                                      ModifBy = peru.ModifBy,
-                                      ModifDate = peru.ModifDate
-                                  }).FirstOrDefault();
+               var perusahaan = (from peru in _db.Perusahaan
+                                join peng in _db.Pengguna on peru.idPengguna equals peng.Id
+                                where peru.Status == "Aktif" && peru.Id == id
+                                select new ViewPeru
+                                {
+                                    Id = peru.Id,
+                                    idPengguna = peru.idPengguna,
+                                    NamaPerusahaan = peng.Nama,
+                                    AlamatPerusahaan = peru.AlamatPerusahaan,
+                                    EmailPerusahaan = peru.EmailPerusahaan,
+                                    Cabang = peru.Cabang,
+                                    Group = peru.Group,
+                                    Status = peru.Status,
+                                    DaftarPembimbing = (from pem in _db.Pembimbing
+                                                        join peng in _db.Pengguna on pem.idPengguna equals peng.Id
+                                                        where pem.Status == "Aktif" && pem.idPerusahaan == peru.Id
+                                                        select new ViewPem
+                                                        {
+                                                            id = pem.id,
+                                                            idPengguna = pem.idPengguna,
+                                                            idPerusahaan = pem.idPerusahaan,
+                                                            NamaPembimbing = peng.Nama,
+                                                            EmailPembimbing = pem.EmailPembimbing,
+                                                            Jabatan = pem.Jabatan,
+                                                            Status = pem.Status,
+                                                            CreateBy = pem.CreateBy,
+                                                            CreateDate = pem.CreateDate,
+                                                            ModifBy = pem.ModifBy,
+                                                            ModifDate = pem.ModifDate
+                                                        }).ToList(),
+                                    DaftarMahasiswa = _db.Mahasiswa.Where(f => f.Status == "Aktif" && f.IdPerusahaan == peru.Id).ToList(),
+                                    CreateBy = peru.CreateBy,
+                                    CreateDate = peru.CreateDate,
+                                    ModifBy = peru.ModifBy,
+                                    ModifDate = peru.ModifDate
+                                }).FirstOrDefault();
                 return View(perusahaan);
             }
             else

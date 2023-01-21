@@ -9,8 +9,8 @@ $(document).ready(function () {
     GetPerusahaan();
     GetAccPeru();
     GetAccPemb();
-    GetPembimbing();
-    GetMhsPeru();
+    /*GetPembimbing();*/
+    /*GetMhsPeru();*/
 
 });
 

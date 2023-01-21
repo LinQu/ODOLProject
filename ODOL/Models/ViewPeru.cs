@@ -20,13 +20,11 @@ namespace ODOL.Models
         public string? Cabang { get; set; }
         [Required]
         public string? Group { get; set; }
-        public int? idPembimbing { get; set; }
-        public string? NamaPembimbing { get; set; }
-        public string? JabatanPembimbing { get; set; }
-        public string? EmailPembimbing { get; set; }
-        public string? NIM { get; set; }
-        public string? NamaMahasiswa { get; set; }
-        public string? Prodi { get; set; }
+
+        public List<ViewPem>? DaftarPembimbing { get; set; }
+
+        public List<Mahasiswa>? DaftarMahasiswa { get; set; }
+
         public string? Status { get; set; }
         [ForeignKey("Pengguna")]
         public int CreateBy { get; set; }

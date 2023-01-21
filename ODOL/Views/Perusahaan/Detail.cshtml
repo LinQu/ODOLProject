@@ -94,7 +94,24 @@
                         </tr>
                     </thead>
                     <tbody>
-                        
+                        @if (Model.DaftarMahasiswa != null)
+                        {
+                            int i = 1;
+                            foreach (var item in Model.DaftarMahasiswa)
+                            {
+                                <tr>
+                                    <td>@i</td>
+                                    <td class="text-left">@item.NamaMahasiswa</td>
+                                    <td class="text-left">@item.Prodi</td>
+                                    <td class="text-left">@item.Status</td>
+                                    <td>
+                                        <a asp-action="Detail" asp-route-id="@item.NIM" class="btn btn-primary">Detail</a>
+                                    </td>
+                                </tr>
+                                i++;
+                            }
+
+                        }
                     </tbody>
                 </table>
             </div>
@@ -124,6 +141,25 @@
                         </tr>
                     </thead>
                     <tbody>
+                         @if (Model.DaftarPembimbing != null)
+                        {
+                            int i = 1;
+                            foreach (var item in Model.DaftarPembimbing)
+                            {
+                                <tr>
+                                    <td>@i</td>
+                                    <td class="text-left">@item.NamaPembimbing</td>
+                                    <td class="text-left">@item.Jabatan</td>
+                                    <td class="text-left">@item.EmailPembimbing</td>
+                                    <td>
+                                        <a asp-action="Ubah" asp-controller="Pembimbing" asp-route-id="@item.id" class="btn btn-warning">Ubah</a>
+                                        <a data-toggle="modal" data-target="#modalHapus" onclick="document.getElementById('idHapus').value = @item.id"  style="color:white;"  class="btn btn-danger">Hapus</a>
+                                    </td>
+                                </tr>
+                                i++;
+                            }
+
+                        }
                     </tbody>
                 </table>
             </div>
