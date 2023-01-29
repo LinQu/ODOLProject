@@ -1,0 +1,123 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Buat LogBook";
+}
+@model ODOL.Models.LogBook
+<div class="col panelcontent panelcontentweb" style="font-size: 14px; height:650px">
+    <div class="scrollstyle">
+        <nav aria-label=" breadcrumb" style="margin-left: 20px;">
+            <ol class="breadcrumb" style="padding: 0; margin: 0; background-color: #FFF;">
+                <li class="breadcrumb-item text-primary">
+                    <b>
+                        Aplikasi Absensi dan Logbook Magang Mahasiswa
+                    </b>
+                </li>
+                <li class="breadcrumb-item active"><b>Mahasiswa</b></li>
+            </ol>
+        </nav>
+        <hr style="margin-top: .8em;" />
+        <div class="jumbotron" style="box-shadow: none; height:auto; margin-left:20px; padding: 15px 30px;">
+            @* taruh content disini*@
+            <div class="card">
+                <form method="post">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group ">
+                                <label for="Nama"><b>NIM</b></label>
+                                <input type="text" class="form-control" id="Nama" value="@ViewBag.NIM" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group ">
+                                <label for="Nama"><b>Nama Lengkap</b></label>
+                                <input type="text" class="form-control" id="Nama" value="@ViewBag.Nama" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="form-group ">
+                                <label for="Prodi"><b>Prodi</b></label>
+                                <input type="text" class="form-control" id="Prodi" value="@ViewBag.Prodi" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group ">
+                                <label for="Perusahaan"><b>Perusahaan</b></label>
+                                <input type="text" class="form-control" id="Perusahaan" value="@ViewBag.Perusahaan" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group ">
+                                <label for="Cabang"><b>Cabang</b></label>
+                                <input type="text" class="form-control" id="Cabang" value="@ViewBag.Cabang" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group ">
+                                <label for="Group"><b>Group</b></label>
+                                <input type="text" class="form-control" id="Group" value="@ViewBag.Group" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group ">
+                                <label for="Pembimbing"><b>Pembimbing</b></label>
+                                <select class="form-control" id="PembimbingSearch" asp-for="idPembimbing" onchange="GetPembimbingById()">
+                                    <option disabled selected value="">--Pilih Pembimbing--</option>
+                                    @foreach (var item in ViewBag.Pembimbing)
+                                    {
+                                        <option value="@item.id">@item.NamaPembimbing</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group ">
+                                <label for="Jabatan"><b>Jabatan</b></label>
+                                <input type="text" class="form-control" id="JabatanPemb" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group ">
+                                <label for="Departemen"><b>Departemen</b></label>
+                                <input type="text" asp-for="Departemen" class="form-control" id="Departemen" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group ">
+                                <label for="Kegiatan"><b>Kegiatan</b></label>
+                                <input type="text" asp-for="Kegiatan" class="form-control" id="Kegiatan" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group ">
+                                <label for="JamStart"><b>Jam Mulai</b></label>
+                                <input type="time" asp-for="JamStart" class="form-control text-center" id="JamStart" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group ">
+                                <label for="JamEnd"><b>Jam Selesai</b></label>
+                                <input type="time" asp-for="JamEnd" class="form-control text-center" id="JamEnd" />
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group ">
+                                <label for="RincianKegiatan"><b>Rincian Kegiatan</b></label>
+                                <textarea class="form-control" asp-for="RincianKegiatan"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-success float-right">Kirim</button>
+                </form>
+            </div>
+        </div>
+
+        <hr class="my-4" />
+        <p class="lead" style="font-size: 1.1rem;">
+            Jika terdapat kesulitan tentang cara penggunaan aplikasi ini, silahkan menghubungi MIS.
+            <br />
+            <br />
+        </p>
+    </div>
+</div>

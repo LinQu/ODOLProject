@@ -18,7 +18,59 @@ $(document).ready(function () {
 		"autoWidth": false,
 		"responsive": true,
 		"pageLength": 5,
-    });
+		"language": {
+			"emptyTable": "Data Masih Kosong"
+		},
+		"dom": 'B<"clear">lfrtip',
+		"buttons": {
+			name: 'primary',
+			buttons: ['copy', 'csv', 'excel']
+		}
+	});
+	$('#myTableLogBook').DataTable({
+		"paging": true,
+		"lengthChange": false,
+		"searching": true,
+		"ordering": true,
+		"info": true,
+		"autoWidth": false,
+		"responsive": true,
+		"pageLength": 5,
+		"language": {
+			"emptyTable": "Data Masih Kosong"
+		},
+		"dom": 'Bfrtip',
+		"buttons": [
+			{
+				"text": 'Isi LogBook',
+				"className": 'btn-primary',
+				"init": function (api, node, config) {
+					$(node).removeClass('btn-secondary');
+				},
+				"action": function (e, dt, node, config) {
+                    window.location.href = "/LogBook/Tambah";
+                    
+				},
+                
+			}
+		]
+	});
+
+	$('#myTableRiwayat').DataTable({
+		"paging": true,
+		"lengthChange": false,
+		"searching": true,
+		"ordering": true,
+		"info": true,
+		"autoWidth": false,
+		"responsive": true,
+		"pageLength": 5,
+		"language": {
+			"emptyTable": "Data Masih Kosong"
+		},
+		"dom": 'B<"clear">lfrtip',
+		
+	});
 
 	$('#myTable1').DataTable({
 		"paging": true,
@@ -79,6 +131,14 @@ $(document).ready(function () {
 		$("#menucabang").addClass("active");
 		$("#menucabang").removeClass("hovermenu");
         $("#menucabang").removeClass("text-dark");
+	} else if (url.indexOf("LogBook") > -1) {
+		$("#menulogbook").addClass("active");
+		$("#menulogbook").removeClass("hovermenu");
+		$("#menulogbook").removeClass("text-dark");
+	} else if (url.indexOf("Profile") > -1) {
+		$("#menuprofile").addClass("active");
+		$("#menuprofile").removeClass("hovermenu");
+		$("#menuprofile").removeClass("text-dark");
 	} 
 	else {
 		$("#menuberanda").addClass("active");

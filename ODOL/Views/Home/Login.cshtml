@@ -1,0 +1,186 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Login";
+}
+
+
+@{
+    Layout = null;
+}
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    <link rel="stylesheet" href="~/css/login.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/lib/sweetalert2/sweetalert2.min.css" />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/tether.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/lib/sweetalert2/sweetalert2.all.min.js"></script>
+
+
+</head>
+<body style="background-image: url('/Images/IMG_Background.jpg'); background-repeat: no-repeat; background-size: cover;">
+    
+        <div>
+            <div class="polman-nav-static-top" style="opacity: 0.9;">
+                <div class="float-left">
+                    <a href="Default.aspx">
+                        <img src="~/Images/IMG_Logo.jpg" style="height: 45px; margin-top: 5px;" />
+                    </a>
+                </div>
+            </div>
+            <div class="polman-form-login">
+                <h4>Login Logbook Magang</h4>
+                <hr />
+                <div class="alert alert-danger alert-dismissible fade show" runat="server" id="divAlert" hidden>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="alert alert-success alert-dismissible fade show" runat="server" id="divSuccess" hidden>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="form-group">
+                    <label for="NIM">
+                        NIM
+                        <span style="color: red;">*</span>
+                    </label>
+                    <input type="text" ID="NIM" name="NIM" placeholder="NIM" Class="form-control" required/>
+
+                </div>
+                <div class="form-group">
+                    <label for="txtPassword">
+                        Kata Sandi
+                        <span style="color: red;">*</span>
+                    </label>
+                    <input type="password" ID="txtPassword" Class="form-control" placeholder="Password" required/>
+
+                </div>
+                <input type="submit" ID="btnLogin" Class="btn btn-primary" onclick="Login()" Style="width: 100%; margin-top: 10px; margin-bottom: 10px;" Text="Masuk"/>
+                <span style="margin-top: 10px;">Login Selain Mahasiswa <a asp-controller="Home" asp-action="Index">Klik disini</a>.</span>
+            </div>
+            <div class="polman-nav-static-bottom">
+                Copyright &copy; @DateTime.Now.Year - MIS Politeknik Manufaktur Astra
+            </div>
+        </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/tether.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/lib/sweetalert2/sweetalert2.all.min.js"></script>
+    <script src="~/lib/sweetalert2/sweetalert2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        @if(TempData["Notifikasi"] != null)
+        {
+            <text>
+                Swal.fire({
+                    icon: '@TempData["Icon"]',
+                    title: '@TempData["Notifikasi"]',
+                    showConfirmButton: false,
+                    timer: 1000,
+                   
+                })
+            </text>
+        }
+        //function buat login
+        function Login() {
+            var NIM = document.getElementById("NIM").value;
+            var password = document.getElementById("txtPassword").value;
+            
+            $.ajax({
+                url: "https://api.polytechnic.astra.ac.id:2906/api_dev//AccessToken/Get",
+                type: "POST",
+                dataType: 'json',
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                data: {
+                    "grant_type": "password",
+                    "username": NIM,
+                    "password": password
+                },
+                success: function (data) {
+                    var token = data.access_token;
+                    var settings = {
+                      "url": "https://api.polytechnic.astra.ac.id:2906/api_dev/efcc359990d14328fda74beb65088ef9660ca17e/SIA/LoginSIA?username="+ NIM +"&password="+password,
+                      "method": "POST",
+                      "timeout": 0,
+                      "headers": {
+                        "Authorization": "Bearer " + token,
+                      },
+                    };
+
+                    $.ajax(settings).done(function (response) {
+                        var npk = response.npk;
+                        var nama = response.nama;
+                        var username = response.username;
+                        var role = response.role;
+                        var prodi = response.jabatan;
+                        const d = new Date();
+                        d.setTime(d.getTime() + (1*24*60*60*1000));
+                        let expires = "expires="+ d.toUTCString();
+                        if(username != "" && username != "undefined"){
+                            console.log("berhasil");
+                            document.cookie = "nim=" + username + ";"+expires+"; path=/";
+                            document.cookie = "nama=" + nama + ";" + expires + ";path=/";
+                            document.cookie = "role=" + role + ";" + expires + ";path=/";
+                            $.ajax({
+                                type:"POST",
+                                url:"/Home/Login",
+                                data: {
+                                    NIM: NIM,
+                                    Role: role,
+                                    Nama: nama,
+                                    Prodi: prodi,
+                                },
+                                success: function (data) {
+                                    window.location.href = "/Dashboard/Index";
+                                },
+                                error: function (data) {
+                                    console.log("erorr dek");
+                                    Swal.fire({
+                              icon: 'error',
+                              title: 'Gagal Login',
+                              text: 'Username atau Password Salah!',
+                              timer: 1500,
+
+                            })   
+                                }
+                                
+                            });
+                            //console.log(response);
+                            //console.log(response.npk);
+                            //console.log(response.username);
+                            //console.log(response.nama);
+                            //console.log(response.role);
+                            //console.log(response.result);
+                        }else{
+                            Swal.fire({
+                              icon: 'error',
+                              title: 'Gagal Login',
+                              text: 'Username atau Password Salah!',
+                              timer: 1500,
+
+                            })   
+                        } 
+                    });
+                },
+                error: function (data) {
+                    console.log("erorr");
+                }
+
+            });
+            
+            
+        }
+       
+        
+    </script>
+</body>
+
+</html>

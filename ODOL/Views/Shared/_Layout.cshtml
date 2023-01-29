@@ -30,13 +30,26 @@
                 <div class="col-lg-2 panelmenu" style="background-color: #fff; height:auto;">
                     <div class="scrollstyle" style="overflow-y: auto; height: 100%;">
                         <ul class="list-group" style="font-size: 14px;">
-                            <li class='list-group-item border border-0 panelauthenticationmobile' style='background-color: #FFFFC0;'>Hai, <b>PRANSPASKA YUDHA AKBAR ASIRA (MAHASISWA)</b></li>
+                            <li class='list-group-item border border-0 panelauthenticationmobile' style='background-color: #FFFFC0;'>Hai, <b>@ViewBag.Nama (@ViewBag.Role)</b></li>
                             <li id="menulogout" style='cursor: pointer;'><a class='list-group-item border border-0 hovermenu text-dark' asp-action="Logout" asp-controller="Home"><i class='fas fa-sign-out-alt' style='margin-right: 7px;'></i><b style="margin-left: 10px;">Logout</b></a></li>
                             <li style='cursor: pointer;'> <a class='list-group-item border border-0 hovermenu text-dark' id="menuberanda" asp-action="index" asp-controller="Dashboard"><i class='fas fa-home' style='margin-right: 7px;'></i><b style="margin-left: 10px;">Beranda</b></a> </li>
-                            <li style='cursor: pointer;'><a class='list-group-item border border-0 hovermenu text-dark' id="menumahasiswa" asp-action="index" asp-controller="Mahasiswa"><i class='fa-solid fa-user-group' style='margin-right: 7px;'></i><b style="margin-left: 10px;">Mahasiswa</b></a></li>
-                            <li style='cursor: pointer;'><a class='list-group-item border border-0 hovermenu text-dark' id="menuperusahaan" asp-action="index" asp-controller="Perusahaan" ><i class='fa-solid fa-building' style='margin-right: 7px;'></i><b style="margin-left: 17px;">Perusahaan</b></a></li>
-                            <li style='cursor: pointer;'><a class='list-group-item border border-0 hovermenu text-dark' id="menuuser"  asp-action="index" asp-controller="Pengguna"><i class='fa-solid fa-user-group' style='margin-right: 7px;'> </i><b style="margin-left: 10px;">Pengguna</b> </a></li>
-                           
+                            @if (ViewBag.Role == "Admin" || ViewBag.Role == "Pembimbing" || ViewBag.Role == "Prodi")
+                            {
+                                <li style='cursor: pointer;'><a class='list-group-item border border-0 hovermenu text-dark' id="menumahasiswa" asp-action="index" asp-controller="Mahasiswa"><i class='fa-solid fa-user-group' style='margin-right: 7px;'></i><b style="margin-left: 10px;">Mahasiswa</b></a></li>
+                            }
+                            @if (ViewBag.Role == "Admin")
+                            {
+                                <li style='cursor: pointer;'><a class='list-group-item border border-0 hovermenu text-dark' id="menuperusahaan" asp-action="index" asp-controller="Perusahaan" ><i class='fa-solid fa-building' style='margin-right: 7px;'></i><b style="margin-left: 17px;">Perusahaan</b></a></li>
+                                <li style='cursor: pointer;'><a class='list-group-item border border-0 hovermenu text-dark' id="menuuser"  asp-action="index" asp-controller="Pengguna"><i class='fa-solid fa-user-group' style='margin-right: 7px;'> </i><b style="margin-left: 10px;">Pengguna</b> </a></li>
+                            }
+                            @if(ViewBag.Role == "Pembimbing"){
+                                <li style='cursor: pointer;'><a class='list-group-item border border-0 hovermenu text-dark' id="menuuser"  asp-action="index" asp-controller="Pengguna"><i class='fa-solid fa-user-group' style='margin-right: 7px;'> </i><b style="margin-left: 10px;">TestDoang</b> </a></li>
+                            }
+                            @if(ViewBag.Role == "MAHASISWA"){
+                                <li style='cursor: pointer;'><a class='list-group-item border border-0 hovermenu text-dark' id="menuprofile" asp-action="index" asp-controller="Profile" asp-route-NIM="@ViewBag.NIM"><i class='fa-solid fa-user ' style='margin-right: 7px;'></i><b style="margin-left: 10px;">Profil Saya</b></a></li>
+                                <li style='cursor: pointer;'><a class='list-group-item border border-0 hovermenu text-dark' id="menulogbook"  asp-action="index" asp-controller="LogBook"><i class='fa-brands fa-wpforms' style='margin-right: 7px;'> </i><b style="margin-left: 10px;">LogBook</b> </a></li>
+                            }
+                            
                         </ul>
                     </div>
                 </div>

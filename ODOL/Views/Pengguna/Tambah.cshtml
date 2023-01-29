@@ -56,7 +56,9 @@
                         @*pilih role*@
                         <label>Role<span style="color:red;">*</span></label>
                         <select asp-for="Role" class="form-control" id="Role">
+                            <option selected disabled value="">-- Pilih Role --</option>
                             <option value="Admin">Admin</option>
+                            <option value="Prodi">Prodi</option>
                             <option value="Perusahaan">Perusahaan</option>
                             <option value="Pembimbing">Pembimbing</option>
                         </select>

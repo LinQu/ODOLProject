@@ -1,8 +1,10 @@
-﻿@{
-    ViewData["Title"] = "Mahasiswa";
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Riwayat LogBook";
 }
-
-@model IEnumerable<ODOL.Models.Mahasiswa>
+@model IEnumerable<ODOL.Models.LogBook>
 
 <div class="col panelcontent panelcontentweb" style="font-size: 14px; height:650px">
     <div class="scrollstyle">
@@ -13,71 +15,60 @@
                         Aplikasi Absensi dan Logbook Magang Mahasiswa
                     </b>
                 </li>
-                <li class="breadcrumb-item active"><b>Mahasiswa</b></li>
+                <li class="breadcrumb-item active"><b>LogBook</b></li>
             </ol>
         </nav>
         <hr style="margin-top: .8em;" />
         <div class="jumbotron" style="box-shadow: none; height:auto; margin-left:20px; padding: 15px 30px;">
-            @* taruh content disini*@
-            <a type="button" class="btn btn-primary" asp-action="Tambah">
-                Tambah Mahasiswa
-            </a>
-            <span class="text-center mb-1">
+             @* taruh content disini*@
+             <span class="text-center mb-1">
                 <h4>
                     <b>
-                        Mahasiswa
+                        Riwayat LogBook
                     </b>
                 </h4>
             </span>
             <hr />
-            <div class="card">
-                <table class="table container-fluid w-100 h-10 text-center" id="myTable">
+             <div class="card">
+                 <table class="table container-fluid w-100 h-10 text-center" id="myTableLogBook">
                     <thead>
                         <tr>
                             <th class="text-center">
                                 No
                             </th>
                             <th class="text-center">
-                                Nama
+                                Tanggal dan Waktu Pengisian
                             </th>
                             <th class="text-center">
-                                Prodi
+                                Status
                             </th>
                             <th class="text-center">
-                                Action
+                                Aksi
                             </th>
                         </tr>
                     </thead>
-                    <tbody>
-                        @if (Model.Count() != 0)
+                     <tbody>
+                          @if (Model.Count() != 0)
                         {
                             int i = 1;
-                            @foreach (var item in Model)
-                            {
+                            @foreach (var item in Model) {
                                 <tr>
-                                    <td>
-                                        @i
+                                    <td>@i</td>
+                                    <td class="text-center">
+                                        @Convert.ToDateTime(item.CreatedDate).ToString("dddd, dd MMMM yyyy, HH:mm", new System.Globalization.CultureInfo("id-ID"))
                                     </td>
-                                    <td class="text-left">
-                                        @item.NamaMahasiswa
-                                    </td>
-                                    <td class="text-left">
-                                        @item.Prodi
-                                    </td>
-                                    <td>
-                                        <a asp-action="Detail" asp-route-nim="@item.NIM" class="btn btn-primary">Detail</a>
+                                    <td class="text-center">@item.Status</td>
+                                    <td class="text-center">
+                                        <a class="mr-1" asp-action="Detail" asp-controller="LogBook" asp-route-NIM="@item.NIM" asp-route-id="@item.idLogBook"> <i class="fas fa-list" style="color: #4285f4;"></i></a>
+                                        <a class="ml-1" asp-action="index" > <i class="fas fa-print" style="color: #4285f4;"></i></a>
                                     </td>
                                 </tr>
                                 i++;
-
-
                             }
                         }
-
-
                     </tbody>
-                </table>
-            </div>
+                 </table>
+             </div>
         </div>
 
         <hr class="my-4" />

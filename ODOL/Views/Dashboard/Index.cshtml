@@ -3,101 +3,164 @@
 }
 
 <div class="col panelcontent panelcontentweb" style="font-size: 14px; height:650px">
-  <div class="scrollstyle">
-    <nav aria-label=" breadcrumb" style="margin-left: 20px;">
-      <ol class="breadcrumb" style="padding: 0; margin: 0; background-color: #FFF;">
-        <li class="breadcrumb-item text-primary"><b>
-            Aplikasi Absensi dan Logbook Magang Mahasiswa</b></li>
-        <li class="breadcrumb-item active"><b>Beranda</b></li>
-      </ol>
-    </nav>
-    <hr style="margin-top: .8em;" />
-    <div class="jumbotron" style="box-shadow: none; height:auto; margin-left:20px; padding: 15px 30px;">
-      <div class="row mb-3">
-        <div class="col-xl-3 col-md-6 mb-4 ml-3">
-          <div class="card" style="width: 18rem; height:150px; padding: 17px; border-radius: 10px;  ">
-            <div class="card-body">
-              <div class="row align-items-center">
-                <div class="col mr-2">
-                  <div class="text-xs h5 font-weight-bold text-uppercase mb-1">Perusahaan</div>
-                  <div class="h5 mt-3 mb-0 font-weight-bold text-muted">40</div>
-                  <div class="mt-4 mb-4 text-muted text-xs">
+    <div class="scrollstyle">
+        <nav aria-label=" breadcrumb" style="margin-left: 20px;">
+            <ol class="breadcrumb" style="padding: 0; margin: 0; background-color: #FFF;">
+                <li class="breadcrumb-item text-primary">
+                    <b>
+                        Aplikasi Absensi dan Logbook Magang Mahasiswa
+                    </b>
+                </li>
+                <li class="breadcrumb-item active"><b>Beranda</b></li>
+            </ol>
+        </nav>
+        <hr style="margin-top: .8em;" />
+        <div class="jumbotron" style="box-shadow: none; height:auto; margin-left:20px; padding: 15px 30px;">
+            @if (ViewBag.Role == "Admin")
+            {
+                <div class="row mb-3">
+                    <div class="col-xl-3 col-md-6 mb-4 ml-3">
+                        <div class="card" style="width: 18rem; height:150px; padding: 17px; border-radius: 10px;  ">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs h5 font-weight-bold text-uppercase mb-1">Perusahaan</div>
+                                        <div class="h5 mt-3 mb-0 font-weight-bold text-muted">40</div>
+                                        <div class="mt-4 mb-4 text-muted text-xs">
 
-                    <button type="button" class="btn btn-primary btn-sm">Lihat Detail <i class="fa fa-arrow-right"></i></button>
-                  </div>
-                </div>
-                <div class="col-auto mr-4">
-                  <i class="fa-solid fa-building fa-6x text-primary"></i>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-3 col-md-6 mb-4 ml-3">
-          <div class="card" style="width: 18rem; height:150px; padding: 17px; border-radius: 10px;  ">
-            <div class="card-body">
-              <div class="row align-items-center">
-                <div class="col mr-2">
-                  <div class="text-xs h5 font-weight-bold text-uppercase mb-1">Mahasiswa</div>
-                  <div class="h5 mt-3 mb-0 font-weight-bold text-muted">40</div>
-                  <div class="mt-4 mb-4 text-muted text-xs">
+                                            <button type="button" class="btn btn-primary btn-sm">Lihat Detail <i class="fa fa-arrow-right"></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="col-auto mr-4">
+                                        <i class="fa-solid fa-building fa-6x text-primary"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6 mb-4 ml-3">
+                        <div class="card" style="width: 18rem; height:150px; padding: 17px; border-radius: 10px;  ">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs h5 font-weight-bold text-uppercase mb-1">Mahasiswa</div>
+                                        <div class="h5 mt-3 mb-0 font-weight-bold text-muted">40</div>
+                                        <div class="mt-4 mb-4 text-muted text-xs">
 
-                    <button type="button" class="btn btn-primary btn-sm">Lihat Detail <i class="fa fa-arrow-right"></i></button>
-                  </div>
-                </div>
-                <div class="col-auto mr-4">
-                  <i class="fa-solid fa-user-group fa-5x text-primary"></i>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-3 col-md-6 mb-4 ml-3">
-          <div class="card" style="width: 18rem; height:150px; padding: 17px; border-radius: 10px;  ">
-            <div class="card-body">
-              <div class="row align-items-center">
-                <div class="col mr-2">
-                  <div class="text-xs h5 font-weight-bold text-uppercase mb-1">User</div>
-                  <div class="h5 mt-3 mb-0 font-weight-bold text-muted">40</div>
-                  <div class="mt-4 mb-4 text-muted text-xs">
+                                            <button type="button" class="btn btn-primary btn-sm">Lihat Detail <i class="fa fa-arrow-right"></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="col-auto mr-4">
+                                        <i class="fa-solid fa-user-group fa-5x text-primary"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6 mb-4 ml-3">
+                        <div class="card" style="width: 18rem; height:150px; padding: 17px; border-radius: 10px;  ">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs h5 font-weight-bold text-uppercase mb-1">User</div>
+                                        <div class="h5 mt-3 mb-0 font-weight-bold text-muted">40</div>
+                                        <div class="mt-4 mb-4 text-muted text-xs">
 
-                    <button type="button" class="btn btn-primary btn-sm">Lihat Detail <i class="fa fa-arrow-right"></i></button>
-                  </div>
-                </div>
-                <div class="col-auto mr-4">
-                  <i class="fa-solid fa-user-group fa-5x text-primary"></i>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-3 col-md-6 mb-4 ml-3">
-          <div class="card" style="width: 18rem; height:150px; padding: 17px; border-radius: 10px;  ">
-            <div class="card-body">
-              <div class="row align-items-center">
-                <div class="col mr-2">
-                  <div class="text-xs h5 font-weight-bold text-uppercase mb-1">Cabang</div>
-                  <div class="h5 mt-3 mb-0 font-weight-bold text-muted">40</div>
-                  <div class="mt-4 mb-4 text-muted text-xs">
+                                            <button type="button" class="btn btn-primary btn-sm">Lihat Detail <i class="fa fa-arrow-right"></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="col-auto mr-4">
+                                        <i class="fa-solid fa-user-group fa-5x text-primary"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6 mb-4 ml-3">
+                        <div class="card" style="width: 18rem; height:150px; padding: 17px; border-radius: 10px;  ">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs h5 font-weight-bold text-uppercase mb-1">Cabang</div>
+                                        <div class="h5 mt-3 mb-0 font-weight-bold text-muted">40</div>
+                                        <div class="mt-4 mb-4 text-muted text-xs">
 
-                    <button type="button" class="btn btn-primary btn-sm">Lihat Detail <i class="fa fa-arrow-right"></i></button>
-                  </div>
+                                            <button type="button" class="btn btn-primary btn-sm">Lihat Detail <i class="fa fa-arrow-right"></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="col-auto mr-4">
+                                        <i class="fa-solid fa-building fa-6x text-primary"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-auto mr-4">
-                  <i class="fa-solid fa-building fa-6x text-primary"></i>
+            }
+            @if (ViewBag.Role == "Pembimbing")
+            {
+                <div class="container">
+                    <h1><b>Selamat datang!</b></h1>
+                    <br>
+                    <span>
+                        <h5>Bapak/Ibu Pembimbing Industri yang kami hormati.</h5>
+                        <br>
+                        <h5>Terima kasih kami ucapkan kepada Bapak dan Ibu Pembimbing Industri yang telah meluangkan waktu, tenaga, dan pikiran untuk membimbing mahasiswa Politeknik Astra untuk melaksanakan Praktik Kerja Industri (Magang) di area kerja Bapak Ibu sekalian.</h5>
+                        <h5 class="mt-4">
+                            Kami berharap kegiatan ini akan memberikan manfaat, tidak saja bagi civitas akademik Politeknik Astra, namun juga bagi industri, khususnya area kerja Bapak dan Ibu sekalian.
+                            Sebagai umpan balik bagi mahasiswa dan proses praktik industri secara umum, kami mohon kesediaan Bapak dan Ibu Pembimbing untuk mengisi Form Penilaian Praktik Kerja Industri ini.
+                            Semoga umpan balik ini bisa menjadi masukan untuk perbaikan di masa mendatang.
+                        </h5>
+                        <h5 class="mt-4">
+
+                            Jika ada pertanyaan/masukan silakan kirim email ke Departemen Administrasi Akademik dan Admisi,: syaiful.ali@polman.astra.ac.id
+                        </h5>
+                    </span>
                 </div>
-              </div>
-            </div>
-          </div>
+            }
+            @if (ViewBag.Role == "MAHASISWA")
+            {
+                <div class="container">
+                    <h1><b>Selamat datang!</b></h1>
+                    <br>
+                    <span>
+                        <h5>Terima kasih kami ucapkan kepada Mahasiswa/i yang telah menjadi Representasi dari Politekniik Astra di mata Industri untuk melaksanakan Praktik Kerja Industri (Magang) Tahun Akademik 2021-2022.</h5>
+                        <h5 class="mt-4">
+
+                            Kami berharap kegiatan ini akan memberikan manfaat, yaitu Mahasiswa/i memperoleh kesempatan menerapkan keilmuan yang diperoleh dan atau menambah wawasan keilmuan pada lingkungan pekerjaan sesungguhnya serta memiliki pengalaman tentang budaya kerja di industri.
+
+
+                        </h5>
+                        <h5 class="mt-4">
+                            Sebagai Laporan Kegiatan Praktek Kerja Industri bagi Mahasiswa dengan ini kami siapkan Logbook Kegiatan Prakerin Mahasiswa Politeknik Astra.
+
+                        </h5>
+                        <h5 class="mt-4">
+
+                            Jika ada pertanyaan/masukan silakan kirim email ke Departemen Administrasi Akademik dan Admisi,: syaiful.ali@polman.astra.ac.id
+                        </h5>
+                        <a class="btn btn-primary text-white mt-5" asp-action="Tambah" asp-controller="LogBook" style="display:block;" id="validateTime">Form LogBook</a>
+                    </span>
+                </div>
+                <script type="text/javascript">
+                    var currentTime = new Date();
+                    var startTime = new Date(currentTime.getFullYear(), currentTime.getMonth(), currentTime.getDate(), 8, 0, 0);
+                    var endTime = new Date(currentTime.getFullYear(), currentTime.getMonth(), currentTime.getDate(), 22, 0, 0);
+
+                    @*if (currentTime > startTime && currentTime < endTime) {
+                        document.getElementById("validateTime").style.display = "block";
+                        //$("#validateTime").show();
+                        console.log("ea ga muncul");
+                    }*@
+                </script>
+            }
         </div>
-      </div>
+
+        <hr class="my-4" />
+        <p class="lead" style="font-size: 1.1rem;">
+            Jika terdapat kesulitan tentang cara penggunaan aplikasi ini, silahkan menghubungi MIS.
+            <br />
+            <br />
+        </p>
     </div>
-
-    <hr class="my-4" />
-    <p class="lead" style="font-size: 1.1rem;">
-      Jika terdapat kesulitan tentang cara penggunaan aplikasi ini, silahkan menghubungi MIS.
-      <br />
-      <br />
-    </p>
-  </div>
 </div>

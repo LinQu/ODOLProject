@@ -12,6 +12,8 @@ namespace ODOL.Models
         public int? IdPerusahaan { get; set; }
         
         public string? NamaPerusahaan { get; set; }
+        public string? Cabang { get; set; }
+        public string? Group { get; set; }
 
         public string? NamaMahasiswa { get; set; }
         public string? Prodi { get; set; }

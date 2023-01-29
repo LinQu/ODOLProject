@@ -61,7 +61,7 @@
 
                 </div>
                 <input type="submit" ID="btnLogin" Class="btn btn-primary" Style="width: 100%; margin-top: 10px; margin-bottom: 10px;" Text="Masuk"/>
-                <span style="margin-top: 10px;">Login Sebagai HR/Pembimbing <a href='ts_registrasi.aspx'>Klik disini</a>.</span>
+                <span style="margin-top: 10px;">Login Sebagai Mahasiswa <a asp-controller="Home" asp-action="Login">Klik disini</a>.</span>
             </div>
             <div class="polman-nav-static-bottom">
                 Copyright &copy; @DateTime.Now.Year - MIS Politeknik Manufaktur Astra
@@ -76,7 +76,7 @@
                     icon: '@TempData["Icon"]',
                     title: '@TempData["Notifikasi"]',
                     showConfirmButton: false,
-                    timer: 1500,
+                    timer: 1000,
                    
                 })
             </text>

@@ -15,6 +15,29 @@ namespace ODOL.Controllers
             _db = db;
         }
 
+        public JsonResult GettPembimbingById(int id)
+        {
+            var pembimbing = (from pem in _db.Pembimbing
+                              join peng in _db.Pengguna on pem.idPengguna equals peng.Id
+                              where pem.Status == "Aktif" && pem.id == id
+                              select new ViewPem
+                              {
+                                  id = pem.id,
+                                  idPengguna = pem.idPengguna,
+                                  idPerusahaan = pem.idPerusahaan,
+                                  NamaPembimbing = peng.Nama,
+                                  EmailPembimbing = pem.EmailPembimbing,
+                                  Jabatan = pem.Jabatan,
+                                  Status = pem.Status,
+                                  CreateBy = pem.CreateBy,
+                                  CreateDate = pem.CreateDate,
+                                  ModifBy = pem.ModifBy,
+                                  ModifDate = pem.ModifDate
+                              }).FirstOrDefault();
+
+            return Json(new { data = pembimbing });
+        }
+
         public JsonResult GetAllPembimbing(int id)
         {
             var pembimbing = (from pem in _db.Pembimbing

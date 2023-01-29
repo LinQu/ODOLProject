@@ -16,6 +16,38 @@ namespace ODOL.Controllers
             _db = db;
         }
 
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Login(string? NIM, string? Role, string? Nama,string? Prodi)
+        {
+            if (Role != "" && NIM != "" && Nama != "" && Prodi != "")
+            {
+                ViewBag.Nama = Nama;
+                ViewBag.Role = Role;
+                ViewBag.NIM = NIM;
+                ViewBag.Prodi = Prodi;
+                HttpContext.Session.SetString("Nama", Nama);
+                HttpContext.Session.SetString("Role", Role);
+                HttpContext.Session.SetString("NIM", NIM);
+                HttpContext.Session.SetString("Prodi", Prodi);
+                
+                return RedirectToAction("Index", "Dashboard");
+            }
+            else
+            {
+
+                TempData["Notifikasi"] = "Username atau Password Salah";
+                TempData["Icon"] = "error";
+                return View();
+            }
+
+
+        }
+
 
         public IActionResult Index()
         {

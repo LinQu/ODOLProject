@@ -14,6 +14,8 @@ $(document).ready(function () {
 
 });
 
+
+
 function GetAccPeru() {
     $.ajax({
         type: "GET",
@@ -48,6 +50,8 @@ function GetAccPemb() {
         }
     });
 }
+
+
 
 function GetPembimbing() {
     var path = window.location.pathname.split('/');
@@ -110,6 +114,17 @@ function GetPerusahaan() {
 }
 
 
+function GetPembimbingById() {
+    var search = document.getElementById("PembimbingSearch").value;
+    $.ajax({
+        type: "GET",
+        url: "/Pembimbing/GettPembimbingById/"+search,
+        success: function (data) {
+            console.log(data.data.jabatan);
+            $("#JabatanPemb").val(data.data.jabatan);
+        }
+    });
+}
 
 function GetMahasiswa() {
     var ddlmhs = document.getElementById("ddlmhs");

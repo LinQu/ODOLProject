@@ -25,8 +25,11 @@
 
             <div class="card mt-3">
                 <span class="text-center mb-1">
-                    <a asp-action="Detail" asp-route-id="@Model.Id" class="btn btn-danger float-right">Hapus</a>
-                    <a asp-action="Ubah" asp-route-id="@Model.Id" class="btn btn-warning float-left">Ubah</a>
+                    @if (ViewBag.Role == "Admin")
+                    {
+                        <a asp-action="Detail" asp-route-id="@Model.Id" class="btn btn-danger float-right">Hapus</a>
+                        <a asp-action="Ubah" asp-route-id="@Model.Id" class="btn btn-warning float-left">Ubah</a>
+                    }
 
                     <h4>
                         <b>
@@ -121,7 +124,10 @@
             <div class="card">
 
                 <span class="text-center mb-1">
-                    <a asp-action="Tambah" asp asp-controller="Pembimbing" asp-route-id="@Model.Id" class="btn btn-primary float-left">Tambah</a>
+                    @if (ViewBag.Role == "Admin")
+                    {
+                        <a asp-action="Tambah" asp asp-controller="Pembimbing" asp-route-id="@Model.Id" class="btn btn-primary float-left">Tambah</a>
+                    }
                     <h4>
                         <b>
                             Daftar Pembimbing
@@ -137,11 +143,14 @@
                             <th scope="col" class="text-center">Nama</th>
                             <th scope="col" class="text-center">Jabatan</th>
                             <th scope="col" class="text-center">Email</th>
-                            <th scope="col" class="text-center">Aksi</th>
+                            @if (ViewBag.Role == "Admin")
+                            {
+                                <th scope="col" class="text-center">Aksi</th>
+                            }
                         </tr>
                     </thead>
                     <tbody>
-                         @if (Model.DaftarPembimbing != null)
+                        @if (Model.DaftarPembimbing != null)
                         {
                             int i = 1;
                             foreach (var item in Model.DaftarPembimbing)
@@ -151,10 +160,13 @@
                                     <td class="text-left">@item.NamaPembimbing</td>
                                     <td class="text-left">@item.Jabatan</td>
                                     <td class="text-left">@item.EmailPembimbing</td>
-                                    <td>
-                                        <a asp-action="Ubah" asp-controller="Pembimbing" asp-route-id="@item.id" class="btn btn-warning">Ubah</a>
-                                        <a data-toggle="modal" data-target="#modalHapus" onclick="document.getElementById('idHapus').value = @item.id"  style="color:white;"  class="btn btn-danger">Hapus</a>
-                                    </td>
+                                    @if (ViewBag.Role == "Admin")
+                                    {
+                                        <td>
+                                            <a asp-action="Ubah" asp-controller="Pembimbing" asp-route-id="@item.id" class="btn btn-warning">Ubah</a>
+                                            <a data-toggle="modal" data-target="#modalHapus" onclick="document.getElementById('idHapus').value = @item.id" style="color:white;" class="btn btn-danger">Hapus</a>
+                                        </td>
+                                    }
                                 </tr>
                                 i++;
                             }

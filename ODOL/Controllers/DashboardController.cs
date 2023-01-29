@@ -10,6 +10,7 @@ namespace ODOL.Controllers
             {
                 ViewBag.Nama = HttpContext.Session.GetString("Nama");
                 ViewBag.Role = HttpContext.Session.GetString("Role");
+                ViewBag.NIM = HttpContext.Session.GetString("NIM");
                 return View();
             }
             else
