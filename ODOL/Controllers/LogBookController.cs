@@ -14,7 +14,7 @@ namespace ODOL.Controllers
             _db = db;
         }
 
-        public JsonResult GetDetailLog(string? NIM,int? id)
+        public JsonResult GetDetailLog(string? NIM, int? id)
         {
             var logbook = (from log in _db.LogBook
                            join mhs in _db.Mahasiswa on log.NIM equals mhs.NIM
@@ -42,7 +42,36 @@ namespace ODOL.Controllers
                                CreatedDate = log.CreatedDate
                            }).FirstOrDefault();
             return Json(new { data = logbook });
-            
+
+        }
+
+        [HttpPost]
+        public IActionResult UpdateStatus(int id, string? ulasan,string status)
+        {
+            if (HttpContext.Session.GetString("Nama") != null)
+            {
+                if (HttpContext.Session.GetString("Role") == "Pembimbing")
+                {
+                    var search = _db.LogBook.Where(f => f.idLogBook == id).FirstOrDefault();
+                    search.Ulasan = ulasan;
+                    search.Status = status;
+                    LogBook log = search;
+                    _db.LogBook.Update(log);
+                    _db.SaveChanges();
+                    return RedirectToAction("Daftar", "LogBook");
+                }else
+                {
+                    TempData["Notifikasi"] = "Anda Tidak Punya Akses";
+                    TempData["Icon"] = "error";
+                    return RedirectToAction("Index", "Dashboard");
+                }
+            }
+            else
+            {
+                TempData["Notifikasi"] = "Anda Harus Login Terlebih Dahulu";
+                TempData["Icon"] = "error";
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         public IActionResult Index()
@@ -55,6 +84,8 @@ namespace ODOL.Controllers
                     ViewBag.Role = HttpContext.Session.GetString("Role");
                     ViewBag.NIM = HttpContext.Session.GetString("NIM");
                     var NIM = HttpContext.Session.GetString("NIM");
+                    ViewBag.Status = CheckLog();
+                    ViewBag.Tableid = "myTableLogBook" + CheckLog();
                     return View(_db.LogBook.Where(f => f.NIM == NIM).ToList());
                 }
                 else
@@ -72,6 +103,60 @@ namespace ODOL.Controllers
             }
 
         }
+
+        public string CheckLog()
+        {
+            //mengecek apakah harini sudah mengisi logbook
+            var tanggal = DateTime.Now.Date;
+            var log = _db.LogBook.OrderBy(f => f.Tanggal).LastOrDefault(f => f.NIM == HttpContext.Session.GetString("NIM"));
+            if (log != null)
+            {
+                var date = DateTime.Parse(log.Tanggal.ToString()).Date;
+                if (date == tanggal)
+                {
+                    return "Sudah";
+                }
+                else
+                {
+                    return "Belum";
+                }
+            }
+            else
+            {
+                return "Belum";
+            }
+        }
+    
+
+        public IActionResult Daftar()
+        {
+            if (HttpContext.Session.GetString("Nama") != null)
+            {
+                if (HttpContext.Session.GetString("Role") == "Pembimbing")
+                {
+                    var idPeng = Convert.ToInt32(HttpContext.Session.GetString("Id"));
+                    var idPemb = _db.Pembimbing.Where(f => f.idPengguna == idPeng).FirstOrDefault();
+                    var logbook = _db.LogBook.Where(f => f.idPembimbing == idPemb.id && f.Status == "Belum Disetujui").ToList();
+                    ViewBag.Nama = HttpContext.Session.GetString("Nama");
+                    ViewBag.Role = HttpContext.Session.GetString("Role");
+                    ViewBag.Id = HttpContext.Session.GetString("Id");
+                    return View(logbook);
+                }
+                else
+                {
+                    TempData["Notifikasi"] = "Anda Tidak Punya Akses";
+                    TempData["Icon"] = "error";
+                    return RedirectToAction("Index", "Dashboard");
+                }
+            }
+            else
+            {
+                TempData["Notifikasi"] = "Anda Harus Login Terlebih Dahulu";
+                TempData["Icon"] = "error";
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
 
         public IActionResult Tambah()
         {
@@ -229,7 +314,7 @@ namespace ODOL.Controllers
         {
             if (HttpContext.Session.GetString("Nama") != null)
             {
-                if (HttpContext.Session.GetString("Role") == "MAHASISWA")
+                if (HttpContext.Session.GetString("Role") == "MAHASISWA" || HttpContext.Session.GetString("Role") == "Pembimbing" || HttpContext.Session.GetString("Role") == "Admin" || HttpContext.Session.GetString("Role") == "Prodi")
                 {
                     var logbook = (from log in _db.LogBook
                                    join mhs in _db.Mahasiswa on log.NIM equals mhs.NIM

@@ -31,26 +31,31 @@
             <hr />
             <form method="post">
                 <div class="row g-3">
+
                     <div class="col-12 form-group">
                         <label>Mahasiswa<span style="color:red;">*</span></label>
                         <select class="form-control" onchange="GetMhs()" id="ddlmhs">
                             <option disabled selected value="">--Pilih Mahasiswa--</option>
+                            @foreach (var item in ViewBag.DaftarMhs)
+                            {
+                                <option value="@item.nim">@item.nim - @item.nama</option>
+                            }
                         </select>
                     </div>
                     <div class="col-4 form-group">
                         <label asp-for="NIM">NIM</label>
-                        <input type="text" asp-for="NIM" class="form-control" id="NIM" value="" placeholder="NIM">
+                        <input type="text" asp-for="NIM" class="form-control" id="NIM" value="" placeholder="NIM" readonly>
                         <span asp-validation-for="NIM" style="color:red"></span>
                     </div>
                     <div class="col-4 form-group">
                         <label asp-for="NamaMahasiswa">Nama</label>
-                        <input type="text" asp-for="NamaMahasiswa" class="form-control" value="" id="Nama" placeholder="Nama Mahasiswa">
+                        <input type="text" asp-for="NamaMahasiswa" class="form-control" value="" id="Nama" placeholder="Nama Mahasiswa" readonly>
                         <span asp-validation-for="NamaMahasiswa" style="color:red"></span>
 
                     </div>
                     <div class="col-4 form-group">
                         <label asp-for="Prodi">Prodi</label>
-                        <input type="text" asp-for="Prodi" class="form-control" value="" id="prodi" placeholder="Prodi">
+                        <input type="text" asp-for="Prodi" class="form-control" value="" id="prodi" placeholder="Prodi" readonly>
                         <span asp-validation-for="Prodi" style="color:red"></span>
 
                     </div>

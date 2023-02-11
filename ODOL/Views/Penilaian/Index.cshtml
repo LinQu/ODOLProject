@@ -2,10 +2,9 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
-        ViewData["Title"] = "Template";
+        ViewData["Title"] = "Penilaian";
 
 }
-
 <div class="col panelcontent panelcontentweb" style="font-size: 14px; height:650px">
     <div class="scrollstyle">
         <nav aria-label=" breadcrumb" style="margin-left: 20px;">
@@ -21,6 +20,32 @@
         <hr style="margin-top: .8em;" />
         <div class="jumbotron" style="box-shadow: none; height:auto; margin-left:20px; padding: 15px 30px;">
              @* taruh content disini*@
+             <div class="card">
+				<span style="font-size: large;">
+					<p>
+						Pembimbing Industri memberikan penilaian kepada Mahasiswa peserta Praktik Kerja Industri (Magang) sesuai kriteria penilaian.
+					</p>
+					<p>
+						Petunjuk Penilaian
+						Pembimbing Industri memberikan penilaian untuk butir A sampai dengan H dengan skala 0 - 100, sesuai rubrik penilaian berikut ini (yang dimasukkan hanya angkanya saja).
+					</p>
+					<span>
+						Range Penilaian Mahasiswa Magang Industri :<br>
+						A (85 - 100) = Sangat Baik<br>
+						B (70 - 84) = Baik<br>
+						C (60 - 69) = Cukup<br>
+						D (40 - 59) = Kurang<br>
+						E ( 0 - 39) = Sangat Kurang<br>
+					</span>
+					<p>
+						Note: Penilaian yang diisikan cukup hanya angka saja. Contoh : 74
+					</p>
+					<p>
+						Jika ada pertanyaan/masukan silakan kirim email ke Departemen Administrasi Akademik dan Admisi,: syaiful.ali@polman.astra.ac.id
+					</p>
+				</span>
+				<a asp-controller="Penilaian" asp-action="Tambah" class="btn btn-primary">Berikutnya</a>
+			</div>
         </div>
 
         <hr class="my-4" />

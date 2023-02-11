@@ -26,7 +26,6 @@
                         <label for="NIM"><b>NIM</b></label>
                         <input type="text" class="form-control" id="NIM" value="@ViewBag.NIM" readonly>
                     </div>
-
                 </div>
                 <div class="col-md-4">
                     <div class="form-group ">
@@ -61,7 +60,7 @@
                 <div class="col-md-6">
                     <div class="form-group ">
                         <label for="Departemen"><b>Departemen</b></label>
-                        <input type="text" asp-for="Departemen"  class="form-control" id="Departemen" readonly />
+                        <input type="text" asp-for="Departemen" class="form-control" id="Departemen" readonly />
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -91,11 +90,34 @@
                 <div class="col-md-12">
                     <div class="form-group ">
                         <label for="Ulasan"><b>Catatan dari Pembimbing</b></label>
-                        <textarea class="form-control" asp-for="Ulasan" readonly></textarea>
+                        @if (ViewBag.Role == "Pembimbing" && Model.Status == "Belum Disetujui")
+                        {
+                            <textarea class="form-control" oninput="handleInput(event)" asp-for="Ulasan"></textarea>
+                        }
+                        else if (ViewBag.Role == "MAHASISWA")
+                        {
+                            <textarea class="form-control" asp-for="Ulasan" readonly></textarea>
+                        }
+                        else
+                        {
+                            <textarea class="form-control" asp-for="Ulasan" readonly></textarea>
+                        }
                     </div>
                 </div>
             </div>
-            <a class="btn btn-warning text-white" asp-action="index">Kembali</a>
+            @if (ViewBag.Role == "Pembimbing" && Model.Status == "Belum Disetujui")
+            {
+                <div class="text-end float-right">
+                    <a class="btn btn-danger text-white">Tidak Setuju</a>
+                    <a class="btn btn-success text-white">Setuju</a>
+                </div>
+            }
+            @if (ViewBag.Role == "MAHASISWA")
+            {
+                <a class="btn btn-warning text-white" asp-action="index">Kembali</a>
+            }else if(ViewBag.Role == "Pembimbing"){
+                <a class="btn btn-warning text-white" asp-action="index" asp-controller="Mahasiswa">Kembali</a>
+            }
         </div>
 
         <hr class="my-4" />

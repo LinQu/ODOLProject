@@ -4,14 +4,42 @@
 // Write your JavaScript code.
 
 // jQuery
+
+//$('textarea').on('keydown', function (e) {
+//    var t = $(this);
+//    switch (e.which) {
+//        case 13:
+//            t.val(t.val() + '\n•');
+//            return false;
+//    }
+//});
+
+let previousLength = 0;
+
+const handleInput = (event) => {
+    const bullet = "\u2022";
+    const newLength = event.target.value.length;
+    const characterCode = event.target.value.substr(-1).charCodeAt(0);
+
+    if (newLength > previousLength) {
+        if (characterCode === 10) {
+            event.target.value = `${event.target.value}${bullet} `;
+        } else if (newLength === 1) {
+            event.target.value = `${bullet} ${event.target.value}`;
+        }
+    }
+
+    previousLength = newLength;
+}
+
+
 $(document).ready(function () {
-    GetMahasiswa();
+    //GetMahasiswa();
     GetPerusahaan();
     GetAccPeru();
     GetAccPemb();
     /*GetPembimbing();*/
     /*GetMhsPeru();*/
-
 });
 
 
@@ -127,10 +155,9 @@ function GetPembimbingById() {
 }
 
 function GetMahasiswa() {
-    var ddlmhs = document.getElementById("ddlmhs");
     $.ajax({
         type: "GET",
-        url: "/Mahasiswa/GetAllMahasiswa",
+        url: "/Mahasiswa/GetAllMahasiswa1",
         success: function (data) {
             //console.log(data.data[1]);
             //if path Mahasiswa then show data
@@ -147,10 +174,12 @@ function GetMhs() {
     var NIM = document.getElementById("ddlmhs").value;
     $.ajax({
         type: "GET",
-        url: "/Mahasiswa/SearchMhs",
-        data: "search=" + NIM,
+        url: "/Mahasiswa/SearchMhsApi",
+        
+        data: "nim=" + NIM,
         contentType: "application/json; charset=utf-8",
         dataType: "json",
+        
         success: function (data) {
             OnSucces(data);
         }
@@ -262,9 +291,9 @@ function OnSucces(data) {
     var Nama = document.getElementById("Nama");
     var prodi = document.getElementById("prodi");
 
-    NIM.value = data[0].nim;
-    Nama.value = data[0].nama;
-    prodi.value = data[0].prodi;
+    NIM.value = data.data[0].nim;
+    Nama.value = data.data[0].nama;
+    prodi.value = data.data[0].prodi;
 
 
 }

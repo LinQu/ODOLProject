@@ -25,10 +25,10 @@
                                 <div class="row align-items-center">
                                     <div class="col mr-2">
                                         <div class="text-xs h5 font-weight-bold text-uppercase mb-1">Perusahaan</div>
-                                        <div class="h5 mt-3 mb-0 font-weight-bold text-muted">40</div>
+                                        <div class="h5 mt-3 mb-0 font-weight-bold text-muted">@ViewBag.CountPeru</div>
                                         <div class="mt-4 mb-4 text-muted text-xs">
 
-                                            <button type="button" class="btn btn-primary btn-sm">Lihat Detail <i class="fa fa-arrow-right"></i></button>
+                                            <a asp-action="Index" asp-controller="Perusahaan" class="btn btn-primary btn-sm">Lihat Detail <i class="fa fa-arrow-right"></i></a>
                                         </div>
                                     </div>
                                     <div class="col-auto mr-4">
@@ -44,10 +44,10 @@
                                 <div class="row align-items-center">
                                     <div class="col mr-2">
                                         <div class="text-xs h5 font-weight-bold text-uppercase mb-1">Mahasiswa</div>
-                                        <div class="h5 mt-3 mb-0 font-weight-bold text-muted">40</div>
+                                        <div class="h5 mt-3 mb-0 font-weight-bold text-muted">@ViewBag.CountMhs</div>
                                         <div class="mt-4 mb-4 text-muted text-xs">
 
-                                            <button type="button" class="btn btn-primary btn-sm">Lihat Detail <i class="fa fa-arrow-right"></i></button>
+                                            <a asp-action="Index" asp-controller="Mahasiswa"  class="btn btn-primary btn-sm">Lihat Detail <i class="fa fa-arrow-right"></i></a>
                                         </div>
                                     </div>
                                     <div class="col-auto mr-4">
@@ -62,11 +62,11 @@
                             <div class="card-body">
                                 <div class="row align-items-center">
                                     <div class="col mr-2">
-                                        <div class="text-xs h5 font-weight-bold text-uppercase mb-1">User</div>
-                                        <div class="h5 mt-3 mb-0 font-weight-bold text-muted">40</div>
+                                        <div class="text-xs h5 font-weight-bold text-uppercase mb-1">Pengguna</div>
+                                        <div class="h5 mt-3 mb-0 font-weight-bold text-muted">@ViewBag.CountUser</div>
                                         <div class="mt-4 mb-4 text-muted text-xs">
 
-                                            <button type="button" class="btn btn-primary btn-sm">Lihat Detail <i class="fa fa-arrow-right"></i></button>
+                                            <a asp-action="Index" asp-controller="Pengguna" type="button" class="btn btn-primary btn-sm">Lihat Detail <i class="fa fa-arrow-right"></i></a>
                                         </div>
                                     </div>
                                     <div class="col-auto mr-4">
@@ -76,26 +76,27 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-3 col-md-6 mb-4 ml-3">
-                        <div class="card" style="width: 18rem; height:150px; padding: 17px; border-radius: 10px;  ">
-                            <div class="card-body">
-                                <div class="row align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs h5 font-weight-bold text-uppercase mb-1">Cabang</div>
-                                        <div class="h5 mt-3 mb-0 font-weight-bold text-muted">40</div>
-                                        <div class="mt-4 mb-4 text-muted text-xs">
-
-                                            <button type="button" class="btn btn-primary btn-sm">Lihat Detail <i class="fa fa-arrow-right"></i></button>
-                                        </div>
-                                    </div>
-                                    <div class="col-auto mr-4">
-                                        <i class="fa-solid fa-building fa-6x text-primary"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    
                 </div>
+            }
+            @if (ViewBag.Role == "Prodi")
+            {
+                <h1><b>Selamat datang!</b></h1>
+                <br />
+                <span>
+                    @*<h5>Bapak/Ibu Pembimbing Industri yang kami hormati.</h5>
+                    <br>
+                    <h5>Terima kasih kami ucapkan kepada Bapak dan Ibu Pembimbing Industri yang telah meluangkan waktu, tenaga, dan pikiran untuk membimbing mahasiswa Politeknik Astra untuk melaksanakan Praktik Kerja Industri (Magang) di area kerja Bapak Ibu sekalian.</h5>
+                    <h5 class="mt-4">
+                        Kami berharap kegiatan ini akan memberikan manfaat, tidak saja bagi civitas akademik Politeknik Astra, namun juga bagi industri, khususnya area kerja Bapak dan Ibu sekalian.
+                        Sebagai umpan balik bagi mahasiswa dan proses praktik industri secara umum, kami mohon kesediaan Bapak dan Ibu Pembimbing untuk mengisi Form Penilaian Praktik Kerja Industri ini.
+                        Semoga umpan balik ini bisa menjadi masukan untuk perbaikan di masa mendatang.
+                    </h5>*@
+                    <h5 class="mt-4">
+
+                        Jika ada pertanyaan/masukan silakan kirim email ke Departemen Administrasi Akademik dan Admisi,: syaiful.ali@polman.astra.ac.id
+                    </h5>
+                </span>
             }
             @if (ViewBag.Role == "Pembimbing")
             {
@@ -116,6 +117,10 @@
                             Jika ada pertanyaan/masukan silakan kirim email ke Departemen Administrasi Akademik dan Admisi,: syaiful.ali@polman.astra.ac.id
                         </h5>
                     </span>
+                    @if (ViewBag.Approve > 0)
+                    {
+                        <div class="alert alert-info" role="alert">Ada @ViewBag.Approve LogBook yang harus di Setujui,<a asp-action="Daftar" asp-controller="LogBook">Klik Disini</a>  </div>
+                    }
                 </div>
             }
             @if (ViewBag.Role == "MAHASISWA")
@@ -139,7 +144,15 @@
 
                             Jika ada pertanyaan/masukan silakan kirim email ke Departemen Administrasi Akademik dan Admisi,: syaiful.ali@polman.astra.ac.id
                         </h5>
-                        <a class="btn btn-primary text-white mt-5" asp-action="Tambah" asp-controller="LogBook" style="display:block;" id="validateTime">Form LogBook</a>
+                        @if (ViewBag.Status == "Belum")
+                        {
+                            <div class="alert alert-warning">
+                                Anda belum melakukan pengisian formulir logbook mahasiswa untuk hari ini!
+                                <br>
+                                Formulir logbook mahasiswa magang tersedia mulai pukul 08.00 - 20.00 WIPA untuk hari ini.
+                            </div>
+                            <a class="btn btn-primary text-white mt-5" asp-action="Tambah" asp-controller="LogBook" style="display:block;" id="validateTime">Form LogBook</a>
+                        }
                     </span>
                 </div>
                 <script type="text/javascript">
@@ -148,9 +161,9 @@
                     var endTime = new Date(currentTime.getFullYear(), currentTime.getMonth(), currentTime.getDate(), 22, 0, 0);
 
                     @*if (currentTime > startTime && currentTime < endTime) {
-                        document.getElementById("validateTime").style.display = "block";
-                        //$("#validateTime").show();
-                        console.log("ea ga muncul");
+                    document.getElementById("validateTime").style.display = "block";
+                    //$("#validateTime").show();
+                    console.log("ea ga muncul");
                     }*@
                 </script>
             }

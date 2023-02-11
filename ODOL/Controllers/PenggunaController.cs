@@ -78,15 +78,30 @@ namespace ODOL.Controllers
                 {
                     try
                     {
-                        pengguna.CreateDate = DateTime.Now;
-                        pengguna.CreateBy = HttpContext.Session.GetInt32("Id");
-                        pengguna.Status = "Aktif";
-                        pengguna.Password = BCrypt.Net.BCrypt.HashPassword(pengguna.Password);
-                        await _db.Pengguna.AddAsync(pengguna);
-                        await _db.SaveChangesAsync();
-                        TempData["Notifikasi"] = "Data Berhasil Dibuat";
-                        TempData["Icon"] = "success";
-                        return RedirectToAction("index");
+                        //cek apakah username sudah terpakai atau belum
+                        var cek = _db.Pengguna.Where(f => f.Username == pengguna.Username).FirstOrDefault();
+                        if (cek == null)
+                        {
+
+
+                            pengguna.CreateDate = DateTime.Now;
+                            pengguna.CreateBy = HttpContext.Session.GetInt32("Id");
+                            pengguna.Status = "Aktif";
+                            pengguna.Password = BCrypt.Net.BCrypt.HashPassword(pengguna.Password);
+                            await _db.Pengguna.AddAsync(pengguna);
+                            await _db.SaveChangesAsync();
+                            TempData["Notifikasi"] = "Data Berhasil Dibuat";
+                            TempData["Icon"] = "success";
+                            return RedirectToAction("index");
+                        }
+                        else
+                        {
+                            
+                                TempData["Notifikasi"] = "Username Sudah Terpakai";
+                                TempData["Icon"] = "error";
+                                return View();
+                            
+                        }
 
                     }
                     catch (Exception ex)
@@ -97,6 +112,9 @@ namespace ODOL.Controllers
 
                     }
                 }
+
+                ViewBag.Nama = HttpContext.Session.GetString("Nama");
+                ViewBag.Role = HttpContext.Session.GetString("Role");
                 return View(pengguna);
                 
             }
@@ -133,6 +151,8 @@ namespace ODOL.Controllers
         {
             if (HttpContext.Session.GetString("Nama") != null)
             {
+                ViewBag.Nama = HttpContext.Session.GetString("Nama");
+                ViewBag.Role = HttpContext.Session.GetString("Role");
                 if (ModelState.IsValid)
                 {
                     try

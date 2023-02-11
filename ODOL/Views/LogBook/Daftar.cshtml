@@ -2,7 +2,7 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
-    ViewData["Title"] = "Riwayat LogBook";
+    ViewData["Title"] = "Daftar LogBook";
 }
 @model IEnumerable<ODOL.Models.LogBook>
 
@@ -12,7 +12,7 @@
             <ol class="breadcrumb" style="padding: 0; margin: 0; background-color: #FFF;">
                 <li class="breadcrumb-item text-primary">
                     <b>
-                        Aplikasi Absensi dan Logbook Magang Mahasiswa
+                        Aplikasi Absensi dan Logbook Magang Mahasiswa 
                     </b>
                 </li>
                 <li class="breadcrumb-item active"><b>LogBook</b></li>
@@ -21,25 +21,8 @@
         <hr style="margin-top: .8em;" />
         <div class="jumbotron" style="box-shadow: none; height:auto; margin-left:20px; padding: 15px 30px;">
              @* taruh content disini*@
-             <span class="text-center mb-1">
-                <h4>
-                    <b>
-                        Riwayat LogBook
-                    </b>
-                </h4>
-            </span>
-            <hr />
-            
-            @if(ViewBag.Status == "Belum")
-            {
-                <div class="alert alert-warning">
-                    Anda belum melakukan pengisian formulir logbook mahasiswa untuk hari ini!
-                    <br>
-                    Formulir logbook mahasiswa magang tersedia mulai pukul 08.00 - 20.00 WIPA untuk hari ini.
-                </div>
-            }
-            <div class="card table-responsive">
-                 <table class="table container-fluid w-100 h-10 text-center" id="@ViewBag.Tableid">
+             <div class="card">
+                 <table class="table container-fluid w-100 h-10 text-center" id="myTable">
                     <thead>
                         <tr>
                             <th class="text-center">
@@ -64,12 +47,13 @@
                                 <tr>
                                     <td>@i</td>
                                     <td class="text-center">
-                                        @Convert.ToDateTime(item.Tanggal).ToString("dddd, dd MMMM yyyy, HH:mm", new System.Globalization.CultureInfo("id-ID"))
+                                        @Convert.ToDateTime(item.CreatedDate).ToString("dddd, dd MMMM yyyy, HH:mm", new System.Globalization.CultureInfo("id-ID"))
                                     </td>
                                     <td class="text-center">@item.Status</td>
                                     <td class="text-center">
                                         <a class="mr-1" asp-action="Detail" asp-controller="LogBook" asp-route-NIM="@item.NIM" asp-route-id="@item.idLogBook"> <i class="fas fa-list" style="color: #4285f4;"></i></a>
-                                        <a class="ml-1" asp-action="index" > <i class="fas fa-print" style="color: #4285f4;"></i></a>
+                                        <a class="ml-1" style='cursor: pointer;' onclick="callSwal(@item.idLogBook,'Ditolak')" > <i class="fas fa-xmark" style="color: #4285f4;"></i></a>
+                                        <a class="ml-1" style='cursor: pointer;' onclick="callSwal(@item.idLogBook,'Disetujui')" > <i class="fas fa-check" style="color: #4285f4;"></i></a>
                                     </td>
                                 </tr>
                                 i++;

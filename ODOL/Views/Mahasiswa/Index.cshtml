@@ -44,6 +44,9 @@
                                 Prodi
                             </th>
                             <th class="text-center">
+                                Status
+                            </th>
+                            <th class="text-center">
                                 Action
                             </th>
                         </tr>
@@ -61,11 +64,14 @@
                                     <td class="text-left">
                                         @item.NamaMahasiswa
                                     </td>
-                                    <td class="text-left">
+                                     <td class="text-left">
                                         @item.Prodi
                                     </td>
+                                    <td class="text-center">
+                                        <span class="badge bg-success">@item.Status</span>
+                                    </td>
                                     <td>
-                                        <a asp-action="Detail" asp-route-nim="@item.NIM" class="btn btn-primary">Detail</a>
+                                        <a asp-action="Detail" asp-route-NIM="@item.NIM" class="btn btn-primary">Detail</a>
                                     </td>
                                 </tr>
                                 i++;

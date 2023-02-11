@@ -17,5 +17,7 @@ namespace ODOL.Data
 
         public DbSet<Pembimbing> Pembimbing { get; set; }
         public DbSet<LogBook> LogBook { get; set; }
+
+        public DbSet<Penilaian> Penilaian { get; set; }
     }
 }

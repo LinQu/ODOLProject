@@ -1,0 +1,200 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Penilaian";
+
+}
+@model ODOL.Models.Penilaian
+<div class="col panelcontent panelcontentweb" style="font-size: 14px; height:650px">
+    <div class="scrollstyle">
+        <nav aria-label=" breadcrumb" style="margin-left: 20px;">
+            <ol class="breadcrumb" style="padding: 0; margin: 0; background-color: #FFF;">
+                <li class="breadcrumb-item text-primary">
+                    <b>
+                        Aplikasi Absensi dan Logbook Magang Mahasiswa
+                    </b>
+                </li>
+                <li class="breadcrumb-item active"><b>Mahasiswa</b></li>
+            </ol>
+        </nav>
+        <hr style="margin-top: .8em;" />
+        <div class="jumbotron" style="box-shadow: none; height:auto; margin-left:20px; padding: 15px 30px;">
+            @* taruh content disini*@
+            <form method="post">
+                <input type="hidden" asp-for="idPembimbing" value="@ViewBag.id" />
+                <div class=" row g-3">
+                    <div class="col-6 form-group">
+                        <label>Nama Mahasiswa<span style="color:red;">*</span></label>
+                        <select class="form-control" id="ddlmhs" asp-for="NIM" onchange="GetMhs()" required name="mhs">
+                            <option disabled selected value="">--Pilih Mahasiswa--</option>
+                            @foreach (var item in ViewBag.Mahasiswa)
+                            {
+                                <option value="@item.NIM">@item.NamaMahasiswa</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-6 form-group">
+                        <label>Periode Penilaian<span style="color:red;">*</span></label>
+                        <select class="form-control" asp-for="Periode" id="periode" required name="periode">
+                            <option disabled selected value="">--Pilih Periode--</option>
+                            <option value="Januari">Januari</option>
+                            <option value="Februari">Februari</option>
+                            <option value="Maret">Maret</option>
+                            <option value="April">April</option>
+                            <option value="Mei">Mei</option>
+                            <option value="Juni">Juni</option>
+                            <option value="Juli">Juli</option>
+                            <option value="Agustus">Agustus</option>
+                            <option value="September">September</option>
+                            <option value="Oktober">Oktober</option>
+                            <option value="November">November</option>
+                            <option value="Desember">Desember</option>
+
+
+                        </select>
+                    </div>
+                    <div class="col-4 form-group">
+                        <label>NIM</label>
+                        <input type="text" class="form-control" asp-for="NIM" id="NIM" value="" placeholder="NIM" required readonly>
+                    </div>
+                    <div class="col-4 form-group">
+                        <label>Nama</label>
+                        <input type="text" class="form-control" value="" id="Nama" placeholder="Nama Mahasiswa" required readonly>
+
+                    </div>
+                    <div class="col-4 form-group">
+                        <label>Prodi</label>
+                        <input type="text" class="form-control" value="" id="prodi" placeholder="Prodi" required readonly>
+
+                    </div>
+                </div>
+                <div class="card-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <div class="card card-default">
+
+                        <a data-toggle="collapse" class="text-black card-heading header collapsed" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+
+                            <div class="card-heading" role="tab" id="headingOne">
+
+                                <h3 class="card-title float-left text-black">
+
+                                    <b>Penilaian Kinerja</b>
+                                </h3>
+
+                            </div>
+                        </a>
+
+                        <div id="collapseOne" class="card-collapse collapse" role="tabcard" aria-labelledby="headingOne">
+                            <div class="card-body">
+                                <div class="row">
+
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <label>Pengetahuan Kerja <span style="color:red;">*</span> </label>
+                                            <br>
+                                            <img id="imgLogo" src="~/Images/PengKerja.jpg" style="height: 120px; margin-bottom: 11px ; " />
+                                            <input type="text" asp-for="PengetahuanKerja" id="PengKerja"  class="form-control" placeholder="Masukkan dalam skala 1-100" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-4 form-group">
+                                        <label>Kecepatan Kerja<span style="color:red;">*</span> </label>
+                                        <br>
+                                        <span>
+                                            <img id="imgLogo" src="~/Images/KecKer.jpg" style="height: 120px; margin-bottom: 11px ; " />
+                                        </span>
+                                        <input type="text" id="KecKerja" asp-for="KecepatanKerja" class="form-control" placeholder="Masukkan dalam skala 1-100" required>
+
+                                    </div>
+                                    <div class="col-4 form-group">
+                                        <label>Sikap dan Perilaku<span style="color:red;">*</span> </label>
+                                        <br>
+                                        <span>
+                                            <img id="imgLogo" src="~/Images/SikapPerilaku.jpg" style="height: 120px; margin-bottom: 11px ;" />
+                                        </span>
+                                        <input type="text" id="Sikap" asp-for="SikapPerilaku" class="form-control" placeholder="Masukkan dalam skala 1-100" required>
+
+                                    </div>
+                                    <br>
+                                    <div class="col-4 form-group">
+                                        <label>Kualitas Kerja<span style="color:red;">*</span> </label>
+                                        <br>
+                                        <span>
+                                            <img id="imgLogo" src="~/Images/KualKer.jpg" style="height: 100px; margin-bottom: 11px ; " />
+                                        </span>
+                                        <input type="text" id="KuaKerja" asp-for="KualitasKertja" class="form-control" placeholder="Masukkan dalam skala 1-100" required>
+
+                                    </div>
+                                    <div class="col-4 form-group">
+                                        <label>Kreativitas dan Kerjasama<span style="color:red;">*</span> </label>
+                                        <br>
+                                        <span>
+                                            <img id="imgLogo" src="~/Images/Kreativitas.jpg" style="height: 90px; margin-bottom: 11px ; " />
+                                        </span>
+                                        <br>
+                                        <input type="text" id="Kreatif" asp-for="KreatifitasKerjaSama" class="form-control mt-2" placeholder="Masukkan dalam skala 1-100" required>
+
+                                    </div>
+                                </div>
+                                <br>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="card-group mt-2 " id="accordion1" role="tablist" aria-multiselectable="true">
+                    <div class="card card-default">
+
+                        <a data-toggle="collapse" class="text-black card-heading header collapsed" data-parent="#accordion1" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+
+                            <div class="card-heading" role="tab" id="headingOne">
+
+                                <h3 class="card-title text-black float-left">
+
+                                    <b>Penilaian Softskill</b>
+                                </h3>
+
+                            </div>
+                        </a>
+
+                        <div id="collapseTwo" class="card-collapse collapse" role="tabcard" aria-labelledby="headingTwo">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-4 form-group">
+                                        <label for="cabang">Kemampuan Leadership<span style="color:red;">*</span></label>
+                                        <input type="text" asp-for="Leadership"  class="form-control" id="leader" placeholder="Masukkan dalam skala 1-100" required>
+
+                                    </div>
+                                    <div class="col-4 form-group">
+                                        <label for="group">Kemampuan Menangani Masalah<span style="color:red;">*</span></label>
+                                        <input type="text" asp-for="PenangananMasalah" class="form-control" id="tanganiMslh" placeholder="Masukkan dalam skala 1-100" required>
+                                    </div>
+                                    <div class="col-4 form-group">
+                                        <label for="group">Kemampuan Beradaptasi<span style="color:red;">*</span></label>
+                                        <input type="text" asp-for="Beradaptasi" class="form-control" id="adaptasi" placeholder="Masukkan dalam skala 1-100" required>
+                                    </div>
+                                    <div class="col-12 form-group">
+                                        <label for="group">Catatan untuk Mahasiswa<span style="color:red;">*</span></label>
+                                        <textarea class="form-control" id="catatan" oninput="handleInput(event)" rows="5" asp-for="Ulasan" placeholder="Masukkan catatan untuk mahasiswa" required></textarea>
+                                    </div>
+                                </div>
+                                <br>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <a asp-action="index" title="Kembali" class="btn btn-danger mt-3">Kembali</a>
+                <button type="submit" title="Simpan" class="btn btn-primary mt-3 float-right">Simpan</button>
+
+            </form>
+        </div>
+
+        <hr class="my-4" />
+        <p class="lead" style="font-size: 1.1rem;">
+            Jika terdapat kesulitan tentang cara penggunaan aplikasi ini, silahkan menghubungi MIS.
+            <br />
+            <br />
+        </p>
+    </div>
+</div>

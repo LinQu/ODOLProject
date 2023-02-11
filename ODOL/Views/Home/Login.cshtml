@@ -133,16 +133,18 @@
                                 type:"POST",
                                 url:"/Home/Login",
                                 data: {
-                                    NIM: NIM,
+                                    NIM: username,
                                     Role: role,
                                     Nama: nama,
                                     Prodi: prodi,
                                 },
                                 success: function (data) {
+                                    
                                     window.location.href = "/Dashboard/Index";
                                 },
                                 error: function (data) {
                                     console.log("erorr dek");
+                                    console.log(data.responseText);
                                     Swal.fire({
                               icon: 'error',
                               title: 'Gagal Login',

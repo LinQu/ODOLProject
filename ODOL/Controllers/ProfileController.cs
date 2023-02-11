@@ -28,6 +28,15 @@ namespace ODOL.Controllers
         {
             if (HttpContext.Session.GetString("Nama") != null)
             {
+                //mengecek apakah nim sudah terdaftar atau belum
+
+                var mahasiswa = _db.Mahasiswa.Where(f => f.NIM == NIM).FirstOrDefault();
+                if (mahasiswa == null)
+                {
+                    TempData["Notifikasi"] = "Data Tidak Ditemukan";
+                    TempData["Icon"] = "error";
+                    return RedirectToAction("Index");
+                }
                 if (NIM != null)
                 {
                     ViewBag.Nama = HttpContext.Session.GetString("Nama");

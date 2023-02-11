@@ -21,13 +21,13 @@ $(document).ready(function () {
 		"language": {
 			"emptyTable": "Data Masih Kosong"
 		},
-		"dom": 'B<"clear">lfrtip',
-		"buttons": {
-			name: 'primary',
-			buttons: ['copy', 'csv', 'excel']
-		}
+		//"dom": 'B<"clear">lfrtip',
+		//"buttons": {
+		//	name: 'primary',
+		//	buttons: ['copy', 'csv', 'excel']
+		//}
 	});
-	$('#myTableLogBook').DataTable({
+	$('#myTableLogBookBelum').DataTable({
 		"paging": true,
 		"lengthChange": false,
 		"searching": true,
@@ -54,6 +54,21 @@ $(document).ready(function () {
                 
 			}
 		]
+	});
+
+	$('#myTableLogBookSudah').DataTable({
+		"paging": true,
+		"lengthChange": false,
+		"searching": true,
+		"ordering": true,
+		"info": true,
+		"autoWidth": false,
+		"responsive": true,
+		"pageLength": 5,
+		"language": {
+			"emptyTable": "Data Masih Kosong"
+		},
+		
 	});
 
 	$('#myTableRiwayat').DataTable({
@@ -140,6 +155,11 @@ $(document).ready(function () {
 		$("#menuprofile").removeClass("hovermenu");
 		$("#menuprofile").removeClass("text-dark");
 	} 
+	else if (url.indexOf("Penilaian") > -1) {
+		$("#menunilai").addClass("active");
+		$("#menunilai").removeClass("hovermenu");
+		$("#menunilai").removeClass("text-dark");
+	} 
 	else {
 		$("#menuberanda").addClass("active");
 		$("#menuberanda").removeClass("hovermenu");
@@ -219,4 +239,57 @@ function validatepass1() {
 		alert.innerHTML = "Password sama";
 	}
 	return true;
+}
+
+function callSwal(id,status) {
+	Swal.fire({
+		title: "Silahkan Mengisikan Catatan Untuk Mahasiswa",
+		input: "textarea",
+		inputPlaceholder: "Silakan Mengisi dengan benar,Boleh Kosong",
+		showCancelButton: true,
+		cancelButtonText: 'Batal',
+		confirmButtonText: "Simpan ",
+		inputValidator: function (value) { // validates your input
+			return new Promise(function (resolve, reject) {
+				
+					// document.getElementById('closeComment').value = value; // assign this to other elements in your form
+					$.ajax({
+						type: "POST",
+						url: "/LogBook/UpdateStatus/",
+						data: {
+							"id": id,
+							"ulasan": value,
+                            "status" : status
+						},
+						success: function (data) {
+							if (data == "success") {
+								Swal.fire({
+									title: "Berhasil",
+									text: "Catatan Berhasil Disimpan",
+									icon: "success",
+									confirmButtonText: "OK"
+								}).then(function () {
+									location.reload();
+								});
+							}
+						},
+						error: function (data) {
+                            console.log(data);
+						}
+					});
+                    
+					Swal.fire({
+						title: "Berhasil",
+                        text: "Catatan Berhasil Disimpan",
+						icon: "success",
+						confirmButtonText: "OK"
+					}).then(function () {
+						location.reload();
+					});
+                    
+					// call other functions or do an AJAX call or sumbit your form
+			
+			});
+		}
+	});
 }
