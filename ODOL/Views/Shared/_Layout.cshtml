@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="~/lib/datatables/datatables.min.css" />
     <link rel="stylesheet" href="~/lib/sweetalert2/sweetalert2.min.css" />
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
 </head>
 <body style="padding: 0; border: 0; font-family: 'Noto Sans', sans-serif" aria-busy="true">
     <div class="container-fluid">
@@ -21,7 +22,7 @@
                 <i id="menuClose" class="fas fa-times fa-2x iconclose menuClose" style="cursor: pointer; display:none;" onclick="changestate('close');"></i>
                 <img id="imgLogo" src="~/Images/IMG_Logo.jpg" onclick="window.location.href='Home';" style="height: 60px; margin-bottom: 11px ; cursor: pointer;" />
                 <div class="panelauthentication">
-                    <b>@ViewBag.Nama (@ViewBag.Role)</b><br><span style='font-size: 11px'>Login terakhir: @DateTime.Now.ToString("dd MMMM yyyy, HH:mm WIB")</span>
+                    <b>@ViewBag.Nama (@ViewBag.Role)</b><br>
                 </div>
             </div>
         </div>
@@ -74,6 +75,7 @@
     <script src="~/lib/sweetalert2/sweetalert2.min.js"></script>
     <script src="~/js/script.js" asp-append-version="true"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
     <script>
@@ -83,8 +85,8 @@
                 Swal.fire({
                     icon: '@TempData["Icon"]',
                     title: '@TempData["Notifikasi"]',
-                    showConfirmButton: true,
-                   
+                    showConfirmButton: false,
+                    timer: 1000,
                 })
             </text>
 }
@@ -93,7 +95,9 @@
         $("#ddlacc").select2();
         $("#ddlaccpem").select2();
         $("#perusahaan").select2();
-    });
+    })
+
+
     </script>
 </body>
 </html>

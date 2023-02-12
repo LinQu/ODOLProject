@@ -32,6 +32,56 @@ const handleInput = (event) => {
     previousLength = newLength;
 }
 
+$(function () {
+    $('#toggle_status').change(function () {
+        var nim = document.getElementById("NIM").value;
+        if ($(this).prop('checked')) {
+            
+            Swal.fire({
+                title: 'Yakin ingin mengubah status menjadi Aktif?',
+                showDenyButton: true,
+                showCancelButton: false,
+                confirmButtonText: 'Yakin',
+                denyButtonText: `Batal`,
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    postStatus(nim, "Aktif");
+                } else if (result.isDenied) {
+                    $(this).prop('checked', false).change();
+                    Swal.fire({
+                        icon: "info",
+                        title: "Status batal diubah",
+                        timer: 1500,
+                    });
+                }
+            })
+        } else {
+            
+            Swal.fire({
+                title: 'Yakin ingin mengubah status menjadi Tidak Aktif?',
+                showDenyButton: true,
+                showCancelButton: false,
+                confirmButtonText: 'Yakin',
+                denyButtonText: `Batal`,
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    postStatus(nim, "Tidak Aktif");
+                } else if (result.isDenied) {
+                    $(this).prop('checked', true).change();
+                    
+                }
+                Swal.fire({
+                    icon: "info",
+                    title: "Status batal diubah",
+                    timer: 1500,
+                });
+            })
+        }
+    })
+});
+
 
 $(document).ready(function () {
     //GetMahasiswa();
@@ -42,6 +92,29 @@ $(document).ready(function () {
     /*GetMhsPeru();*/
 });
 
+function postStatus(nim, status) {
+    
+    var form = new FormData();
+    form.append("status", status);
+    form.append("nim", nim);
+
+    $.ajax({
+        method: "POST",
+        url: "/Mahasiswa/UpdateStatus",
+        data: form,
+        processData: false,
+        mimeType: "multipart/form-data",
+        contentType: false,
+        data: form,
+        success: function (data) {
+            console.log(data);
+            console.log("berhasil dek");
+        },
+        error: function (data) {
+            console.log(data.responseText);
+        }
+    });
+}
 
 
 function GetAccPeru() {
@@ -70,9 +143,9 @@ function GetAccPemb() {
 
             //if path Mahasiswa then show data
             if (window.location.pathname.split('/')[1] == "Pembimbing") {
-                
+
                 PutAccPem(data);
-                
+
             }
 
         }
@@ -88,14 +161,14 @@ function GetPembimbing() {
 
         $.ajax({
             type: "GET",
-            url: "/Pembimbing/GetAllPembimbing/"+path[3],
+            url: "/Pembimbing/GetAllPembimbing/" + path[3],
             success: function (data) {
                 //put to table tpemb
 
                 //if path Mahasiswa then show data
-                    PutPemb(data);
+                PutPemb(data);
 
-                
+
 
             }
 
@@ -117,7 +190,7 @@ function GetMhsPeru() {
                 console.log(data);
                 //if path Mahasiswa then show data
                 PutTableMhs(data);
-                
+
 
             }
 
@@ -146,7 +219,7 @@ function GetPembimbingById() {
     var search = document.getElementById("PembimbingSearch").value;
     $.ajax({
         type: "GET",
-        url: "/Pembimbing/GettPembimbingById/"+search,
+        url: "/Pembimbing/GettPembimbingById/" + search,
         success: function (data) {
             console.log(data.data.jabatan);
             $("#JabatanPemb").val(data.data.jabatan);
@@ -175,11 +248,11 @@ function GetMhs() {
     $.ajax({
         type: "GET",
         url: "/Mahasiswa/SearchMhsApi",
-        
+
         data: "nim=" + NIM,
         contentType: "application/json; charset=utf-8",
         dataType: "json",
-        
+
         success: function (data) {
             OnSucces(data);
         }
@@ -252,19 +325,19 @@ function PutPemb(data) {
         btn2.innerHTML = "Hapus";
         btn2.setAttribute("class", "btn btn-danger");
         btn2.setAttribute("id", "btn-delete");
-        
+
         //open modal
         btn2.setAttribute("data-id", data.data[i].id);
         btn2.setAttribute("style", "margin-left:5px;color:white;");
         btn2.setAttribute("data-toggle", "modal");
         btn2.setAttribute("data-target", "#modalHapus");
         btn2.setAttribute("onclick", "document.getElementById('idHapus').value = " + data.data[i].id);
-        
-        
-        
-        row.insertCell(4).innerHTML = btn.outerHTML+ "" + btn2.outerHTML;
-    
-       
+
+
+
+        row.insertCell(4).innerHTML = btn.outerHTML + "" + btn2.outerHTML;
+
+
 
     }
 

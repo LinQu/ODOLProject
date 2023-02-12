@@ -51,9 +51,9 @@ namespace ODOL.Controllers
                                                           ModifDate = pem.ModifDate
                                                       }).ToList(),
                                   DaftarMahasiswa = _db.Mahasiswa.Where(f => f.Status == "Aktif" && f.IdPerusahaan == peru.Id).ToList(),
-                                  CreateBy = peru.CreateBy,
+                                  CreateBy = (int)peru.CreateBy,
                                   CreateDate = peru.CreateDate,
-                                  ModifBy = peru.ModifBy,
+                                  ModifBy = (int)peru.ModifBy,
                                   ModifDate = peru.ModifDate
                               }).ToList();
                 return Json(new { data = perusahaan });
@@ -76,9 +76,9 @@ namespace ODOL.Controllers
                                   Cabang = peru.Cabang,
                                   Group = peru.Group,
                                   Status = peru.Status,
-                                  CreateBy = peru.CreateBy,
+                                  CreateBy = (int)peru.CreateBy,
                                   CreateDate = peru.CreateDate,
-                                  ModifBy = peru.ModifBy,
+                                  ModifBy = (int)peru.ModifBy,
                                   ModifDate = peru.ModifDate
                               }).ToList();
             return Json(new { data = perusahaan });
@@ -122,9 +122,9 @@ namespace ODOL.Controllers
                                                             ModifDate = pem.ModifDate
                                                         }).ToList(),
                                     DaftarMahasiswa = _db.Mahasiswa.Where(f => f.Status == "Aktif" && f.IdPerusahaan == peru.Id).ToList(),
-                                    CreateBy = peru.CreateBy,
+                                    CreateBy = (int)peru.CreateBy,
                                     CreateDate = peru.CreateDate,
-                                    ModifBy = peru.ModifBy,
+                                    ModifBy = (int)peru.ModifBy,
                                     ModifDate = peru.ModifDate
                                 }).ToList();
 
@@ -165,7 +165,7 @@ namespace ODOL.Controllers
                 if (ModelState.IsValid)
                 {
                     perusahaan.Status = "Aktif";
-                    perusahaan.CreateBy = (int)HttpContext.Session.GetInt32("Id");
+                    perusahaan.CreateBy = Convert.ToInt32(HttpContext.Session.GetString("Id"));
                     perusahaan.CreateDate = DateTime.Now;
 
                     _db.Perusahaan.Add(perusahaan);
@@ -226,9 +226,9 @@ namespace ODOL.Controllers
                                                             ModifDate = pem.ModifDate
                                                         }).ToList(),
                                     DaftarMahasiswa = _db.Mahasiswa.Where(f => f.Status == "Aktif" && f.IdPerusahaan == peru.Id).ToList(),
-                                    CreateBy = peru.CreateBy,
+                                    CreateBy = (int)peru.CreateBy,
                                     CreateDate = peru.CreateDate,
-                                    ModifBy = peru.ModifBy,
+                                    ModifBy = (int)peru.ModifBy,
                                     ModifDate = peru.ModifDate
                                 }).FirstOrDefault();
                 return View(perusahaan);
@@ -260,9 +260,9 @@ namespace ODOL.Controllers
                                       Cabang = peru.Cabang,
                                       Group = peru.Group,
                                       Status = peru.Status,
-                                      CreateBy = peru.CreateBy,
+                                      CreateBy = (int)peru.CreateBy,
                                       CreateDate = peru.CreateDate,
-                                      ModifBy = peru.ModifBy,
+                                      ModifBy = (int)peru.ModifBy,
                                       ModifDate = peru.ModifDate
                                   }).FirstOrDefault();
                 return View(perusahaan);
@@ -282,8 +282,8 @@ namespace ODOL.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    
-                    perusahaan.ModifBy = (int)HttpContext.Session.GetInt32("Id");
+
+                    perusahaan.ModifBy = Convert.ToInt32(HttpContext.Session.GetString("Id"));
                     perusahaan.ModifDate = DateTime.Now;
                     _db.Perusahaan.Update(perusahaan);
                     await _db.SaveChangesAsync();

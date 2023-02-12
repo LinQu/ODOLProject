@@ -306,14 +306,14 @@ namespace ODOL.Controllers
                 else if (ViewBag.Role == "Pembimbing")
                 {
                     var pemb = _db.Pembimbing.Where(f => f.idPengguna == idpemb).FirstOrDefault();
-                    return View(_db.Mahasiswa.Where(f => f.Status == "Aktif" && f.IdPerusahaan == pemb.idPerusahaan));
+                    return View(_db.Mahasiswa.Where(f => f.IdPerusahaan == pemb.idPerusahaan));
 
                 }
                 else if (ViewBag.Role == "Prodi")
                 {
-                    return View(_db.Mahasiswa.Where(f => f.Status == "Aktif" && f.Prodi == HttpContext.Session.GetString("Nama")));
+                    return View(_db.Mahasiswa.Where(f =>  f.Prodi == HttpContext.Session.GetString("Nama")));
                 }
-                return View(_db.Mahasiswa.Where(f => f.Status == "Aktif"));
+                return View(_db.Mahasiswa);
             }
             else
             {
@@ -374,7 +374,7 @@ namespace ODOL.Controllers
                         if (check == null)
                         {
                             mahasiswa.Status = "Aktif";
-                            mahasiswa.CreateBy = HttpContext.Session.GetInt32("Id");
+                            mahasiswa.CreateBy = Convert.ToInt32(HttpContext.Session.GetString("Id"));
                             mahasiswa.CreateDate = DateTime.Now;
                             _db.Mahasiswa.Add(mahasiswa);
                             _db.SaveChanges();
@@ -463,9 +463,9 @@ namespace ODOL.Controllers
                                                                       ModifDate = pem.ModifDate
                                                                   }).ToList(),
                                               DaftarMahasiswa = _db.Mahasiswa.Where(f => f.Status == "Aktif" && f.IdPerusahaan == peru.Id).ToList(),
-                                              CreateBy = peru.CreateBy,
+                                              CreateBy = (int)peru.CreateBy,
                                               CreateDate = peru.CreateDate,
-                                              ModifBy = peru.ModifBy,
+                                              ModifBy = (int)peru.ModifBy,
                                               ModifDate = peru.ModifDate
                                           }).FirstOrDefault();
                     return View("/Views/Profile/Index.cshtml", _db.Mahasiswa.Where(f => f.NIM == NIM).FirstOrDefault());
@@ -486,6 +486,106 @@ namespace ODOL.Controllers
             }
         }
 
+        public IActionResult Ubah(string? NIM)
+        {
+            if (HttpContext.Session.GetString("Nama") != null)
+            {
+                //mengecek apakah nim sudah terdaftar atau belum
+
+                var mahasiswa = _db.Mahasiswa.Where(f => f.NIM == NIM).FirstOrDefault();
+                if (mahasiswa == null)
+                {
+                    TempData["Notifikasi"] = "Mahasiswa Belum Terdaftar";
+                    TempData["Icon"] = "error";
+                    return RedirectToAction("Index", "Dashboard");
+                }
+                if (NIM != null)
+                {
+                    ViewBag.Nama = HttpContext.Session.GetString("Nama");
+                    ViewBag.Role = HttpContext.Session.GetString("Role");
+                    ViewBag.NIM = HttpContext.Session.GetString("NIM");
+                    ViewBag.Prodi = HttpContext.Session.GetString("Prodi");
+                    ViewBag.Perusahaan = (from peru in _db.Perusahaan
+                                          join peng in _db.Pengguna on peru.idPengguna equals peng.Id
+                                          where peru.Status == "Aktif"
+                                          select new ViewPeru
+                                          {
+                                              Id = peru.Id,
+                                              idPengguna = peru.idPengguna,
+                                              NamaPerusahaan = peng.Nama,
+                                              AlamatPerusahaan = peru.AlamatPerusahaan,
+                                              EmailPerusahaan = peru.EmailPerusahaan,
+                                              Cabang = peru.Cabang,
+                                              Group = peru.Group,
+                                              Status = peru.Status,
+                                              DaftarPembimbing = (from pem in _db.Pembimbing
+                                                                  join peng in _db.Pengguna on pem.idPengguna equals peng.Id
+                                                                  where pem.Status == "Aktif" && pem.idPerusahaan == peru.Id
+                                                                  select new ViewPem
+                                                                  {
+                                                                      id = pem.id,
+                                                                      idPengguna = pem.idPengguna,
+                                                                      idPerusahaan = pem.idPerusahaan,
+                                                                      NamaPembimbing = peng.Nama,
+                                                                      EmailPembimbing = pem.EmailPembimbing,
+                                                                      Jabatan = pem.Jabatan,
+                                                                      Status = pem.Status,
+                                                                      CreateBy = pem.CreateBy,
+                                                                      CreateDate = pem.CreateDate,
+                                                                      ModifBy = pem.ModifBy,
+                                                                      ModifDate = pem.ModifDate
+                                                                  }).ToList(),
+                                              DaftarMahasiswa = _db.Mahasiswa.Where(f => f.Status == "Aktif" && f.IdPerusahaan == peru.Id).ToList(),
+                                              CreateBy = (int)peru.CreateBy,
+                                              CreateDate = peru.CreateDate,
+                                              ModifBy = (int)peru.ModifBy,
+                                              ModifDate = peru.ModifDate
+                                          }).ToList();
+                    var mhs = _db.Mahasiswa.Where(f => f.NIM == NIM).FirstOrDefault();
+                    ViewBag.Peru = _db.Perusahaan.Where(f => f.Id == mhs.IdPerusahaan ).FirstOrDefault();
+                    return View("Ubah", mhs );
+                }
+                else
+                {
+                    TempData["Notifikasi"] = "Data Tidak Ditemukan";
+                    TempData["Icon"] = "error";
+                    return RedirectToAction("Index", "Dashboard");
+                }
+
+            }
+            else
+            {
+                TempData["Notifikasi"] = "Anda Harus Login Terlebih Dahulu";
+                TempData["Icon"] = "error";
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+        [HttpPost]
+
+        public async Task<IActionResult> Ubah(Mahasiswa mahasiswa)
+        {
+            if (HttpContext.Session.GetString("Nama") != null)
+            {
+                mahasiswa.ModifBy = Convert.ToInt32(HttpContext.Session.GetString("Id"));
+                mahasiswa.ModifDate = DateTime.Now;
+                _db.Mahasiswa.Update(mahasiswa);
+                await _db.SaveChangesAsync();
+                TempData["Notifikasi"] = "Data Berhasil Diubah";
+                TempData["Icon"] = "success";
+                return RedirectToAction("Detail", "Mahasiswa", new { NIM = mahasiswa.NIM });
+
+
+            }
+            else
+            {
+                TempData["Notifikasi"] = "Anda Harus Login Terlebih Dahulu";
+                TempData["Icon"] = "error";
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+        [HttpPost]
         public async Task<IActionResult> UpdateStatus(string? status, string? nim)
         {
             if (HttpContext.Session.GetString("Nama") != null && HttpContext.Session.GetString("Role") == "Admin")
@@ -493,13 +593,13 @@ namespace ODOL.Controllers
                 try
                 {
                     var mhs = _db.Mahasiswa.Find(nim);
-                    mhs.Status = "Tidak Aktif";
+                    mhs.Status = status;
 
                     _db.Mahasiswa.Update(mhs);
                     await _db.SaveChangesAsync();
                     TempData["Notifikasi"] = "Status Berhasil Diubah";
                     TempData["Icon"] = "success";
-                    return RedirectToAction("Detail", nim);
+                    return RedirectToAction("Detail", "Mahasiswa", new { NIM = nim });
 
                 }
                 catch (Exception ex)
@@ -507,7 +607,7 @@ namespace ODOL.Controllers
                     ModelState.AddModelError("", ex.Message);
                     TempData["Notifikasi"] = "Status Gagal Diubah";
                     TempData["icon"] = "error";
-                    return RedirectToAction("Detail",nim);
+                    return RedirectToAction("Detail", "Mahasiswa", new { NIM = nim });
                 }
             }
             else

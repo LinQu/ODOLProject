@@ -24,11 +24,11 @@ namespace ODOL.Models
         
         public string? Status { get; set; }
         [ForeignKey("Pengguna")]
-        public int CreateBy { get; set; }
+        public int? CreateBy { get; set; }
         public DateTime? CreateDate { get; set; }
 
         [ForeignKey("Pengguna")]
-        public int ModifBy { get; set; }
+        public int? ModifBy { get; set; }
         public DateTime? ModifDate { get; set; }
 
 

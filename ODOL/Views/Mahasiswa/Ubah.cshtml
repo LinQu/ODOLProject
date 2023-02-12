@@ -1,0 +1,101 @@
+﻿@model ODOL.Models.Mahasiswa
+
+
+@{
+    ViewData["Title"] = "Ubah Mahasiswa";
+}
+
+
+<div class="col panelcontent panelcontentweb" style="font-size: 14px; height:650px">
+    <div class="scrollstyle">
+        <nav aria-label=" breadcrumb" style="margin-left: 20px;">
+            <ol class="breadcrumb" style="padding: 0; margin: 0; background-color: #FFF;">
+                <li class="breadcrumb-item text-primary">
+                    <b>
+                        Aplikasi Absensi dan Logbook Magang Mahasiswa
+                    </b>
+                </li>
+                <li class="breadcrumb-item active"><b>Mahasiswa</b></li>
+            </ol>
+        </nav>
+        <hr style="margin-top: .8em;" />
+        <div class="jumbotron" style="box-shadow: none; height:auto; margin-left:20px; padding: 15px 30px;">
+            @* taruh content disini*@
+            <span class="text-center mb-1">
+                <h4>
+                    <b>
+                        Ubah Data Mahasiswa
+                    </b>
+                </h4>
+            </span>
+            <hr />
+            <form method="post">
+                <div class="row g-3">
+
+                    @*<div class="col-12 form-group">
+                        <label>Mahasiswa<span style="color:red;">*</span></label>
+                        <select class="form-control" onchange="GetMhs()" id="ddlmhs">
+                            <option disabled selected value="">--Pilih Mahasiswa--</option>
+                            @foreach (var item in ViewBag.DaftarMhs)
+                            {
+                                <option value="@item.nim">@item.nim - @item.nama</option>
+                            }
+                        </select>
+                    </div>*@
+                    <div class="col-4 form-group">
+                        <label asp-for="NIM">NIM</label>
+                        <input type="text" asp-for="NIM" class="form-control" id="NIM" value="@Model.NIM" placeholder="NIM" readonly>
+                        <input type="hidden" asp-for="Status" class="form-control" placeholder="NIM" readonly>
+                        <span asp-validation-for="NIM" style="color:red"></span>
+                    </div>
+                    <div class="col-4 form-group">
+                        <label asp-for="NamaMahasiswa">Nama</label>
+                        <input type="text" asp-for="NamaMahasiswa" class="form-control" value="@Model.NamaMahasiswa" id="Nama" placeholder="Nama Mahasiswa" readonly>
+                        <span asp-validation-for="NamaMahasiswa" style="color:red"></span>
+
+                    </div>
+                    <div class="col-4 form-group">
+                        <label asp-for="Prodi">Prodi</label>
+                        <input type="text" asp-for="Prodi" class="form-control" value="@Model.Prodi" id="prodi" placeholder="Prodi" readonly>
+                        <span asp-validation-for="Prodi" style="color:red"></span>
+
+                    </div>
+                    <div class="col-12 form-group">
+                        <label asp-for="IdPerusahaan">Perusahaan<span style="color:red;">*</span></label>
+                        <select class="form-control" id="perusahaan" onchange="GetPeru()" asp-for="IdPerusahaan">
+                            <option disabled selected value="">--Pilih Perusahaan--</option>
+                            @foreach (var item in ViewBag.Perusahaan)
+                            {
+                                <option value="@item.Id">@item.NamaPerusahaan</option>
+                            }
+                        </select>
+                        <span asp-validation-for="IdPerusahaan" style="color:red"></span>
+
+                    </div>
+                    <div class="col-4 form-group">
+                        <label for="Alamat">Alamat Perusahaan</label>
+                        <textarea disabled class="form-control" id="alamat">@ViewBag.Peru.AlamatPerusahaan</textarea>
+                    </div>
+                    <div class="col-4 form-group">
+                        <label for="cabang">Cabang</label>
+                        <input type="text" disabled name="cabang" class="form-control" id="cabang" value="@ViewBag.Peru.Cabang" placeholder="Cabang">
+                    </div>
+                    <div class="col-4 form-group">
+                        <label for="group">Group</label>
+                        <input type="text" disabled name="group" class="form-control" id="group" value="@ViewBag.Peru.Group" placeholder="Group">
+                    </div>
+
+                </div>
+                <a asp-action="index" class="btn btn-warning " style="width:10%">Kembali</a>
+                <button type="submit" class="btn btn-simpan btn-primary  float-right" style="width:10%">Simpan</button>
+            </form>
+        </div>
+
+        <hr class="my-4" />
+        <p class="lead" style="font-size: 1.1rem;">
+            Jika terdapat kesulitan tentang cara penggunaan aplikasi ini, silahkan menghubungi MIS.
+            <br />
+            <br />
+        </p>
+    </div>
+</div>

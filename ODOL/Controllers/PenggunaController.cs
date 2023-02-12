@@ -85,7 +85,7 @@ namespace ODOL.Controllers
 
 
                             pengguna.CreateDate = DateTime.Now;
-                            pengguna.CreateBy = HttpContext.Session.GetInt32("Id");
+                            pengguna.CreateBy = Convert.ToInt32(HttpContext.Session.GetString("Id"));
                             pengguna.Status = "Aktif";
                             pengguna.Password = BCrypt.Net.BCrypt.HashPassword(pengguna.Password);
                             await _db.Pengguna.AddAsync(pengguna);
@@ -159,7 +159,7 @@ namespace ODOL.Controllers
                     {
 
                         pengguna.ModifDate = DateTime.Now;
-                        pengguna.ModifBy = HttpContext.Session.GetInt32("Id");
+                        pengguna.ModifBy = Convert.ToInt32(HttpContext.Session.GetString("Id"));
                         pengguna.Status = "Aktif";
                         pengguna.Password = BCrypt.Net.BCrypt.HashPassword(pengguna.Password);
                         _db.Pengguna.Update(pengguna);

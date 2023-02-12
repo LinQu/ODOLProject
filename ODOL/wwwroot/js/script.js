@@ -201,6 +201,18 @@ $('.btn-delete').on('click', function () {
 	$('#modalHapus').modal('show');
 });
 
+$('.btn-update').on('click', function () {
+	// get data from button delete
+	const nim = $(this).data('nim');
+	const status = $(this).data('status');
+	// Set data to Form Edit
+	$('.nim').val(nim);
+	$('.status').val(status);
+	// Call Modal Edit
+	$('#modalUpdate').modal('show');
+});
+
+
 
 
 

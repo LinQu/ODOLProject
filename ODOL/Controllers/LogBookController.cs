@@ -165,7 +165,7 @@ namespace ODOL.Controllers
                 if (HttpContext.Session.GetString("Role") == "MAHASISWA")
                 {
                     //jika HttpContext.Session.GetString("NIM") tidak terdaftar di database mahasiswa
-                    var val = _db.Mahasiswa.Where(f => f.NIM == HttpContext.Session.GetString("NIM")).FirstOrDefault();
+                    var val = _db.Mahasiswa.Where(f => f.NIM == HttpContext.Session.GetString("NIM") && f.Status == "Aktif").FirstOrDefault();
                     if (val != null)
                     {
 
@@ -220,9 +220,9 @@ namespace ODOL.Controllers
                                                                       ModifDate = pem.ModifDate
                                                                   }).ToList(),
                                               DaftarMahasiswa = _db.Mahasiswa.Where(f => f.Status == "Aktif" && f.IdPerusahaan == peru.Id).ToList(),
-                                              CreateBy = peru.CreateBy,
+                                              CreateBy = (int)peru.CreateBy,
                                               CreateDate = peru.CreateDate,
-                                              ModifBy = peru.ModifBy,
+                                              ModifBy = (int)peru.ModifBy,
                                               ModifDate = peru.ModifDate
                                           }).FirstOrDefault();
                         ViewBag.Nama = HttpContext.Session.GetString("Nama");
@@ -237,6 +237,7 @@ namespace ODOL.Controllers
                     }
                     else
                     {
+
                         TempData["Notifikasi"] = "Anda Tidak Terdaftar atau Tidak Aktif";
                         TempData["Icon"] = "error";
                         return RedirectToAction("Index", "Dashboard");

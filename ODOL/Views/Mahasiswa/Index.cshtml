@@ -68,7 +68,14 @@
                                         @item.Prodi
                                     </td>
                                     <td class="text-center">
-                                        <span class="badge bg-success">@item.Status</span>
+                                        @if (item.Status == "Aktif")
+                                        {
+                                            <span class="badge badge-success">@item.Status</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-danger">@item.Status</span>
+                                        }
                                     </td>
                                     <td>
                                         <a asp-action="Detail" asp-route-NIM="@item.NIM" class="btn btn-primary">Detail</a>

@@ -112,7 +112,7 @@ namespace ODOL.Controllers
                         pembimbing.Jabatan = viewpem.Jabatan;
                         pembimbing.EmailPembimbing = viewpem.EmailPembimbing;
                         pembimbing.Status = "Aktif";
-                        pembimbing.CreateBy = HttpContext.Session.GetInt32("Id");
+                        pembimbing.CreateBy = Convert.ToInt32(HttpContext.Session.GetString("Id"));
                         pembimbing.CreateDate = DateTime.Now;
                         _db.Pembimbing.Add(pembimbing);
                         await _db.SaveChangesAsync();
@@ -195,7 +195,7 @@ namespace ODOL.Controllers
                     pembimbing.idPerusahaan = viewpem.idPerusahaan;
                     pembimbing.Jabatan = viewpem.Jabatan;
                     pembimbing.EmailPembimbing = viewpem.EmailPembimbing;
-                    pembimbing.ModifBy = HttpContext.Session.GetInt32("Id");
+                    pembimbing.ModifBy = Convert.ToInt32(HttpContext.Session.GetString("Id"));
                     pembimbing.ModifDate = DateTime.Now;
                     _db.Pembimbing.Update(pembimbing);
                     await _db.SaveChangesAsync();
@@ -230,7 +230,7 @@ namespace ODOL.Controllers
                     {
                         var pembimbing = _db.Pembimbing.Find(id);
                         pembimbing.Status = "Tidak Aktif";
-                        pembimbing.ModifBy = HttpContext.Session.GetInt32("Id");
+                        pembimbing.ModifBy = Convert.ToInt32(HttpContext.Session.GetString("Id"));
                         pembimbing.ModifDate = DateTime.Now;
                         _db.Pembimbing.Update(pembimbing);
                         await _db.SaveChangesAsync();

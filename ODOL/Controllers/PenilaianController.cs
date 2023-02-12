@@ -104,6 +104,8 @@ namespace ODOL.Controllers
                 var cek = _db.Penilaian.Where(f => f.NIM == penilaian.NIM && f.Periode == penilaian.Periode).FirstOrDefault();
                 if (cek == null)
                 {
+                    penilaian.CreateadBy = Convert.ToInt32(HttpContext.Session.GetString("Id"));
+                    penilaian.CreatedDate = DateTime.Now;
                     _db.Penilaian.Add(penilaian);
                     _db.SaveChanges();
                     TempData["Notifikasi"] = "Data Berhasil Ditambahkan";
@@ -138,6 +140,7 @@ namespace ODOL.Controllers
                     ViewBag.Penilaian = nilai;
                     ViewBag.Rata = getRata(nilai.idPenilaian).FirstOrDefault();
                     ViewBag.Mahasiswa = _db.Mahasiswa.Where(f => f.NIM == nilai.NIM).FirstOrDefault();
+                    ViewBag.CreateBy = _db.Pengguna.Where(f => f.Id == nilai.CreateadBy).Select(f => f.Nama).FirstOrDefault();
                     return View();
                 }
                 else
