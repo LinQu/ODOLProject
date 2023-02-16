@@ -309,6 +309,16 @@ namespace ODOL.Controllers
                     return View(_db.Mahasiswa.Where(f => f.IdPerusahaan == pemb.idPerusahaan));
 
                 }
+                else if(ViewBag.Role == "Perusahaan"){
+                    var peru = _db.Perusahaan.Where(f => f.idPengguna == idpemb).FirstOrDefault();
+                    if (peru == null)
+                    {
+                        TempData["Notifikasi"] = "Perusahaan Belum Terdaftar";
+                        TempData["Icon"] = "error";
+                        return RedirectToAction("Index", "Dashboard");
+                    }
+                    return View(_db.Mahasiswa.Where(f => f.IdPerusahaan == peru.Id));
+                }
                 else if (ViewBag.Role == "Prodi")
                 {
                     return View(_db.Mahasiswa.Where(f =>  f.Prodi == HttpContext.Session.GetString("Nama")));
@@ -359,6 +369,21 @@ namespace ODOL.Controllers
         {
             if (HttpContext.Session.GetString("Nama") != null)
             {
+                ViewBag.Nama = HttpContext.Session.GetString("Nama");
+                ViewBag.Role = HttpContext.Session.GetString("Role");
+                var mahasiswas = DaftarMhs(12).Result;
+                var konsen = GetAllKonsen().Result;
+                foreach (var kos in konsen)
+                {
+                    var mahasiswa1 = DaftarMhs(kos.kon_id).Result;
+                    foreach (var item in mahasiswa1)
+                    {
+                        mahasiswas.Add(item);
+                    }
+
+
+                }
+                ViewBag.DaftarMhs = mahasiswas;
                 if (ModelState.IsValid)
                 {
                     try

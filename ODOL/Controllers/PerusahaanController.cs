@@ -19,7 +19,7 @@ namespace ODOL.Controllers
         [HttpGet]
         public JsonResult GetAllPerusahaan()
         {
-            
+
             var perusahaan = (from peru in _db.Perusahaan
                               join peng in _db.Pengguna on peru.idPengguna equals peng.Id
                               where peru.Status == "Aktif"
@@ -56,8 +56,8 @@ namespace ODOL.Controllers
                                   ModifBy = (int)peru.ModifBy,
                                   ModifDate = peru.ModifDate
                               }).ToList();
-                return Json(new { data = perusahaan });
-            
+            return Json(new { data = perusahaan });
+
         }
 
         [HttpGet]
@@ -92,43 +92,43 @@ namespace ODOL.Controllers
                 ViewBag.Role = HttpContext.Session.GetString("Role");
                 //menampilkan nama dari data pengguna taruh ke model ViewPeru
                 var perusahaan = (from peru in _db.Perusahaan
-                                join peng in _db.Pengguna on peru.idPengguna equals peng.Id
-                                where peru.Status == "Aktif"
-                                select new ViewPeru
-                                {
-                                    Id = peru.Id,
-                                    idPengguna = peru.idPengguna,
-                                    NamaPerusahaan = peng.Nama,
-                                    AlamatPerusahaan = peru.AlamatPerusahaan,
-                                    EmailPerusahaan = peru.EmailPerusahaan,
-                                    Cabang = peru.Cabang,
-                                    Group = peru.Group,
-                                    Status = peru.Status,
-                                    DaftarPembimbing = (from pem in _db.Pembimbing
-                                                        join peng in _db.Pengguna on pem.idPengguna equals peng.Id
-                                                        where pem.Status == "Aktif" && pem.idPerusahaan == peru.Id
-                                                        select new ViewPem
-                                                        {
-                                                            id = pem.id,
-                                                            idPengguna = pem.idPengguna,
-                                                            idPerusahaan = pem.idPerusahaan,
-                                                            NamaPembimbing = peng.Nama,
-                                                            EmailPembimbing = pem.EmailPembimbing,
-                                                            Jabatan = pem.Jabatan,
-                                                            Status = pem.Status,
-                                                            CreateBy = pem.CreateBy,
-                                                            CreateDate = pem.CreateDate,
-                                                            ModifBy = pem.ModifBy,
-                                                            ModifDate = pem.ModifDate
-                                                        }).ToList(),
-                                    DaftarMahasiswa = _db.Mahasiswa.Where(f => f.Status == "Aktif" && f.IdPerusahaan == peru.Id).ToList(),
-                                    CreateBy = (int)peru.CreateBy,
-                                    CreateDate = peru.CreateDate,
-                                    ModifBy = (int)peru.ModifBy,
-                                    ModifDate = peru.ModifDate
-                                }).ToList();
+                                  join peng in _db.Pengguna on peru.idPengguna equals peng.Id
+                                  where peru.Status == "Aktif"
+                                  select new ViewPeru
+                                  {
+                                      Id = peru.Id,
+                                      idPengguna = peru.idPengguna,
+                                      NamaPerusahaan = peng.Nama,
+                                      AlamatPerusahaan = peru.AlamatPerusahaan,
+                                      EmailPerusahaan = peru.EmailPerusahaan,
+                                      Cabang = peru.Cabang,
+                                      Group = peru.Group,
+                                      Status = peru.Status,
+                                      DaftarPembimbing = (from pem in _db.Pembimbing
+                                                          join peng in _db.Pengguna on pem.idPengguna equals peng.Id
+                                                          where pem.Status == "Aktif" && pem.idPerusahaan == peru.Id
+                                                          select new ViewPem
+                                                          {
+                                                              id = pem.id,
+                                                              idPengguna = pem.idPengguna,
+                                                              idPerusahaan = pem.idPerusahaan,
+                                                              NamaPembimbing = peng.Nama,
+                                                              EmailPembimbing = pem.EmailPembimbing,
+                                                              Jabatan = pem.Jabatan,
+                                                              Status = pem.Status,
+                                                              CreateBy = pem.CreateBy,
+                                                              CreateDate = pem.CreateDate,
+                                                              ModifBy = pem.ModifBy,
+                                                              ModifDate = pem.ModifDate
+                                                          }).ToList(),
+                                      DaftarMahasiswa = _db.Mahasiswa.Where(f => f.Status == "Aktif" && f.IdPerusahaan == peru.Id).ToList(),
+                                      CreateBy = (int)peru.CreateBy,
+                                      CreateDate = peru.CreateDate,
+                                      ModifBy = (int)peru.ModifBy,
+                                      ModifDate = peru.ModifDate
+                                  }).ToList();
 
-                return View(perusahaan); 
+                return View(perusahaan);
             }
             else
             {
@@ -161,6 +161,8 @@ namespace ODOL.Controllers
 
             if (HttpContext.Session.GetString("Nama") != null)
             {
+                ViewBag.Nama = HttpContext.Session.GetString("Nama");
+                ViewBag.Role = HttpContext.Session.GetString("Role");
 
                 if (ModelState.IsValid)
                 {
@@ -195,42 +197,42 @@ namespace ODOL.Controllers
             {
                 ViewBag.Nama = HttpContext.Session.GetString("Nama");
                 ViewBag.Role = HttpContext.Session.GetString("Role");
-               var perusahaan = (from peru in _db.Perusahaan
-                                join peng in _db.Pengguna on peru.idPengguna equals peng.Id
-                                where peru.Status == "Aktif" && peru.Id == id
-                                select new ViewPeru
-                                {
-                                    Id = peru.Id,
-                                    idPengguna = peru.idPengguna,
-                                    NamaPerusahaan = peng.Nama,
-                                    AlamatPerusahaan = peru.AlamatPerusahaan,
-                                    EmailPerusahaan = peru.EmailPerusahaan,
-                                    Cabang = peru.Cabang,
-                                    Group = peru.Group,
-                                    Status = peru.Status,
-                                    DaftarPembimbing = (from pem in _db.Pembimbing
-                                                        join peng in _db.Pengguna on pem.idPengguna equals peng.Id
-                                                        where pem.Status == "Aktif" && pem.idPerusahaan == peru.Id
-                                                        select new ViewPem
-                                                        {
-                                                            id = pem.id,
-                                                            idPengguna = pem.idPengguna,
-                                                            idPerusahaan = pem.idPerusahaan,
-                                                            NamaPembimbing = peng.Nama,
-                                                            EmailPembimbing = pem.EmailPembimbing,
-                                                            Jabatan = pem.Jabatan,
-                                                            Status = pem.Status,
-                                                            CreateBy = pem.CreateBy,
-                                                            CreateDate = pem.CreateDate,
-                                                            ModifBy = pem.ModifBy,
-                                                            ModifDate = pem.ModifDate
-                                                        }).ToList(),
-                                    DaftarMahasiswa = _db.Mahasiswa.Where(f => f.Status == "Aktif" && f.IdPerusahaan == peru.Id).ToList(),
-                                    CreateBy = (int)peru.CreateBy,
-                                    CreateDate = peru.CreateDate,
-                                    ModifBy = (int)peru.ModifBy,
-                                    ModifDate = peru.ModifDate
-                                }).FirstOrDefault();
+                var perusahaan = (from peru in _db.Perusahaan
+                                  join peng in _db.Pengguna on peru.idPengguna equals peng.Id
+                                  where peru.Status == "Aktif" && peru.Id == id
+                                  select new ViewPeru
+                                  {
+                                      Id = peru.Id,
+                                      idPengguna = peru.idPengguna,
+                                      NamaPerusahaan = peng.Nama,
+                                      AlamatPerusahaan = peru.AlamatPerusahaan,
+                                      EmailPerusahaan = peru.EmailPerusahaan,
+                                      Cabang = peru.Cabang,
+                                      Group = peru.Group,
+                                      Status = peru.Status,
+                                      DaftarPembimbing = (from pem in _db.Pembimbing
+                                                          join peng in _db.Pengguna on pem.idPengguna equals peng.Id
+                                                          where pem.Status == "Aktif" && pem.idPerusahaan == peru.Id
+                                                          select new ViewPem
+                                                          {
+                                                              id = pem.id,
+                                                              idPengguna = pem.idPengguna,
+                                                              idPerusahaan = pem.idPerusahaan,
+                                                              NamaPembimbing = peng.Nama,
+                                                              EmailPembimbing = pem.EmailPembimbing,
+                                                              Jabatan = pem.Jabatan,
+                                                              Status = pem.Status,
+                                                              CreateBy = pem.CreateBy,
+                                                              CreateDate = pem.CreateDate,
+                                                              ModifBy = pem.ModifBy,
+                                                              ModifDate = pem.ModifDate
+                                                          }).ToList(),
+                                      DaftarMahasiswa = _db.Mahasiswa.Where(f => f.Status == "Aktif" && f.IdPerusahaan == peru.Id).ToList(),
+                                      CreateBy = (int)peru.CreateBy,
+                                      CreateDate = peru.CreateDate,
+                                      ModifBy = (int)peru.ModifBy,
+                                      ModifDate = peru.ModifDate
+                                  }).FirstOrDefault();
                 return View(perusahaan);
             }
             else
@@ -276,10 +278,12 @@ namespace ODOL.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Ubah([FromForm]Perusahaan perusahaan)
-        { 
+        public async Task<IActionResult> Ubah([FromForm] Perusahaan perusahaan)
+        {
             if (HttpContext.Session.GetString("Nama") != null)
             {
+                ViewBag.Nama = HttpContext.Session.GetString("Nama");
+                ViewBag.Role = HttpContext.Session.GetString("Role");
                 if (ModelState.IsValid)
                 {
 
@@ -305,6 +309,39 @@ namespace ODOL.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Hapus(int id)
+        {
+            if (HttpContext.Session.GetString("Nama") != null)
+            {
+                try
+                {
+                    var Perusahaan = _db.Perusahaan.Find(id);
+                    Perusahaan.Status = "Tidak Aktif";
+
+                    _db.Perusahaan.Update(Perusahaan);
+                    await _db.SaveChangesAsync();
+                    TempData["Notifikasi"] = "Data Berhasil Dihapus";
+                    TempData["Icon"] = "success";
+                    return RedirectToAction("index");
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                    TempData["Notifikasi"] = "Data Gagal Dihapus";
+                    TempData["icon"] = "error";
+                    return RedirectToAction("index");
+                }
+            }
+            else
+            {
+
+                TempData["Notifikasi"] = "Anda Harus Login Terlebih Dahulu";
+                TempData["Icon"] = "error";
+                return RedirectToAction("Index", "Home");
+            }
         }
     }
 }

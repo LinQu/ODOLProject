@@ -21,6 +21,8 @@
         <hr style="margin-top: .8em;" />
         <div class="jumbotron" style="box-shadow: none; height:auto; margin-left:20px; padding: 15px 30px;">
             @* taruh content disini*@
+            <a onclick="PrintPDF(@ViewBag.Penilaian.idPenilaian)" class="btn btn-info float-right text-white">Download PDF</a>
+
             <span class="text-center mb-2">
                 <h3><b>Rincian Penilaian @ViewBag.Penilaian.Periode</b></h3>
             </span>
@@ -161,7 +163,7 @@
                 </table>
                 <div class="form-group">
                     <label for="exampleFormControlTextarea1"><b>Catatan dari Pembimbing</b></label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3">@ViewBag.Penilaian.Ulasan</textarea>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" readonly>@ViewBag.Penilaian.Ulasan</textarea>
                 </div>
                 <a class="btn btn-warning" asp-controller="Mahasiswa" asp-action="Detail" asp-route-NIM="@ViewBag.Mahasiswa.NIM">Kembali</a>
             </div>

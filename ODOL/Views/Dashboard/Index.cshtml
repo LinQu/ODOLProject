@@ -79,6 +79,25 @@
                     
                 </div>
             }
+            @if (ViewBag.Role == "Perusahaan")
+            {
+                <h1><b>Selamat datang!</b></h1>
+                <br />
+                <span>
+                    <h5>Bapak/Ibu Pembimbing Industri yang kami hormati.</h5>
+                    <br>
+                    <h5>Kami dengan senang hati menyambut Bapak/Ibu di industri untuk bergabung dengan program magang kami. Kami menghargai waktu dan dukungan yang diberikan untuk membimbing para mahasiswa kami dalam mempersiapkan diri untuk dunia kerja yang sebenarnya.</h5>
+                    <h5 class="mt-4">
+                       Melalui program ini, kami berharap dapat membantu mempersiapkan para mahasiswa untuk menghadapi tantangan di industri dan memberikan kontribusi positif untuk kemajuan industri yang Bapak/Ibu pimpin.
+                    </h5>
+                    <br>
+                    <h5>Terima kasih atas kerjasama dan dukungan Bapak/Ibu. Semoga pengalaman magang ini memberikan manfaat yang berarti bagi kedua belah pihak.</h5>
+                    <h5 class="mt-4">
+
+                        Jika ada pertanyaan/masukan silakan kirim email ke Departemen Administrasi Akademik dan Admisi,: syaiful.ali@polman.astra.ac.id
+                    </h5>
+                </span>
+            }
             @if (ViewBag.Role == "Prodi")
             {
                 <h1><b>Selamat datang!</b></h1>
@@ -93,8 +112,7 @@
                         Semoga umpan balik ini bisa menjadi masukan untuk perbaikan di masa mendatang.
                     </h5>*@
                     <h5 class="mt-4">
-
-                        Jika ada pertanyaan/masukan silakan kirim email ke Departemen Administrasi Akademik dan Admisi,: syaiful.ali@polman.astra.ac.id
+                        Jika ada pertanyaan/masukan silakan kirim email ke Departemen Administrasi Akademik dan Admisi : syaiful.ali@polman.astra.ac.id
                     </h5>
                 </span>
             }
@@ -119,7 +137,7 @@
                     </span>
                     @if (ViewBag.Approve > 0)
                     {
-                        <div class="alert alert-info" role="alert">Ada @ViewBag.Approve LogBook yang harus di Setujui,<a asp-action="Daftar" asp-controller="LogBook">Klik Disini</a>  </div>
+                        <div class="alert alert-info" role="alert">Ada @ViewBag.Approve LogBook yang harus di Setujui,<a asp-action="Daftar" asp-controller="LogBook"> Klik Disini</a>  </div>
                     }
                 </div>
             }
@@ -151,20 +169,20 @@
                                 <br>
                                 Formulir logbook mahasiswa magang tersedia mulai pukul 08.00 - 20.00 WIPA untuk hari ini.
                             </div>
-                            <a class="btn btn-primary text-white mt-5" asp-action="Tambah" asp-controller="LogBook" style="display:block;" id="validateTime">Form LogBook</a>
+                            <a class="btn btn-primary text-white mt-5" asp-action="Tambah" asp-controller="LogBook" style="display:none;" id="validateTime">Form LogBook</a>
                         }
                     </span>
                 </div>
                 <script type="text/javascript">
                     var currentTime = new Date();
                     var startTime = new Date(currentTime.getFullYear(), currentTime.getMonth(), currentTime.getDate(), 8, 0, 0);
-                    var endTime = new Date(currentTime.getFullYear(), currentTime.getMonth(), currentTime.getDate(), 22, 0, 0);
+                    var endTime = new Date(currentTime.getFullYear(), currentTime.getMonth(), currentTime.getDate(), 20, 0, 0);
 
-                    @*if (currentTime > startTime && currentTime < endTime) {
+                    if (currentTime > startTime && currentTime < endTime) {
                     document.getElementById("validateTime").style.display = "block";
                     //$("#validateTime").show();
                     console.log("ea ga muncul");
-                    }*@
+                    }
                 </script>
             }
         </div>

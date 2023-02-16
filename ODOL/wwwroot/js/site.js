@@ -36,7 +36,7 @@ $(function () {
     $('#toggle_status').change(function () {
         var nim = document.getElementById("NIM").value;
         if ($(this).prop('checked')) {
-            
+
             Swal.fire({
                 title: 'Yakin ingin mengubah status menjadi Aktif?',
                 showDenyButton: true,
@@ -57,7 +57,7 @@ $(function () {
                 }
             })
         } else {
-            
+
             Swal.fire({
                 title: 'Yakin ingin mengubah status menjadi Tidak Aktif?',
                 showDenyButton: true,
@@ -70,13 +70,14 @@ $(function () {
                     postStatus(nim, "Tidak Aktif");
                 } else if (result.isDenied) {
                     $(this).prop('checked', true).change();
-                    
+                    Swal.fire({
+                        icon: "info",
+                        title: "Status batal diubah",
+                        timer: 1500,
+                    });
+
                 }
-                Swal.fire({
-                    icon: "info",
-                    title: "Status batal diubah",
-                    timer: 1500,
-                });
+                
             })
         }
     })
@@ -93,7 +94,7 @@ $(document).ready(function () {
 });
 
 function postStatus(nim, status) {
-    
+
     var form = new FormData();
     form.append("status", status);
     form.append("nim", nim);
@@ -383,3 +384,113 @@ function PutMhs(data) {
         ddlmhs.options[ddlmhs.options.length] = new Option(data.data[i].nama, data.data[i].nim);
     }
 }
+
+function test() {
+
+}
+
+function PrintPDF(id) {
+
+    $.ajax({
+        type: "GET",
+        url: "/Penilaian/GetNilai/"+id,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            console.log(data);
+            console.log(data.nilai);
+            console.log(data.rata);
+            
+            var docDefinition = {
+                info: {
+                    title: 'Penilaian ' + data.periode + ' - ' + data.nim + '',
+                },
+                content: [
+                    {
+                        text: 'Rincian Penilaian ' + data.nilai.periode + '',
+                        style: 'header',
+                        alignment: 'center',
+                        margin: [0, -20, 0, 20]
+                    },
+
+                    {
+                        layout: 'noBorders',
+                        margin: [0, 0, 0, 10],
+                        table: {
+                            body: [
+                                [{ text: 'NIM' }, { text: ':' }, { text: data.nim }],
+                                [{ text: 'Nama' }, { text: ':' }, { text: data.nama }],
+                                [{ text: 'Prodi' }, { text: ':' }, { text: data.prodi }],
+                                [{ text: 'Dinilai Oleh' }, { text: ':' }, { text: data.pembimbing }],
+                            ]
+                        }
+                    },
+                    {
+                        table: {
+                            headerRows: 1,
+                            widths: [25, 90, 330, 'auto'],
+                            heights: [
+                                'auto',
+                                'auto',
+                                'auto',
+                                'auto',
+                                'auto',
+                                20,
+                                20, 20, 5,
+                            ],
+                            body: [
+                                [{ text: 'No', style: 'tableHeader' }, { text: 'Penilaian', style: 'tableHeader' }, { text: 'Kriteria Penilaian', style: 'tableHeader' }, { text: 'Nilai', style: 'tableHeader' }],
+                                [{ text: '1', style: 'no' }, { text: 'Penilaian Diri', style: 'no' }, { text: '• KEMAMPUAN MENGANALISA TUGAS \n • PENGETAHUAN SECARA UMUM SECARA BIDANG TERKAIT \n• KECEPETAN MENERIMA BIMBINGAN \n • DAYA TANGKAP TERHADAP HAL-HAL BARU', style: 'value' }, { text: data.nilai.pengetahuanKerja, margin: [8, 20, 8, 30], }],
+                                [{ text: '2', margin: [0, 15, 0, 15], alignment: 'center', }, { text: 'Kualitas Kerja', margin: [0, 15, 0, 15], alignment: 'center', }, { text: '• HASIL KERJA (PRODUK/JASA) \n • KEMAMPUAN MELAKUKAN ANALISIS DAN PENYELESAIAN MASALAH \n• KEMAMPUAN MENYELESAIKAN TUGAS ', style: 'value' }, { text: data.nilai.kualitasKertja, margin: [8, 15, 8, 15], }],
+                                [{ text: '3', style: 'no' }, { text: 'Kecepatan Kerja', style: 'no' }, { text: '• KECEPATAN MENYELESAIKAN TUGAS \n • KECEPATAN MAMAHAMI TUGAS DARI MENTOR \n• KEMAMPUAN MELAKUKAN ANALISIS DAN PENYELESAIAN MASALAH ', margin: [0, 10, 0, 10], fontSize: 10, }, { text: data.nilai.kecepatanKerja, margin: [8, 20, 8, 20], }],
+                                [{ text: '4', margin: [0, 20, 0, 10], alignment: 'center', }, { text: 'Sikap & Perilaku', margin: [0, 20, 0, 20], alignment: 'center', }, { text: '• TAAT PERATURAN PERUSAHAAN \n • MENGGUNAKAN PERLENGKAPAN STANDAR KERJA DAN MEMPERHATIKAN SAFETY \n• CUSTOMER SATISFACTION (KEPUASAN PELANGGAN) ', style: 'value' }, { text: data.nilai.sikapPerilaku, margin: [8, 20, 8, 20], }],
+                                [{ text: '5', margin: [0, 20, 0, 15], alignment: 'center', }, { text: 'Kreativitas dan Kerja Sama', margin: [0, 15, 0, 15], alignment: 'center', }, { text: '• MEMBERIKAN IDE/SARAN DALAM PROSES KERJA ATAU  MELAKUKAN IMPROVEMENT \n • KERJA SAMA TIM DALAM LINGKUNGAN KERJA ', margin: [0, 15, 0, 15], fontSize: 10, }, { text: data.nilai.kreatifitasKerjaSama, margin: [8, 20, 8, 15], }],
+                                [{ text: '6', rowSpan: 3, style: 'no1' }, { text: 'Softskill', rowSpan: 3, style: 'no1' }, { text: 'Leadership', margin: [0, 8, 0, 8], fontSize: 10, }, { text: data.nilai.leadership, margin: [8, 8, 8, 8], }],
+                                [{ text: '', style: 'no' }, '', { text: 'Kemampuan Menangani Masalah', margin: [0, 8, 0, 8], fontSize: 10, }, { text: data.nilai.penangananMasalah, margin: [8, 8, 8, 8], }],
+                                [{ text: '', style: 'no' }, '', { text: 'Kemampuan Beradapatasi', margin: [0, 8, 0, 8], fontSize: 10, }, { text: data.nilai.beradaptasi, margin: [8, 8, 8, 8], }],
+                                [{ text: 'Rata Rata', colSpan: 3, margin: [0, 10, 0, 10], alignment: 'center', }, { text: '' }, { text: '', margin: [0, 0, 0, 0] }, { text: data.rata.rata, margin: [8, 10, 8, 10], }],
+                            ]
+                        }
+                    },
+                    {
+                        text: 'Komentar dari Pembimbing : \n ' + data.nilai.ulasan + '',
+                        margin: [0, 20, 0, 0],
+                    }
+                ],
+
+                styles: {
+
+                    header: {
+                        fontSize: 20,
+                        bold: true,
+                        margin: [0, 0, 0, 0],
+
+                    },
+                    tableHeader: {
+                        fontWeight: 'bold',
+                        alignment: 'center',
+
+                    },
+                    no: {
+                        margin: [0, 20, 0, 30],
+                        alignment: 'center',
+
+                    },
+                    no1: {
+                        margin: [0, 40, 0, 40],
+                        alignment: 'center',
+
+                    },
+                    value: {
+                        margin: [0, 5, 0, 5],
+                        fontSize: 10,
+                    }
+
+                }
+            };
+
+            pdfMake.createPdf(docDefinition).open();
+        }
+    });
+}
+

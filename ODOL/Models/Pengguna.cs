@@ -19,7 +19,7 @@ namespace ODOL.Models
 
         [Required]
         public string? Role { get; set; }
-        public string? Status { get; set; }
+        public string?  Status { get; set; }
 
         
         public int? CreateBy { get; set; }

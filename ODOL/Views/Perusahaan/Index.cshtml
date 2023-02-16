@@ -17,9 +17,12 @@
         <hr style="margin-top: .8em;" />
         <div class="jumbotron" style="box-shadow: none; height:auto; margin-left:20px; padding: 15px 30px;">
             @* taruh content disini*@
-            <a type="button" class="btn btn-primary" asp-action="Tambah">
-                Tambah Perusahaan
+            @if (ViewBag.Role == "Admin")
+            {
+                <a type="button" class="btn btn-primary" asp-action="Tambah">
+                    Tambah Perusahaan
             </a>
+            }
             <span class="text-center mb-1">
                 <h4>
                     <b>
@@ -87,3 +90,4 @@
         </p>
     </div>
 </div>
+

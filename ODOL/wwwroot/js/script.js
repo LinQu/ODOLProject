@@ -27,34 +27,58 @@ $(document).ready(function () {
 		//	buttons: ['copy', 'csv', 'excel']
 		//}
 	});
-	$('#myTableLogBookBelum').DataTable({
-		"paging": true,
-		"lengthChange": false,
-		"searching": true,
-		"ordering": true,
-		"info": true,
-		"autoWidth": false,
-		"responsive": true,
-		"pageLength": 5,
-		"language": {
-			"emptyTable": "Data Masih Kosong"
-		},
-		"dom": 'Bfrtip',
-		"buttons": [
-			{
-				"text": 'Isi LogBook',
-				"className": 'btn-primary',
-				"init": function (api, node, config) {
-					$(node).removeClass('btn-secondary');
-				},
-				"action": function (e, dt, node, config) {
-                    window.location.href = "/LogBook/Tambah";
-                    
-				},
-                
-			}
-		]
-	});
+	//button muncul ketika di atas jam 8 pagi dan dibawah jam 8 malam
+	var currentTime = new Date();
+	var startTime = new Date(currentTime.getFullYear(), currentTime.getMonth(), currentTime.getDate(), 8, 0, 0);
+	var endTime = new Date(currentTime.getFullYear(), currentTime.getMonth(), currentTime.getDate(), 20, 0, 0);
+	if (currentTime > startTime && currentTime < endTime) {
+		$('#myTableLogBookBelum').DataTable({
+			"paging": true,
+			"lengthChange": false,
+			"searching": true,
+			"ordering": true,
+			"info": true,
+			"autoWidth": false,
+			"responsive": true,
+			"pageLength": 5,
+			"language": {
+				"emptyTable": "Data Masih Kosong"
+			},
+			//button muncul ketika di atas jam 8 pagi dan dibawah jam 8 malam
+
+			"dom": 'Bfrtip',
+			"buttons": [
+				{
+					"text": 'Isi LogBook',
+					"className": 'btn-primary',
+					"init": function (api, node, config) {
+						$(node).removeClass('btn-secondary');
+					},
+					"action": function (e, dt, node, config) {
+						window.location.href = "/LogBook/Tambah";
+
+					},
+
+				}
+			]
+		});
+	} else {
+		$('#myTableLogBookBelum').DataTable({
+			"paging": true,
+			"lengthChange": false,
+			"searching": true,
+			"ordering": true,
+			"info": true,
+			"autoWidth": false,
+			"responsive": true,
+			"pageLength": 5,
+			"language": {
+				"emptyTable": "Data Masih Kosong"
+			},
+
+			
+		});
+    }
 
 	$('#myTableLogBookSudah').DataTable({
 		"paging": true,
@@ -83,7 +107,6 @@ $(document).ready(function () {
 		"language": {
 			"emptyTable": "Data Masih Kosong"
 		},
-		"dom": 'B<"clear">lfrtip',
 		
 	});
 
@@ -155,6 +178,11 @@ $(document).ready(function () {
 		$("#menuprofile").removeClass("hovermenu");
 		$("#menuprofile").removeClass("text-dark");
 	} 
+	else if (url.indexOf("Pembimbing") > -1) {
+		$("#menupembimbing").addClass("active");
+		$("#menupembimbing").removeClass("hovermenu");
+		$("#menupembimbing").removeClass("text-dark");
+	} 
 	else if (url.indexOf("Penilaian") > -1) {
 		$("#menunilai").addClass("active");
 		$("#menunilai").removeClass("hovermenu");
@@ -200,6 +228,17 @@ $('.btn-delete').on('click', function () {
 	// Call Modal Edit
 	$('#modalHapus').modal('show');
 });
+
+
+$('.btn-deletes').on('click', function () {
+	// get data from button delete
+	const id = $(this).data('id');
+	// Set data to Form Edit
+	$('.id').val(id);
+	// Call Modal Edit
+	$('#modalHapusPeru').modal('show');
+});
+
 
 $('.btn-update').on('click', function () {
 	// get data from button delete

@@ -93,7 +93,7 @@
                                             <label>Pengetahuan Kerja <span style="color:red;">*</span> </label>
                                             <br>
                                             <img id="imgLogo" src="~/Images/PengKerja.jpg" style="height: 120px; margin-bottom: 11px ; " />
-                                            <input type="text" asp-for="PengetahuanKerja" id="PengKerja"  class="form-control" placeholder="Masukkan dalam skala 1-100" required>
+                                            <input type="number" asp-for="PengetahuanKerja" id="PengKerja" min="0" max="100"  class="form-control" placeholder="Masukkan dalam skala 1-100" required>
                                         </div>
                                     </div>
 
@@ -103,7 +103,7 @@
                                         <span>
                                             <img id="imgLogo" src="~/Images/KecKer.jpg" style="height: 120px; margin-bottom: 11px ; " />
                                         </span>
-                                        <input type="text" id="KecKerja" asp-for="KecepatanKerja" class="form-control" placeholder="Masukkan dalam skala 1-100" required>
+                                        <input type="number" id="KecKerja" asp-for="KecepatanKerja" class="form-control" min="0" max="100" placeholder="Masukkan dalam skala 1-100" required>
 
                                     </div>
                                     <div class="col-4 form-group">
@@ -112,7 +112,7 @@
                                         <span>
                                             <img id="imgLogo" src="~/Images/SikapPerilaku.jpg" style="height: 120px; margin-bottom: 11px ;" />
                                         </span>
-                                        <input type="text" id="Sikap" asp-for="SikapPerilaku" class="form-control" placeholder="Masukkan dalam skala 1-100" required>
+                                        <input type="number" id="Sikap" asp-for="SikapPerilaku" class="form-control" min="0" max="100" placeholder="Masukkan dalam skala 1-100" required>
 
                                     </div>
                                     <br>
@@ -122,7 +122,7 @@
                                         <span>
                                             <img id="imgLogo" src="~/Images/KualKer.jpg" style="height: 100px; margin-bottom: 11px ; " />
                                         </span>
-                                        <input type="text" id="KuaKerja" asp-for="KualitasKertja" class="form-control" placeholder="Masukkan dalam skala 1-100" required>
+                                        <input type="number" id="KuaKerja" asp-for="KualitasKertja" class="form-control" min="0" max="100" placeholder="Masukkan dalam skala 1-100" required>
 
                                     </div>
                                     <div class="col-4 form-group">
@@ -132,7 +132,7 @@
                                             <img id="imgLogo" src="~/Images/Kreativitas.jpg" style="height: 90px; margin-bottom: 11px ; " />
                                         </span>
                                         <br>
-                                        <input type="text" id="Kreatif" asp-for="KreatifitasKerjaSama" class="form-control mt-2" placeholder="Masukkan dalam skala 1-100" required>
+                                        <input type="number" id="Kreatif" asp-for="KreatifitasKerjaSama" class="form-control mt-2" min="0" max="100" placeholder="Masukkan dalam skala 1-100" required>
 
                                     </div>
                                 </div>
@@ -162,16 +162,16 @@
                                 <div class="row">
                                     <div class="col-4 form-group">
                                         <label for="cabang">Kemampuan Leadership<span style="color:red;">*</span></label>
-                                        <input type="text" asp-for="Leadership"  class="form-control" id="leader" placeholder="Masukkan dalam skala 1-100" required>
+                                        <input type="number" asp-for="Leadership"  class="form-control" id="leader" min="0" max="100" placeholder="Masukkan dalam skala 1-100" required>
 
                                     </div>
                                     <div class="col-4 form-group">
                                         <label for="group">Kemampuan Menangani Masalah<span style="color:red;">*</span></label>
-                                        <input type="text" asp-for="PenangananMasalah" class="form-control" id="tanganiMslh" placeholder="Masukkan dalam skala 1-100" required>
+                                        <input type="number" asp-for="PenangananMasalah" class="form-control" min="0" max="100" id="tanganiMslh" placeholder="Masukkan dalam skala 1-100" required>
                                     </div>
                                     <div class="col-4 form-group">
                                         <label for="group">Kemampuan Beradaptasi<span style="color:red;">*</span></label>
-                                        <input type="text" asp-for="Beradaptasi" class="form-control" id="adaptasi" placeholder="Masukkan dalam skala 1-100" required>
+                                        <input type="number" asp-for="Beradaptasi" class="form-control" min="0" max="100" id="adaptasi" placeholder="Masukkan dalam skala 1-100" required>
                                     </div>
                                     <div class="col-12 form-group">
                                         <label for="group">Catatan untuk Mahasiswa<span style="color:red;">*</span></label>

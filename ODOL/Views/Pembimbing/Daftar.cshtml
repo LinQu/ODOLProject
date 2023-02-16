@@ -1,7 +1,7 @@
-﻿@model IEnumerable<ODOL.Models.Pengguna>
+﻿@model IEnumerable<ODOL.Models.Pembimbing>
 
 @{
-    ViewData["Title"] = "Pengguna";
+    ViewData["Title"] = "Pembimbing";
 }
 
 <div class="col panelcontent panelcontentweb" style="font-size: 14px; height:650px">
@@ -13,20 +13,17 @@
                         Aplikasi Absensi dan Logbook Magang Mahasiswa
                     </b>
                 </li>
-                <li class="breadcrumb-item active"><b>Pengguna</b></li>
+                <li class="breadcrumb-item active"><b>Pembimbing</b></li>
             </ol>
         </nav>
         <hr style="margin-top: .8em;" />
         <div class="jumbotron" style="box-shadow: none; height:auto; margin-left:20px; padding: 15px 30px;">
             @* taruh content disini*@
-            <a type="button" class="btn btn-primary" asp-action="Tambah">
-                Tambah Pengguna
-            </a>
 
             <span class="text-center mb-1">
                 <h4>
                     <b>
-                        Pengguna
+                        Pembimbing
                     </b>
                 </h4>
             </span>
@@ -42,13 +39,10 @@
                                 Nama
                             </th>
                             <th class="text-center">
-                                Username
+                                Jabatan
                             </th>
                             <th class="text-center">
-                                Role
-                            </th>
-                            <th class="text-center">
-                                Action
+                                Email
                             </th>
                         </tr>
                     </thead>
@@ -56,24 +50,20 @@
                         @if (Model.Count() != 0)
                         {
                             int i = 1;
-                            @foreach (var item in Model)
+                            @foreach (var item in ViewBag.ViewPem)
                             {
                                 <tr>
                                     <td>
                                         @i
                                     </td>
                                     <td  class="text-left">
-                                        @item.Nama
+                                        @item.NamaPembimbing
                                     </td>
                                     <td  class="text-left">
-                                        @item.Username
+                                        @item.Jabatan
                                     </td>
                                     <td  class="text-left">
-                                        @item.Role
-                                    </td>
-                                    <td>
-                                        <a asp-action="Ubah" asp-route-id="@item.Id" class="btn btn-primary btn-sm">Ubah</a>
-                                        <a data-id="@item.Id" style="color:white" class="btn btn-danger btn-sm btn-delete">Hapus</a>
+                                        @item.EmailPembimbing
                                     </td>
                                 </tr>
                                 i++;

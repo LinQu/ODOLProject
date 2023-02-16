@@ -51,9 +51,9 @@
                                     </td>
                                     <td class="text-center">@item.Status</td>
                                     <td class="text-center">
-                                        <a class="mr-1" asp-action="Detail" asp-controller="LogBook" asp-route-NIM="@item.NIM" asp-route-id="@item.idLogBook"> <i class="fas fa-list" style="color: #4285f4;"></i></a>
-                                        <a class="ml-1" style='cursor: pointer;' onclick="callSwal(@item.idLogBook,'Ditolak')" > <i class="fas fa-xmark" style="color: #4285f4;"></i></a>
-                                        <a class="ml-1" style='cursor: pointer;' onclick="callSwal(@item.idLogBook,'Disetujui')" > <i class="fas fa-check" style="color: #4285f4;"></i></a>
+                                        <a class="mr-1" asp-action="Detail" asp-controller="LogBook" asp-route-NIM="@item.NIM" data-toggle="tooltip" title=" Detail LogBook " asp-route-id="@item.idLogBook"> <i class="fas fa-list" style="color: #4285f4;"></i></a>
+                                        <a class="ml-1" style='cursor: pointer;' onclick="callSwal(@item.idLogBook,'Ditolak')"  data-toggle="tooltip" title=" Tolak LogBook " > <i class="fas fa-xmark" style="color: #4285f4;"></i></a>
+                                        <a class="ml-1" style='cursor: pointer;' onclick="callSwal(@item.idLogBook,'Disetujui')"  data-toggle="tooltip" title=" Setujui LogBook " > <i class="fas fa-check" style="color: #4285f4;"></i></a>
                                     </td>
                                 </tr>
                                 i++;

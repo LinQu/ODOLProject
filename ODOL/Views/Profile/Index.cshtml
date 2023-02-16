@@ -23,8 +23,12 @@
             @* taruh content disini*@
             <div class="card">
                 <span class="text-center mb-1">
-                    <a asp-action="Index" class="btn btn-primary float-right">Kembali</a>
-                    <a asp-action="Ubah" asp-route-NIM="@Model.NIM" class="btn btn-warning float-left">Ubah</a>
+                    
+                    @if (ViewBag.Role == "Admin")
+                    {
+                        <a asp-action="Index" class="btn btn-primary float-right">Kembali</a>
+                        <a asp-action="Ubah" asp-route-NIM="@Model.NIM" class="btn btn-warning float-left">Ubah</a>
+                    }
                     <h4>
                         <b>
                             Profil Mahasiswa
@@ -63,7 +67,7 @@
                             }
                             else
                             {
-                                 <input type="checkbox" class="w-100" id="toggle_status" checked data-toggle="toggle" data-on="Aktif" data-off="Tidak Aktif" data-onstyle="success" data-offstyle="danger" disabled>
+                                <input type="checkbox" class="w-100" id="toggle_status" checked data-toggle="toggle" data-on="Aktif" data-off="Tidak Aktif" data-onstyle="success" data-offstyle="danger" disabled>
 
                             }
 
@@ -95,6 +99,9 @@
             </div>
 
             <div class="card mt-4">
+                <span class="text-center">
+                    <h5 class="card-header font-weight-bold">Penilaian Bulanan</h5>
+                </span>
                 <table class="table container-fluid w-100 h-10 text-center" id="myTable">
                     <thead>
                         <tr>
@@ -115,7 +122,8 @@
                                     <td>@item.Periode</td>
                                     <td>@item.Rata</td>
                                     <td>
-                                        <a class="mr-1" asp-action="Detail" asp-controller="Penilaian" asp-route-id="@item.idPenilaian"> <i class="fas fa-list" style="color: #4285f4;"></i></a>
+                                        <a class="mr-1" asp-action="Detail" asp-controller="Penilaian" data-toggle="tooltip" title="Detail Nilai" asp-route-id="@item.idPenilaian"> <i class="fas fa-list" style="color: #4285f4;"></i></a>
+                                        <a onclick="PrintPDF(@item.idPenilaian)" data-toggle="tooltip" title="Download Detail Nilai PDF" style="cursor:pointer;" class="mr-1" > <i class="fas fa-print" style="color: #4285f4;"></i></a>
                                     </td>
                                 </tr>
                                 i++;
@@ -163,14 +171,16 @@
                                         }
                                         else if (item.Status == "Disetujui")
                                         {
-                                             <h5><span class="badge badge-success">@item.Status</span></h5>
-                                        }else if(item.Status == "Ditolak"){
-                                             <h5><span class="badge badge-danger">@item.Status</span></h5>
+                                            <h5><span class="badge badge-success">@item.Status</span></h5>
+                                        }
+                                        else if (item.Status == "Ditolak")
+                                        {
+                                            <h5><span class="badge badge-danger">@item.Status</span></h5>
                                         }
                                     </td>
                                     <td class="text-center">
-                                        <a class="mr-1" asp-action="Detail" asp-controller="LogBook" asp-route-NIM="@item.NIM" asp-route-id="@item.idLogBook"> <i class="fas fa-list" style="color: #4285f4;"></i></a>
-                                       @* <a class="ml-1" asp-action="index"> <i class="fas fa-print" style="color: #4285f4;"></i></a>*@
+                                        <a class="mr-1" asp-action="Detail" asp-controller="LogBook" data-toggle="tooltip" title="Detail LogBook" data-placement="top" asp-route-NIM="@item.NIM" asp-route-id="@item.idLogBook"> <i class="fas fa-list" style="color: #4285f4;"></i></a>
+                                        @* <a class="ml-1" asp-action="index"> <i class="fas fa-print" style="color: #4285f4;"></i></a>*@
                                     </td>
                                 </tr>
                                 i++;

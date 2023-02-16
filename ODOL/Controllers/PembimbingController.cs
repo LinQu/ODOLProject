@@ -77,6 +77,49 @@ namespace ODOL.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
+        
+        public IActionResult Daftar()
+        {
+            if (HttpContext.Session.GetString("Nama") != null)
+            {
+                ViewBag.Nama = HttpContext.Session.GetString("Nama");
+                ViewBag.Role = HttpContext.Session.GetString("Role");
+                var perusahaan = _db.Perusahaan.Where(f => f.idPengguna == Convert.ToInt32(HttpContext.Session.GetString("Id"))).FirstOrDefault();
+                if(perusahaan == null)
+                {
+
+                    TempData["Notifikasi"] = "Perusahaan Belum Terdaftar";
+                    TempData["Icon"] = "error";
+                        return RedirectToAction("Index", "Dashboard");
+                 }
+          
+                var pembimbing = _db.Pembimbing.Where(f => f.Status == "Aktif" && f.idPerusahaan == perusahaan.Id).ToList();
+                ViewBag.ViewPem = (from pem in _db.Pembimbing
+                                   join peng in _db.Pengguna on pem.idPengguna equals peng.Id
+                                   where pem.Status == "Aktif" && pem.idPerusahaan == perusahaan.Id
+                                   select new ViewPem
+                                   {
+                                       id = pem.id,
+                                       idPengguna = pem.idPengguna,
+                                       idPerusahaan = pem.idPerusahaan,
+                                       NamaPembimbing = peng.Nama,
+                                       EmailPembimbing = pem.EmailPembimbing,
+                                       Jabatan = pem.Jabatan,
+                                       Status = pem.Status,
+                                       CreateBy = pem.CreateBy,
+                                       CreateDate = pem.CreateDate,
+                                       ModifBy = pem.ModifBy,
+                                       ModifDate = pem.ModifDate
+                                   }).ToList();
+                return View(pembimbing);
+            }
+            else
+            {
+                TempData["Notifikasi"] = "Anda Harus Login Terlebih Dahulu";
+                TempData["Icon"] = "error";
+                return RedirectToAction("Index", "Home");
+            }
+        }
 
         public IActionResult Tambah(int id)
         {
@@ -145,7 +188,10 @@ namespace ODOL.Controllers
         public IActionResult Ubah(int id)
         {
             if (HttpContext.Session.GetString("Nama") != null)
+
             {
+                ViewBag.Nama = HttpContext.Session.GetString("Nama");
+                ViewBag.Role = HttpContext.Session.GetString("Role");
                 try
                 {
                     

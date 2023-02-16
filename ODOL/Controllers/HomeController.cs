@@ -64,7 +64,7 @@ namespace ODOL.Controllers
 
                 if (login != null)
                 {
-                    bool verif = BCrypt.Net.BCrypt.Verify(pengguna.Password, login.Password);
+                    bool verif = BCrypt.Net.BCrypt.Verify(pengguna.Password, login.Password); //verify password dari hash
                     if (verif)
                     {
                         HttpContext.Session.SetString("Nama", login.Nama);
@@ -100,6 +100,7 @@ namespace ODOL.Controllers
             HttpContext.Session.Remove("Nama");
             HttpContext.Session.Remove("Id");
             HttpContext.Session.Remove("Role");
+            HttpContext.Session.Remove("Username");
             return RedirectToAction("Index", "Home");
         }
 

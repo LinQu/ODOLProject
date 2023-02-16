@@ -2,7 +2,7 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
-    ViewData["Tittle"] = "Detail Perusahaan";
+    ViewData["Title"] = "Detail Perusahaan";
 }
 @model ODOL.Models.ViewPeru
 
@@ -27,7 +27,7 @@
                 <span class="text-center mb-1">
                     @if (ViewBag.Role == "Admin")
                     {
-                        <a asp-action="Detail" asp-route-id="@Model.Id" class="btn btn-danger float-right">Hapus</a>
+                        <a data-id="@Model.Id" class="btn btn-danger float-right btn-deletes text-white">Hapus</a>
                         <a asp-action="Ubah" asp-route-id="@Model.Id" class="btn btn-warning float-left">Ubah</a>
                     }
 
@@ -108,7 +108,7 @@
                                     <td class="text-left">@item.Prodi</td>
                                     <td class="text-left">@item.Status</td>
                                     <td>
-                                        <a asp-action="Detail" asp-route-id="@item.NIM" class="btn btn-primary">Detail</a>
+                                        <a asp-action="Detail" asp-controller="Mahasiswa" asp-route-NIM="@item.NIM" class="btn btn-primary">Detail</a>
                                     </td>
                                 </tr>
                                 i++;
@@ -215,9 +215,9 @@
 
 
 <!-- Modal -->
-@using (Html.BeginForm("Hapus", "Mahasiswa", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+@using (Html.BeginForm("Hapus", "Perusahaan", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
-    <div class="modal fade " id="modalHapusMhs" tabindex="-1" role="dialog">
+    <div class="modal fade " id="modalHapusPeru" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -227,7 +227,7 @@
                 </div>
                 <div class="modal-body">
                     <p class="text-danger">Apakah anda yakin akan menghapus data ini?</p>
-                    <input type="hidden" name="nim" class="nim" id="nimHapus" />
+                    <input type="hidden" name="id" class="id" id="idhapus" />
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>

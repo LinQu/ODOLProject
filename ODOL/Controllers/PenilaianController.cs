@@ -11,6 +11,19 @@ using System.Linq;
 
 namespace ODOL.Controllers
 {
+    public class DataNilai
+    {
+        
+        public string? NIM { get; set; }
+        public string? Nama { get; set; }
+        public string? Prodi { get; set; }
+        public string? Periode { get; set; }
+        public string? Pembimbing { get; set; }
+        public Penilaian Nilai { get; set; }
+        public RataNilai Rata { get; set; }
+        
+    }
+
     public class PenilaianController : Controller
     {
         private readonly ApplicationDBContext _db;
@@ -19,6 +32,25 @@ namespace ODOL.Controllers
         {
             _db = db;
         }
+
+        public JsonResult GetNilai(int id)
+        {
+            var nilai = _db.Penilaian.Where(f => f.idPenilaian == id).FirstOrDefault();
+            var mhs = _db.Mahasiswa.Where(f => f.NIM == nilai.NIM).FirstOrDefault();
+            var pemb = _db.Pengguna.Where(f => f.Id == nilai.idPembimbing).FirstOrDefault();
+
+            DataNilai data = new DataNilai{
+                NIM = nilai.NIM,
+                Nama = mhs.NamaMahasiswa,
+                Prodi = mhs.Prodi,
+                Periode = nilai.Periode,
+                Pembimbing = pemb.Nama,
+                Nilai = nilai,
+                Rata = getRata(id).FirstOrDefault(),
+            };
+            return Json(data);
+        }
+
 
         public List<RataNilai> getRata(int id)
         {

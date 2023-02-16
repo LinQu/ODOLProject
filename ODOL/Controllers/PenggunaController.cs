@@ -23,7 +23,7 @@ namespace ODOL.Controllers
             return Json(new { data = pengguna });
 
         }
-        
+
         public JsonResult GetPembimbing()
         {
 
@@ -79,11 +79,9 @@ namespace ODOL.Controllers
                     try
                     {
                         //cek apakah username sudah terpakai atau belum
-                        var cek = _db.Pengguna.Where(f => f.Username == pengguna.Username).FirstOrDefault();
+                        var cek = _db.Pengguna.Where(f => f.Username == pengguna.Username && f.Status == "Aktif").FirstOrDefault();
                         if (cek == null)
                         {
-
-
                             pengguna.CreateDate = DateTime.Now;
                             pengguna.CreateBy = Convert.ToInt32(HttpContext.Session.GetString("Id"));
                             pengguna.Status = "Aktif";
@@ -96,11 +94,12 @@ namespace ODOL.Controllers
                         }
                         else
                         {
-                            
-                                TempData["Notifikasi"] = "Username Sudah Terpakai";
-                                TempData["Icon"] = "error";
-                                return View();
-                            
+                            ViewBag.Nama = HttpContext.Session.GetString("Nama");
+                            ViewBag.Role = HttpContext.Session.GetString("Role");
+                            TempData["Notifikasi"] = "Username Sudah Terpakai";
+                            TempData["Icon"] = "error";
+                            return View();
+
                         }
 
                     }
@@ -116,7 +115,7 @@ namespace ODOL.Controllers
                 ViewBag.Nama = HttpContext.Session.GetString("Nama");
                 ViewBag.Role = HttpContext.Session.GetString("Role");
                 return View(pengguna);
-                
+
             }
             else
             {
@@ -156,8 +155,8 @@ namespace ODOL.Controllers
                 if (ModelState.IsValid)
                 {
                     try
-                    {
-
+                    {   
+                        
                         pengguna.ModifDate = DateTime.Now;
                         pengguna.ModifBy = Convert.ToInt32(HttpContext.Session.GetString("Id"));
                         pengguna.Status = "Aktif";
@@ -199,7 +198,7 @@ namespace ODOL.Controllers
                 {
                     var pengguna = _db.Pengguna.Find(id);
                     pengguna.Status = "Tidak Aktif";
-
+                    
                     _db.Pengguna.Update(pengguna);
                     await _db.SaveChangesAsync();
                     TempData["Notifikasi"] = "Data Berhasil Dihapus";
